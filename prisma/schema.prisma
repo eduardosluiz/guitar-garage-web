@@ -25,7 +25,7 @@ model Marca {
   slug      String    @unique
   logo_url  String?
   produtos  Produto[]
-  createdAt DateTime  @now() @map("created_at")
+  createdAt DateTime  @default(now()) @map("created_at")
 
   @@map("marcas")
 }
@@ -35,7 +35,7 @@ model Categoria {
   nome      String    @unique
   slug      String    @unique
   produtos  Produto[]
-  createdAt DateTime  @now() @map("created_at")
+  createdAt DateTime  @default(now()) @map("created_at")
 
   @@map("categorias")
 }
@@ -58,7 +58,7 @@ model Produto {
   marca          Marca?    @relation(fields: [marcaId], references: [id])
   categoria      Categoria? @relation(fields: [categoriaId], references: [id])
   imagens        Imagem[]
-  createdAt      DateTime  @now() @map("created_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
 
   @@map("produtos")
@@ -71,7 +71,7 @@ model Imagem {
   ordem     Int      @default(0)
   produtoId Int      @map("produto_id")
   produto   Produto  @relation(fields: [produtoId], references: [id], onDelete: Cascade)
-  createdAt DateTime @now() @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@map("imagens")
 }
@@ -86,7 +86,7 @@ model Banner {
   posicao    String   @default("home") // 'home', 'lutheria', 'aulas', 'pickups'
   ordem      Int      @default(0)
   isAtivo    Boolean  @default(true) @map("is_ativo")
-  createdAt  DateTime @now() @map("created_at")
+  createdAt  DateTime @default(now()) @map("created_at")
 
   @@map("banners")
 }
@@ -115,7 +115,7 @@ model ProjetoLutheria {
   videoUrl    String?         @map("video_url")
   isAtivo     Boolean         @default(true) @map("is_ativo")
   imagens     ImagemProjeto[]
-  createdAt   DateTime        @now() @map("created_at")
+  createdAt   DateTime        @default(now()) @map("created_at")
   updatedAt   DateTime        @updatedAt @map("updated_at")
 
   @@map("lutheria_projetos")
@@ -126,7 +126,7 @@ model ImagemProjeto {
   url       String
   projetoId Int             @map("projeto_id")
   projeto   ProjetoLutheria @relation(fields: [projetoId], references: [id], onDelete: Cascade)
-  createdAt DateTime        @now() @map("created_at")
+  createdAt DateTime        @default(now()) @map("created_at")
 
   @@map("lutheria_imagens")
 }
@@ -137,7 +137,7 @@ model Depoimento {
   email     String?
   texto     String   @db.Text
   isAtivo   Boolean  @default(true) @map("is_ativo")
-  createdAt DateTime @now() @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@map("depoimentos")
 }
