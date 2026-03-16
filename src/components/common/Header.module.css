@@ -1,0 +1,103 @@
+/* src/components/common/Header.module.css */
+.header {
+  background-color: #000;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.topBar {
+  background-color: #000;
+  color: #fff;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-align: center;
+  padding: 0.4rem 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem; /* Reduzido de 0.8rem */
+}
+
+.logoImg { height: 42px; width: auto; display: block; }
+
+.navList { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+
+.navItem { position: relative; padding: 1rem 0; }
+
+.navLink {
+  text-decoration: none;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Space Grotesk', sans-serif !important; /* FORÇAR FONTE */
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* DROPDOWN PREMIUM FIX */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #000;
+  min-width: 220px;
+  padding: 1.5rem 0;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.dropdownItem {
+  color: rgba(255,255,255,0.5);
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif !important; /* FORÇAR FONTE */
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.dropdownItem:hover {
+  color: #D4AF37;
+  padding-left: 2.5rem;
+  background-color: rgba(255,255,255,0.05);
+}
+
+.ctaButton {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 0.5rem 1.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover { background: #fff; color: #000; }
+
+.menuToggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 5px; }
+
+@media (max-width: 1024px) {
+  .nav { display: none; }
+  .menuToggle { display: block; order: 3; }
+  .logo { order: 1; }
+  .actions { order: 2; margin-left: auto; margin-right: 15px; }
+  .ctaButton { padding: 0.4rem 0.8rem; font-size: 0.55rem; }
+}

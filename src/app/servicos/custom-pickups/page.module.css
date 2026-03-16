@@ -1,0 +1,63 @@
+/* src/app/servicos/custom-pickups/page.module.css */
+.main { background-color: #fff; color: #1a1a1a; overflow-x: hidden; }
+
+/* FORÇAR HEADER PRETO */
+.main :global(header) { background-color: #000 !important; }
+
+.hero { height: 50vh; background-color: #0a0a0a; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; }
+
+.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; }
+
+.title { font-family: 'Space Grotesk', sans-serif; font-size: 4rem; line-height: 0.9; font-weight: 700; letter-spacing: -2px; }
+.title span { font-weight: 300; color: #888; }
+
+.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+
+/* TÍTULOS PREMIUM STACKED */
+.sectionHeaderPremium { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.titleStacked h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; line-height: 0.85; font-weight: 700; letter-spacing: -2px; text-transform: uppercase; }
+.titleStacked h2 span { font-weight: 300; color: #888; }
+
+/* SAMPLES SECTION */
+.samplesSection { padding: 8rem 0; background-color: #f9f9f9; }
+.samplesGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
+.samplesList { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.sampleItem { display: flex; align-items: center; gap: 15px; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: #444; border-bottom: 1px solid #eee; padding-bottom: 0.75rem; }
+
+.soundcloudInvite { background: #000; color: #fff; padding: 4rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.soundcloudInvite p { margin: 2rem 0; font-size: 1.1rem; opacity: 0.7; line-height: 1.6; }
+
+.externalLink { 
+  color: #000; 
+  text-decoration: none; 
+  font-family: 'Space Grotesk', sans-serif; 
+  font-size: 0.75rem; 
+  font-weight: 800; 
+  letter-spacing: 2px; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  transition: all 0.3s ease;
+}
+
+.externalLink:hover { color: #D4AF37; gap: 15px; }
+
+/* TELE SET SECTION */
+.teleSet { padding: 10rem 0; }
+.gridSplit { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8rem; align-items: center; }
+.imageGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.imageGrid img { width: 100%; height: auto; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+
+.textContent h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; line-height: 0.9; font-weight: 700; margin-bottom: 2rem; }
+.textContent h2 span { font-weight: 300; color: #888; }
+.textContent p { font-size: 1.1rem; line-height: 1.8; color: #555; margin-bottom: 2rem; }
+.divider { width: 60px; height: 2px; background: #D4AF37; margin-bottom: 3rem; }
+
+.ctaBtn { background: transparent; color: #000; border: 1px solid rgba(0,0,0,0.3); padding: 0.8rem 2rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; cursor: pointer; display: inline-flex; align-items: center; gap: 12px; transition: all 0.3s ease; text-transform: uppercase; text-decoration: none; }
+.ctaBtn:hover { background: #000; color: #fff; border-color: #000; }
+
+@media (max-width: 1024px) {
+  .samplesGrid, .gridSplit { grid-template-columns: 1fr; gap: 4rem; }
+  .title { font-size: 2.5rem; }
+  .textContent h2 { font-size: 2.2rem; }
+}

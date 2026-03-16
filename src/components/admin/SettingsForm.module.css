@@ -1,0 +1,99 @@
+/* src/components/admin/SettingsForm.module.css */
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sectionCard {
+  background-color: #1a1d21; /* Chumbo claro padronizado */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 2rem;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sectionHeader h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gridFields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Aumentado o minmax para preencher melhor */
+  gap: 2rem;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.inputWrapper label {
+  font-size: 0.75rem;
+  color: #878a99;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.inputWrapper input, .inputWrapper textarea {
+  background-color: #2a2f34;
+  border: 1px solid #32383e;
+  border-radius: 4px;
+  padding: 0.7rem 1rem;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.inputWrapper input:focus {
+  border-color: var(--gold);
+}
+
+.socialRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.toggleBtn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 38px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background: #2a2f34;
+  border: 1px solid #32383e;
+}
+
+.visible { color: #0ab39c; border-color: rgba(10, 179, 156, 0.3); }
+.hidden { color: #f06548; border-color: rgba(240, 101, 72, 0.3); }

@@ -1,0 +1,158 @@
+/* src/app/admin/produtos/page.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.searchBox {
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+}
+
+.searchBox svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.searchBox input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 0.8rem 0 0.8rem 2.5rem;
+  color: #fff;
+  font-size: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  outline: none;
+}
+
+.tableWrapper {
+  background-color: #1a1d21;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 1.2rem 1.5rem;
+  background-color: #212529;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  text-align: left;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+/* AJUSTE RIGOROSO DE ALINHAMENTO */
+.table td {
+  padding: 0.8rem 1.5rem; /* Reduzido para controle total */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+  color: #ced4da;
+  vertical-align: middle !important;
+  height: 70px; /* Altura fixa controlada */
+}
+
+/* ELIMINAR QUALQUER RISCO OU DECORAÇÃO DE LINK */
+.table td a, 
+.table td button {
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  vertical-align: middle !important;
+}
+
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CONTAINER DE AÇÕES SEM FLEX PARA EVITAR BUGS DE ALTURA */
+.actionsCell {
+  white-space: nowrap;
+  font-size: 0; /* Remove espaços vazios entre inline-blocks */
+}
+
+.actionBtn {
+  width: 32px;
+  height: 32px;
+  background: #252b30;
+  border: 1px solid #32383e !important;
+  color: #adb5bd;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  margin-right: 0.6rem;
+  vertical-align: middle !important;
+}
+
+.actionBtn:last-child {
+  margin-right: 0;
+}
+
+.actionBtn:hover {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold) !important;
+}
+
+.deleteBtn:hover {
+  background: #f06548;
+  border-color: #f06548 !important;
+  color: #fff;
+}
+
+.statusBadge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.disponivel { background: rgba(10, 179, 156, 0.1); color: #0ab39c; }
+.vendido { background: rgba(240, 101, 72, 0.1); color: #f06548; }
+.reservado { background: rgba(247, 184, 75, 0.1); color: #f7b84b; }

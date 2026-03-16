@@ -1,0 +1,136 @@
+/* src/app/login/login.module.css */
+.loginContainer {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #050505;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+    url('https://grainy-gradients.vercel.app/noise.svg');
+  position: relative;
+}
+
+.loginCard {
+  width: 80%; /* Ajustado para 80% */
+  max-width: 450px;
+  background-color: #000;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+  .loginCard {
+    padding: 3rem 1.5rem;
+  }
+  
+  .logo {
+    height: 42px;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.loginCard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.homeBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: rgba(255, 255, 255, 0.5); /* Cinza mais claro */
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+
+.homeBtn:hover {
+  color: var(--gold);
+  transform: scale(1.1);
+}
+
+.logoWrapper {
+  margin-bottom: 1.5rem; /* Aproximado conforme solicitado */
+}
+
+.logo {
+  height: 52px;
+  width: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.header p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.inputGroup label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.inputGroup input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.8rem 0;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.inputGroup input:focus {
+  border-bottom-color: var(--gold);
+}
+
+.errorMsg {
+  color: #f06548;
+  font-size: 0.85rem;
+  text-align: center;
+}

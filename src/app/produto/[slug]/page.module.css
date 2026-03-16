@@ -1,0 +1,76 @@
+/* src/app/produto/[slug]/page.module.css */
+.main { background-color: #fff; color: #1a1a1a; }
+.container { max-width: 1400px; margin: 0 auto; padding: 2rem 5% 10rem; }
+.backNav { margin-bottom: 3rem; }
+.backLink { text-decoration: none; color: #888; font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; transition: color 0.3s ease; }
+.backLink:hover { color: #000; }
+
+/* LAYOUT COLUNAS */
+.contentLayout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6rem; align-items: flex-start; }
+
+/* CARROSSEL (ESQUERDA) */
+.galleryCol { display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 120px; }
+
+.mainImageContainer {
+  width: 100%;
+  max-width: 600px; /* LIMITE DE TAMANHO PARA NÃO FICAR GIGANTE */
+  aspect-ratio: 1/1;
+  background-color: #f9f9f9;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.mainImg { width: 100%; height: 100%; object-fit: contain; padding: 2rem; }
+
+.carouselBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #eee;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.carouselBtn:hover { background: #fff; transform: translateY(-50%) scale(1.1); }
+
+.thumbnailGrid { display: flex; gap: 1rem; justify-content: center; }
+.thumb { width: 70px; height: 70px; border: 1px solid #eee; cursor: pointer; overflow: hidden; opacity: 0.5; transition: all 0.3s ease; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumbActive { opacity: 1; border-color: #D4AF37; }
+
+/* INFO (DIREITA) */
+.brandTag { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 800; letter-spacing: 4px; color: #D4AF37; margin-bottom: 1rem; display: block; }
+.productName { font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; line-height: 1.1; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -1px; }
+.statusBadge { display: inline-block; background-color: #f0f0f0; padding: 0.5rem 1rem; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 3rem; }
+.price { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 300; color: #1e7e34; display: block; margin-bottom: 0.5rem; }
+.installments { font-size: 0.9rem; color: #888; margin-bottom: 3rem; }
+.description { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 4rem; }
+
+.ctaButton { background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 1.2rem; text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; transition: all 0.3s ease; margin-bottom: 4rem; }
+.ctaButton:hover { background-color: #25d366; transform: translateY(-3px); }
+
+.benefits { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 4rem; border-bottom: 1px solid #f5f5f5; padding-bottom: 3rem; }
+.benefitItem { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; font-weight: 500; color: #666; }
+
+.specsSection h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 3px; margin-bottom: 2rem; color: #aaa; }
+.specRow { display: flex; justify-content: space-between; font-size: 0.9rem; border-bottom: 1px solid #f5f5f5; padding-bottom: 0.75rem; margin-bottom: 1rem; }
+.specRow span { color: #888; }
+.specRow strong { font-weight: 600; color: #1a1a1a; }
+
+@media (max-width: 1024px) {
+  .contentLayout { grid-template-columns: 1fr; gap: 4rem; }
+  .galleryCol { position: relative; top: 0; }
+  .productName { font-size: 2.2rem; }
+}

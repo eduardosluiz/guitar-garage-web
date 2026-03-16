@@ -1,0 +1,143 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+model Marca {
+  id        Int       @id @default(autoincrement())
+  nome      String    @unique
+  slug      String    @unique
+  logo_url  String?
+  produtos  Produto[]
+  createdAt DateTime  @now() @map("created_at")
+
+  @@map("marcas")
+}
+
+model Categoria {
+  id        Int       @id @default(autoincrement())
+  nome      String    @unique
+  slug      String    @unique
+  produtos  Produto[]
+  createdAt DateTime  @now() @map("created_at")
+
+  @@map("categorias")
+}
+
+model Produto {
+  id             Int       @id @default(autoincrement())
+  nome           String
+  slug           String    @unique
+  preco          Float?
+  descricao      String?   @db.Text
+  especificacoes String?   @db.Text
+  peso           String?
+  ano            Int?
+  condicao       String    @default("Novo")
+  status         String    @default("Disponivel")
+  isDestaque     Boolean   @default(false) @map("is_destaque")
+  isNovidade     Boolean   @default(true)  @map("is_novidade")
+  marcaId        Int?      @map("marca_id")
+  categoriaId    Int?      @map("categoria_id")
+  marca          Marca?    @relation(fields: [marcaId], references: [id])
+  categoria      Categoria? @relation(fields: [categoriaId], references: [id])
+  imagens        Imagem[]
+  createdAt      DateTime  @now() @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@map("produtos")
+}
+
+model Imagem {
+  id        Int      @id @default(autoincrement())
+  url       String
+  altText   String?  @map("alt_text")
+  ordem     Int      @default(0)
+  produtoId Int      @map("produto_id")
+  produto   Produto  @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+  createdAt DateTime @now() @map("created_at")
+
+  @@map("imagens")
+}
+
+model Banner {
+  id         Int      @id @default(autoincrement())
+  titulo     String?
+  subtitulo  String?
+  ctaTexto   String?  @map("cta_texto")
+  ctaLink    String?  @map("cta_link")
+  imagemUrl  String   @map("imagem_url")
+  posicao    String   @default("home") // 'home', 'lutheria', 'aulas', 'pickups'
+  ordem      Int      @default(0)
+  isAtivo    Boolean  @default(true) @map("is_ativo")
+  createdAt  DateTime @now() @map("created_at")
+
+  @@map("banners")
+}
+
+model Configuracao {
+  id            Int      @id @default(1)
+  whatsapp      String?
+  emailContato  String?  @map("email_contato")
+  instagramUrl  String?  @map("instagram_url")
+  showInstagram Boolean  @default(true) @map("show_instagram")
+  facebookUrl   String?  @map("facebook_url")
+  showFacebook  Boolean  @default(true) @map("show_facebook")
+  youtubeUrl    String?  @map("youtube_url")
+  showYoutube   Boolean  @default(true) @map("show_youtube")
+  telefone      String?
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("configuracoes")
+}
+
+model ProjetoLutheria {
+  id          Int             @id @default(autoincrement())
+  titulo      String
+  slug        String          @unique
+  descricao   String?         @db.Text
+  videoUrl    String?         @map("video_url")
+  isAtivo     Boolean         @default(true) @map("is_ativo")
+  imagens     ImagemProjeto[]
+  createdAt   DateTime        @now() @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  @@map("lutheria_projetos")
+}
+
+model ImagemProjeto {
+  id        Int             @id @default(autoincrement())
+  url       String
+  projetoId Int             @map("projeto_id")
+  projeto   ProjetoLutheria @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  createdAt DateTime        @now() @map("created_at")
+
+  @@map("lutheria_imagens")
+}
+
+model Depoimento {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String?
+  texto     String   @db.Text
+  isAtivo   Boolean  @default(true) @map("is_ativo")
+  createdAt DateTime @now() @map("created_at")
+
+  @@map("depoimentos")
+}

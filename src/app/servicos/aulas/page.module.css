@@ -1,0 +1,149 @@
+/* src/app/servicos/aulas/page.module.css */
+.main { background-color: #fff; color: #1a1a1a; }
+
+/* FORÇAR HEADER PRETO */
+.main :global(header) { background-color: #000 !important; }
+
+.hero {
+  height: 50vh;
+  background-color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.preTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  color: #D4AF37;
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  line-height: 0.9;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.title span { font-weight: 300; color: #888; }
+
+.content { padding: 8rem 5%; }
+.container { max-width: 1400px; margin: 0 auto; }
+
+.mainGrid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8rem; align-items: center; }
+
+/* HEADER PREMIUM PADRONIZADO */
+.sectionHeaderPremium {
+  margin-bottom: 6rem;
+}
+
+.titleStacked {
+  text-align: left;
+}
+
+.titleStacked h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #111;
+  letter-spacing: -1px;
+}
+
+.titleStacked h2 span {
+  font-weight: 300;
+  color: #888;
+}
+
+.infoSide h2 {
+  display: none; /* Esconde o título antigo para usar o novo padrão */
+}
+
+.infoSide p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 2.5rem;
+}
+
+.instructorName {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #D4AF37;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.imageSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding: 15px; /* Respiro proporcional para a moldura */
+}
+
+/* MOLDURA PERFEITAMENTE PROPORCIONAL */
+.imageWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  z-index: 0;
+}
+
+.imageWrapper img { 
+  width: 100%; 
+  display: block;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15); 
+}
+
+.ctaBtn {
+  background: transparent;
+  color: #000;
+  border: 1px solid rgba(0,0,0,0.3);
+  padding: 0.8rem 2rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.ctaBtn:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.benefits { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
+.benefitItem { display: flex; align-items: flex-start; gap: 20px; }
+.benefitItem h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
+.benefitItem p { font-size: 0.9rem !important; margin: 0 !important; }
+
+@media (max-width: 1024px) {
+  .mainGrid { grid-template-columns: 1fr; gap: 4rem; }
+  .title { font-size: 2.5rem; }
+}

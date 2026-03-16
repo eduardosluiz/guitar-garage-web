@@ -1,0 +1,221 @@
+/* src/app/sobre/page.module.css */
+.main { background-color: #fff; color: #1a1a1a; }
+
+/* FORÇAR HEADER PRETO */
+.main :global(header) { background-color: #000 !important; }
+
+.hero {
+  height: 50vh;
+  background-color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.preTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  color: #D4AF37;
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 5rem;
+  line-height: 0.9;
+  font-weight: 700;
+  letter-spacing: -3px;
+}
+
+.title span { font-weight: 300; color: #888; }
+
+/* TEXTO INICIAL - ALINHADO À ESQUERDA */
+.content { 
+  padding: 6rem 5% 4rem; 
+  max-width: 1400px; 
+  margin: 0 auto; 
+}
+
+.textBlockFull {
+  text-align: left; /* Ajustado */
+}
+
+.homeStyleTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 3rem;
+  color: #111;
+  position: relative;
+  display: inline-block;
+}
+
+.homeStyleTitle span {
+  color: #888;
+  font-weight: 300;
+}
+
+.homeStyleTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #D4AF37;
+}
+
+.textContentSingle {
+  max-width: 1100px; 
+  margin: 0;
+}
+
+.textContentSingle p {
+  font-size: 1.2rem; 
+  line-height: 1.8;
+  color: #444;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+/* QUOTE SECTION */
+.quoteSection {
+  background-color: #fcfcfc;
+  padding: 4rem 5% 4rem; 
+  border-top: 1px solid #f5f5f5;
+}
+
+.quoteContent {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.quoteText {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem !important;
+  line-height: 1.5 !important;
+  color: #111 !important;
+  font-style: italic;
+  margin-bottom: 3rem;
+  position: relative;
+  padding-left: 3rem;
+  border-left: 2px solid #D4AF37;
+}
+
+.longText p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.author {
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #D4AF37;
+  margin-top: 3rem;
+  font-weight: 700;
+}
+
+/* SEÇÃO DO FUNDADOR */
+.ownerSection {
+  padding: 2rem 5% 6rem;
+  background-color: #fcfcfc;
+  display: flex;
+  justify-content: center;
+}
+
+.ownerContainer {
+  max-width: 400px;
+  width: 100%;
+}
+
+.ownerImageWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2.5rem;
+  padding: 12px;
+}
+
+.ownerImageWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  z-index: 1;
+}
+
+.ownerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.ownerCaption {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ownerCaption p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 5px;
+  font-weight: 800;
+  color: #111;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ownerCaption span {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* PHILOSOPHY */
+.philosophy { 
+  background-color: #fff; 
+  padding: 8rem 5%; 
+  border-top: 1px solid #eee;
+}
+.phiContent { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6rem; }
+
+.phiItem { position: relative; padding-top: 4rem; border-top: 1px solid #eee; }
+.number { 
+  position: absolute; 
+  top: -1.5rem; 
+  left: 0; 
+  font-family: 'Space Grotesk', sans-serif; 
+  font-size: 4rem; 
+  font-weight: 800; 
+  color: rgba(212, 175, 55, 0.4); 
+}
+
+.phiItem h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-bottom: 1.5rem; letter-spacing: 2px; font-weight: 700; }
+.phiItem p { font-size: 0.95rem; color: #777; line-height: 1.6; }
+
+@media (max-width: 1024px) {
+  .title { font-size: 3rem; }
+  .homeStyleTitle { font-size: 2.2rem; }
+  .phiContent { grid-template-columns: 1fr; gap: 4rem; }
+  .ownerContainer { max-width: 80%; }
+}

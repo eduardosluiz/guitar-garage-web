@@ -1,0 +1,56 @@
+# Dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js Build
+.next/
+/out/
+
+# Production Build (Optional)
+/build
+
+# Production Dependencies (Optional)
+# node_modules
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Env Files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Prisma
+/prisma/dev.db
+/prisma/dev.db-journal
+
+# AI & Editor Configs (CRITICAL)
+.aios-core/
+.antigravity/
+.claude/
+.codex/
+.cursor/
+.gemini/
+.github/agents/
+AGENTS.md
+PROJECT_REQUIREMENTS.md
+*.sql
