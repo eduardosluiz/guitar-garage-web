@@ -9,6 +9,17 @@ RUN npm install
 # Etapa 2: Build
 FROM node:20-alpine AS builder
 WORKDIR /app
+
+# Captura as variáveis do Easypanel durante o build
+ARG NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+ARG NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+ARG DATABASE_URL
+
+# Transforma em variáveis de ambiente de build
+ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+ENV NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=$NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+ENV DATABASE_URL=$DATABASE_URL
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
