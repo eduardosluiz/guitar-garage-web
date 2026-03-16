@@ -18,11 +18,14 @@ import {
 import { signOut } from 'next-auth/react';
 import styles from './layout.module.css';
 
-export default function AdminLayout({
+export const dynamic = "force-dynamic";
+
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   const pathname = usePathname();
 
   const menuItems = [
