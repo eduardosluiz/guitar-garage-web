@@ -1,5 +1,5 @@
 # Etapa 1: Dependências
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package*.json ./
@@ -7,7 +7,7 @@ COPY prisma ./prisma/
 RUN npm install
 
 # Etapa 2: Build
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Captura as variáveis do Easypanel durante o build
@@ -26,7 +26,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # Etapa 3: Runner
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
