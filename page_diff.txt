@@ -1,0 +1,72 @@
+﻿diff --git a/src/app/page.tsx b/src/app/page.tsx
+index f65580a..324edd4 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -2,8 +2,8 @@
+ 
+ import { useState, useEffect } from 'react';
+ import { motion, AnimatePresence } from 'framer-motion';
+-import Header from '../components/common/Header';
+-import Footer from '../components/common/Footer';
++import Header from '@/components/common/Header';
++import Footer from '@/components/common/Footer';
+ import Link from 'next/link';
+ import { ArrowUpRight, Play, ArrowRight, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Clock } from 'lucide-react';
+ import styles from './page.module.css';
+@@ -21,9 +21,9 @@ export default function Home() {
+   const imgAmp = "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800";
+ 
+   const slides = [
+-    { title: "NOVIDADES", img: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=1920" },
+-    { title: "REL├ìQUIAS", img: "https://images.unsplash.com/photo-1525201548942-d8b8967d0f5c?q=80&w=1920" },
+-    { title: "GUITARRAS", img: "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1920" },
++    { title: "NOVIDADES", img: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=1920", href: "/categoria/novidades" },
++    { title: "REL├ìQUIAS", img: "https://images.unsplash.com/photo-1525201548942-d8b8967d0f5c?q=80&w=1920", href: "/categoria/reliquias" },
++    { title: "GUITARRAS", img: "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1920", href: "/categoria/guitarras" },
+   ];
+ 
+   const guitars = [
+@@ -61,15 +61,15 @@ export default function Home() {
+       <section className={styles.hero}>
+         <div className={styles.heroLeft}>
+           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
+-            <span className={styles.categoryLabel}>// ESTABLISHED 2012</span>
+-            <h1 className={styles.heroTitle}>A ELEG├éNCIA<br />DO SOM.</h1>
++            <span className={styles.categoryLabel}>// DESDE 2002</span>
++            <h1 className={styles.heroTitle}>A ALMA DA<br />SUA M├ÜSICA.</h1>
+           </motion.div>
+           <div className={styles.heroDivider} />
+           <div className={styles.heroFooterFixed}>
+-            <p>Curadoria de elite para colecionadores de alto n├¡vel.</p>
++            <p>Instrumentos de qualidade que voc├¬ merece.</p>
+             <div className={styles.heroActions}>
+-              <Link href="/categoria/guitarras" className={styles.btnInventario}>VER INVENT├üRIO <ArrowUpRight size={16} /></Link>
+-              <button className={styles.playBtn}><Play size={14} fill="currentColor" /> V├ìDEO</button>
++              <Link href={slides[currentSlide].href} className={styles.btnInventario}>VER INVENT├üRIO <ArrowUpRight size={16} /></Link>
++              <Link href="/sobre" className={styles.playBtn}>SOBRE N├ôS</Link>
+             </div>
+           </div>
+         </div>
+@@ -81,9 +81,9 @@ export default function Home() {
+                 <img src={slides[currentSlide].img} alt="Hero" />
+                 <div className={styles.overlayGradient}></div>
+                 <div className={styles.slideInfo}>
+-                  <span className={styles.slideTag}>NOVIDADES</span>
++                  <span className={styles.slideTag}>DESTAQUE</span>
+                   <h3>{slides[currentSlide].title}</h3>
+-                  <Link href="/categoria/novidades" className={styles.slideLink}>VER AGORA <ArrowRight size={16} /></Link>
++                  <Link href={slides[currentSlide].href} className={styles.slideLink}>VER AGORA <ArrowRight size={16} /></Link>
+                 </div>
+               </motion.div>
+             )}
+@@ -167,8 +167,8 @@ export default function Home() {
+       <section className={styles.galleryOffWhite}>
+         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
+           <div className={styles.titleStacked}>
+-            <span className={styles.preTitle}>RARIDADES</span>
+-            <h2>VIOL├òES<br /><span>Raridades</span></h2>
++            <span className={styles.preTitle}>SONORIDADE AC├ÜSTICA</span>
++            <h2>VIOL├òES<br /><span>Estoque</span></h2>
+           </div>
+           <Link href="/categoria/violoes" className={styles.exploreLink}>VER TODOS <ArrowRight size={16} /></Link>
+         </motion.div>

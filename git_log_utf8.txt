@@ -1,0 +1,29 @@
+﻿commit 5c6a791218ab3218e3237d0423de4f3d4fe2d7b5
+Author: dudemkt <eduardoluizinvestimentos@gmail.com>
+Date:   Sun Mar 15 23:59:49 2026 -0300
+
+    security: final cleanup of setup and seed files
+
+commit b44df88687a5ba2c15a645430be970e2d3ed3d1c
+Author: dudemkt <eduardoluizinvestimentos@gmail.com>
+Date:   Sun Mar 15 23:45:14 2026 -0300
+
+    feat: temporary route to fix admin credentials
+
+commit b20328c95bc20496c00d524924fcf6dc0e0519b2
+Author: dudemkt <eduardoluizinvestimentos@gmail.com>
+Date:   Sun Mar 15 22:25:23 2026 -0300
+
+    chore: enable standalone output for docker production
+
+commit 93f1367f59211bbee73ecf1ee83f204469a9b17b
+Author: dudemkt <eduardoluizinvestimentos@gmail.com>
+Date:   Sun Mar 15 22:23:14 2026 -0300
+
+    fix: restore source copy in Dockerfile
+
+commit e5208028fe51c4746456761c92f99b9058536173
+Author: dudemkt <eduardoluizinvestimentos@gmail.com>
+Date:   Sun Mar 15 22:20:14 2026 -0300
+
+    fix: explicit copy of next.config.ts for standalone build

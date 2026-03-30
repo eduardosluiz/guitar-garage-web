@@ -1,0 +1,92 @@
+﻿diff --git a/src/components/common/Footer.tsx b/src/components/common/Footer.tsx
+index 0bf1f35..8057408 100644
+--- a/src/components/common/Footer.tsx
++++ b/src/components/common/Footer.tsx
+@@ -12,7 +12,7 @@ export default function Footer() {
+           <div className={styles.column}>
+             <img src="/guitargarage.png" alt="Guitar Garage" className={styles.footerLogo} />
+             <p className={styles.description}>
+-              Desde 2012, curando os melhores instrumentos vintage e de boutique para m├║sicos exigentes.
++              Desde 2002, curando os melhores instrumentos vintage e de boutique para m├║sicos exigentes.
+             </p>
+             <div className={styles.socials}>
+               <Instagram size={20} />
+@@ -28,7 +28,7 @@ export default function Footer() {
+               <li><Link href="/estoque">Todo o Estoque</Link></li>
+               <li><Link href="/novidades">Novidades</Link></li>
+               <li><Link href="/servicos">Lutheria & Aulas</Link></li>
+-              <li><Link href="/sobre">Sobre a Garagem</Link></li>
++              <li><Link href="/sobre">Sobre a Garage</Link></li>
+             </ul>
+           </div>
+ 
+@@ -49,7 +49,7 @@ export default function Footer() {
+               Segunda a Sexta: 10h ├ás 18h<br/>
+               S├íbados: Sob Agendamento
+             </p>
+-            <div className={styles.goldBadge}>AGENDAR VISITA</div>
++            <div className={styles.goldBadge}>ENTRE EM CONTATO</div>
+           </div>
+         </div>
+       </div>
+diff --git a/src/components/common/Header.tsx b/src/components/common/Header.tsx
+index 873576d..f3ba8fd 100644
+--- a/src/components/common/Header.tsx
++++ b/src/components/common/Header.tsx
+@@ -50,12 +50,13 @@ const MENU_ITEMS = [
+ 
+ export default function Header() {
+   const [activeSub, setActiveSub] = useState<string | null>(null);
++  const [isMenuOpen, setIsMenuOpen] = useState(false);
+   const WHATSAPP_URL = "https://wa.me/5551991898846";
+ 
+   return (
+     <header className={styles.header}>
+       <div className={styles.topBar}>
+-        <p>RESERVAS E ATENDIMENTO PERSONALIZADO VIA WHATSAPP</p>
++        <p>ATENDIMENTO: SEG A SEX - 10H ├ÇS 18H | WHATSAPP: (51) 99189-8846</p>
+       </div>
+       <div className={styles.container}>
+         <div className={styles.logo}>
+@@ -93,11 +94,39 @@ export default function Header() {
+ 
+         <div className={styles.actions}>
+           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
+-            <span>FALAR COM ESPECIALISTA</span>
++            <span>ENTRE EM CONTATO</span>
+           </a>
+-          <button className={styles.menuToggle}><Menu size={24} /></button>
++          <button className={styles.menuToggle} onClick={() => setIsMenuOpen(!isMenuOpen)}>
++            <Menu size={24} />
++          </button>
+         </div>
+       </div>
++
++      {/* MOBILE MENU OVERLAY */}
++      <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ''}`}>
++        <div className={styles.mobileMenuHeader}>
++          <img src="/ggtransparente.png" alt="Logo" className={styles.mobileLogo} />
++          <button className={styles.closeBtn} onClick={() => setIsMenuOpen(false)}><Menu size={24} /></button>
++        </div>
++        <nav className={styles.mobileNav}>
++          {MENU_ITEMS.map((item) => (
++            <div key={item.name} className={styles.mobileNavItem}>
++              <Link href={item.href} className={styles.mobileNavLink} onClick={() => setIsMenuOpen(false)}>
++                {item.name}
++              </Link>
++              {item.sub && (
++                <div className={styles.mobileSubList}>
++                  {item.sub.map(sub => (
++                    <Link key={sub.name} href={sub.href} className={styles.mobileSubLink} onClick={() => setIsMenuOpen(false)}>
++                      {sub.name}
++                    </Link>
++                  ))}
++                </div>
++              )}
++            </div>
++          ))}
++        </nav>
++      </div>
+     </header>
+   );
+ }

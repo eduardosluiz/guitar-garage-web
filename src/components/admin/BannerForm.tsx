@@ -104,10 +104,26 @@ export default function BannerForm({ initialData }: BannerFormProps) {
             <div className={styles.inputGroup}>
               <label>Local de Exibição</label>
               <select name="posicao" value={formData.posicao} onChange={handleChange}>
-                <option value="home">Home - Carrossel</option>
-                <option value="lutheria">Página Lutheria - Destaque</option>
-                <option value="pickups">Página Custom Pickups - Destaque</option>
-                <option value="aulas">Página Aulas - Destaque</option>
+                <optgroup label="Home e Gerais">
+                  <option value="home">Home - Carrossel</option>
+                  <option value="estoque">Página: Todo o Estoque</option>
+                  <option value="novidades">Página: Novidades</option>
+                  <option value="sobre">Página: Sobre a Garage</option>
+                </optgroup>
+                <optgroup label="Categorias de Produtos">
+                  <option value="guitarras">Categoria: Guitarras</option>
+                  <option value="baixos">Categoria: Baixos</option>
+                  <option value="amps">Categoria: Amps</option>
+                  <option value="violoes">Categoria: Violões</option>
+                  <option value="pedais">Categoria: Pedais</option>
+                  <option value="custom-shop">Categoria: Custom Shop</option>
+                  <option value="reliquias">Categoria: Relíquias</option>
+                </optgroup>
+                <optgroup label="Páginas de Serviços">
+                  <option value="lutheria">Serviço: Lutheria</option>
+                  <option value="pickups">Serviço: Custom Pickups</option>
+                  <option value="aulas">Serviço: Aulas</option>
+                </optgroup>
               </select>
             </div>
             <div className={styles.inputGroup}>

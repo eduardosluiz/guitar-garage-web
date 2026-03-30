@@ -1,7 +1,7 @@
 // src/components/admin/SettingsForm.tsx
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Save, Mail, Phone, Eye, EyeOff } from 'lucide-react';
 import styles from './SettingsForm.module.css';
 
@@ -35,6 +35,7 @@ const Icons = {
 
 export default function SettingsForm({ initialData }: SettingsFormProps) {
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     whatsapp: initialData?.whatsapp || '',
     emailContato: initialData?.emailContato || '',
@@ -46,6 +47,10 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
     showYoutube: initialData?.showYoutube !== undefined ? initialData.showYoutube : true,
     telefone: initialData?.telefone || '',
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -75,6 +80,8 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
       setLoading(false);
     }
   };
+
+  if (!mounted) return null;
 
   return (
     <form onSubmit={handleSubmit} className={styles.settingsForm}>
@@ -114,47 +121,57 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
         <div className={styles.sectionHeader}>
           <h3>Redes Sociais e Visibilidade</h3>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className={styles.socialGridFull}>
           {/* Instagram Row */}
-          <div className={styles.socialRow}>
-            <div className={styles.inputWrapper} style={{ flex: 1 }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Icons.Instagram /> INSTAGRAM URL
-              </label>
-              <input type="text" name="instagramUrl" value={formData.instagramUrl} onChange={handleChange} placeholder="https://instagram.com/..." />
+          <div className={styles.socialColumn}>
+            <div className={styles.inputWrapper}>
+              <div className={styles.labelRow}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Icons.Instagram /> INSTAGRAM
+                </label>
+                <label className={`${styles.statusToggle} ${formData.showInstagram ? styles.visible : styles.hidden}`} title="Alternar Visibilidade">
+                  <input type="checkbox" name="showInstagram" checked={formData.showInstagram} onChange={handleChange} style={{ display: 'none' }} />
+                  {formData.showInstagram ? <Eye key="eye-on-insta" size={14} /> : <EyeOff key="eye-off-insta" size={14} />}
+                  <span>{formData.showInstagram ? 'VISÍVEL' : 'OCULTO'}</span>
+                </label>
+              </div>
+              <input type="text" name="instagramUrl" value={formData.instagramUrl} onChange={handleChange} placeholder="Link do perfil (ex: https://instagram.com/guitargarage)" />
             </div>
-            <label className={`${styles.toggleBtn} ${formData.showInstagram ? styles.visible : styles.hidden}`} title={formData.showInstagram ? 'Visível no Site' : 'Oculto no Site'}>
-              <input type="checkbox" name="showInstagram" checked={formData.showInstagram} onChange={handleChange} style={{ display: 'none' }} />
-              {formData.showInstagram ? <Eye size={18} /> : <EyeOff size={18} />}
-            </label>
           </div>
 
-          {/* Facebook & YouTube Grid */}
           <div className={styles.gridFields}>
-            <div className={styles.socialRow}>
-              <div className={styles.inputWrapper} style={{ flex: 1 }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Icons.Facebook /> FACEBOOK URL
-                </label>
-                <input type="text" name="facebookUrl" value={formData.facebookUrl} onChange={handleChange} placeholder="https://facebook.com/..." />
+            {/* Facebook Row */}
+            <div className={styles.socialColumn}>
+              <div className={styles.inputWrapper}>
+                <div className={styles.labelRow}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Icons.Facebook /> FACEBOOK
+                  </label>
+                  <label className={`${styles.statusToggle} ${formData.showFacebook ? styles.visible : styles.hidden}`}>
+                    <input type="checkbox" name="showFacebook" checked={formData.showFacebook} onChange={handleChange} style={{ display: 'none' }} />
+                    {formData.showFacebook ? <Eye key="eye-on-fb" size={14} /> : <EyeOff key="eye-off-fb" size={14} />}
+                    <span>{formData.showFacebook ? 'VISÍVEL' : 'OCULTO'}</span>
+                  </label>
+                </div>
+                <input type="text" name="facebookUrl" value={formData.facebookUrl} onChange={handleChange} placeholder="Link da página" />
               </div>
-              <label className={`${styles.toggleBtn} ${formData.showFacebook ? styles.visible : styles.hidden}`}>
-                <input type="checkbox" name="showFacebook" checked={formData.showFacebook} onChange={handleChange} style={{ display: 'none' }} />
-                {formData.showFacebook ? <Eye size={18} /> : <EyeOff size={18} />}
-              </label>
             </div>
 
-            <div className={styles.socialRow}>
-              <div className={styles.inputWrapper} style={{ flex: 1 }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Icons.YouTube /> YOUTUBE URL
-                </label>
-                <input type="text" name="youtubeUrl" value={formData.youtubeUrl} onChange={handleChange} placeholder="https://youtube.com/..." />
+            {/* YouTube Row */}
+            <div className={styles.socialColumn}>
+              <div className={styles.inputWrapper}>
+                <div className={styles.labelRow}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Icons.YouTube /> YOUTUBE
+                  </label>
+                  <label className={`${styles.statusToggle} ${formData.showYoutube ? styles.visible : styles.hidden}`}>
+                    <input type="checkbox" name="showYoutube" checked={formData.showYoutube} onChange={handleChange} style={{ display: 'none' }} />
+                    {formData.showYoutube ? <Eye key="eye-on-yt" size={14} /> : <EyeOff key="eye-off-yt" size={14} />}
+                    <span>{formData.showYoutube ? 'VISÍVEL' : 'OCULTO'}</span>
+                  </label>
+                </div>
+                <input type="text" name="youtubeUrl" value={formData.youtubeUrl} onChange={handleChange} placeholder="Link do canal" />
               </div>
-              <label className={`${styles.toggleBtn} ${formData.showYoutube ? styles.visible : styles.hidden}`}>
-                <input type="checkbox" name="showYoutube" checked={formData.showYoutube} onChange={handleChange} style={{ display: 'none' }} />
-                {formData.showYoutube ? <Eye size={18} /> : <EyeOff size={18} />}
-              </label>
             </div>
           </div>
         </div>

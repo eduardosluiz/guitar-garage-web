@@ -41,7 +41,7 @@ body {
 .btn-boutique {
   background-color: var(--gold);
   color: #000;
-  padding: 0.6rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 4px;
   border: none;
   font-family: 'Space Grotesk', sans-serif;
@@ -55,6 +55,15 @@ body {
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
   text-transform: uppercase;
+  width: auto; /* Garante que não ocupe largura total */
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .btn-boutique {
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+  }
 }
 
 .btn-boutique:hover {
@@ -63,9 +72,24 @@ body {
   transform: translateY(-2px);
 }
 
-.btn-boutique:active {
-  transform: translateY(0);
-  filter: brightness(0.9);
+/* SUPORTE A TEXTO DINÂMICO PARA BOTÕES (NORMAL E OUTLINE) */
+[class*="btn-boutique"] span.desktop-text {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  [class*="btn-boutique"] span.desktop-text {
+    display: none !important;
+  }
+  [class*="btn-boutique"] span.mobile-text {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 769px) {
+  [class*="btn-boutique"] span.mobile-text {
+    display: none !important;
+  }
 }
 
 .btn-boutique-outline {

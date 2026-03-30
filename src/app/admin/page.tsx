@@ -49,7 +49,7 @@ export default async function AdminDashboard() {
           </Link>
         </div>
         
-        <div className={styles.recentList}>
+        <div className={styles.tableWrapper}>
           {recentProducts.length > 0 ? (
             <table className={styles.table}>
               <thead>

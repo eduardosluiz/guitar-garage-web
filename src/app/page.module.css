@@ -160,3 +160,50 @@
   .heroTitle { font-size: 4rem !important; }
   .titleStacked h2 { font-size: 2.5rem !important; }
 }
+
+@media (max-width: 768px) {
+  .hero { height: auto; min-height: auto; grid-template-columns: 1fr; display: flex; flex-direction: column; width: 100%; overflow: hidden; }
+  .heroLeft { padding: 4rem 5%; order: 2; text-align: center; width: 100%; }
+  .heroRight { height: 450px; order: 1; width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  
+  .imageContainer { width: 100% !important; height: 100% !important; margin: 0 !important; }
+  .imageContainer img { width: 100% !important; height: 100% !important; object-fit: cover; }
+  
+  .carouselControls { left: 5% !important; bottom: 5% !important; gap: 1rem !important; }
+  .slideInfo { left: 5% !important; width: 90% !important; }
+  .slideInfo h3 { font-size: 2.2rem !important; }
+  
+  .heroTitle { font-size: 2.8rem !important; letter-spacing: -2px; }
+  .heroDivider { margin: 2rem auto; }
+  .heroFooterFixed p { margin: 0 auto 2rem; }
+  .heroActions { justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  
+  /* Ajuste Seção Contato/Mapa */
+  .bookingContainer { 
+    grid-template-columns: 1fr !important; 
+    padding: 4rem 1rem !important; 
+    width: 100% !important;
+    gap: 3rem;
+  }
+  .mapBox { 
+    height: 300px !important; 
+    width: 100% !important; 
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .mapBox iframe {
+    width: 100% !important;
+  }
+  .bookingInfo {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .productFlex { grid-template-columns: 1fr; gap: 3rem; }
+  .bentoGrid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .bentoGtr, .bentoBass { grid-row: auto; height: 350px; }
+  .reliquiasSplit { gap: 3rem; text-align: center; }
+  .reliquiasTextSide p { margin: 2rem auto; }
+  .reliquiasGallerySide { flex-direction: column; align-items: center; gap: 2rem; }
+  .reliquiaArtItem { width: 100%; max-width: 320px; }
+}

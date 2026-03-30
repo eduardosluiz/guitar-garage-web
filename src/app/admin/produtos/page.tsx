@@ -20,7 +20,9 @@ export default async function AdminProdutos() {
           <input type="text" placeholder="Buscar instrumento..." />
         </div>
         <Link href="/admin/produtos/novo" className="btn-boutique">
-          <PlusCircle size={16} /> NOVO PRODUTO
+          <PlusCircle size={16} /> 
+          <span className="desktop-text">NOVO PRODUTO</span>
+          <span className="mobile-text">NOVO</span>
         </Link>
       </div>
 

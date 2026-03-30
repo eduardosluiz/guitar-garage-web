@@ -13,6 +13,11 @@ interface BannerListProps {
 
 export default function BannerList({ initialBanners }: BannerListProps) {
   const [filter, setFilter] = useState<'all' | 'home' | 'destaque'>('all');
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const filteredBanners = initialBanners.filter(b => {
     if (filter === 'all') return true;
@@ -21,97 +26,83 @@ export default function BannerList({ initialBanners }: BannerListProps) {
     return true;
   });
 
+  if (!mounted) return <div style={{ minHeight: '400px' }} />;
+
   return (
     <>
+      {/* Botões de Ação reposicionados */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '2rem' }}>
+        <Link 
+          href="/admin/banners/destaque/novo" 
+          className="btn-boutique-outline" 
+          style={{ 
+            fontSize: '0.65rem', 
+            height: '38px', 
+            borderColor: 'rgba(212, 175, 55, 0.4)', 
+            color: 'var(--gold)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 1.2rem',
+            gap: '0.6rem'
+          }}
+        >
+          <PlusCircle size={14} /> 
+          <span className="desktop-text">IMAGEM DESTAQUE</span>
+          <span className="mobile-text">DESTAQUE</span>
+        </Link>
+        <Link 
+          href="/admin/banners/novo" 
+          className="btn-boutique" 
+          style={{ 
+            fontSize: '0.65rem', 
+            height: '38px', 
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 1.2rem',
+            gap: '0.6rem'
+          }}
+        >
+          <PlusCircle size={14} /> 
+          <span className="desktop-text">BANNER HOME</span>
+          <span className="mobile-text">HOME</span>
+        </Link>
+      </div>
+
       <div style={{ 
         backgroundColor: '#1a1d21', 
-        padding: '1.2rem 2rem', 
+        padding: '1rem 1.5rem', 
         border: '1px solid rgba(255,255,255,0.05)', 
         borderRadius: '4px', 
-        marginBottom: '3rem', 
+        marginBottom: '2rem', 
         display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center' 
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: '1rem'
       }}>
-        <div style={{ display: 'flex', gap: '0.8rem' }}>
-          <button 
-            onClick={() => setFilter('all')} 
-            className="btn-boutique-outline" 
-            style={{ 
-              fontSize: '0.65rem', 
-              height: '38px', 
-              borderColor: filter === 'all' ? 'var(--gold)' : 'rgba(255,255,255,0.1)', 
-              color: filter === 'all' ? 'var(--gold)' : '#fff', 
-              opacity: filter === 'all' ? 1 : 0.5,
-              padding: '0 1.5rem'
-            }}
-          >
-            TODOS
-          </button>
-          <button 
-            onClick={() => setFilter('home')} 
-            className="btn-boutique-outline" 
-            style={{ 
-              fontSize: '0.65rem', 
-              height: '38px', 
-              borderColor: filter === 'home' ? 'var(--gold)' : 'rgba(255,255,255,0.1)', 
-              color: filter === 'home' ? 'var(--gold)' : '#fff', 
-              opacity: filter === 'home' ? 1 : 0.5,
-              padding: '0 1.5rem'
-            }}
-          >
-            BANNERS HOME
-          </button>
-          <button 
-            onClick={() => setFilter('destaque')} 
-            className="btn-boutique-outline" 
-            style={{ 
-              fontSize: '0.65rem', 
-              height: '38px', 
-              borderColor: filter === 'destaque' ? 'var(--gold)' : 'rgba(255,255,255,0.1)', 
-              color: filter === 'destaque' ? 'var(--gold)' : '#fff', 
-              opacity: filter === 'destaque' ? 1 : 0.5,
-              padding: '0 1.5rem'
-            }}
-          >
-            IMAGENS DESTAQUE
-          </button>
-        </div>
-
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <Link 
-            href="/admin/banners/destaque/novo" 
-            className="btn-boutique-outline" 
-            style={{ 
-              fontSize: '0.65rem', 
-              height: '38px', 
-              borderColor: 'rgba(212, 175, 55, 0.4)', 
-              color: 'var(--gold)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0 1.5rem',
-              gap: '0.6rem'
-            }}
-          >
-            <PlusCircle size={14} /> IMAGEM DESTAQUE
-          </Link>
-          <Link 
-            href="/admin/banners/novo" 
-            className="btn-boutique" 
-            style={{ 
-              fontSize: '0.65rem', 
-              height: '38px', 
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0 1.5rem',
-              gap: '0.6rem'
-            }}
-          >
-            <PlusCircle size={14} /> BANNER HOME
-          </Link>
-        </div>
+        <span style={{ fontSize: '0.7rem', color: '#878a99', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
+          Filtrar por:
+        </span>
+        <select 
+          value={filter} 
+          onChange={(e) => setFilter(e.target.value as any)}
+          style={{
+            backgroundColor: '#2a2f34',
+            border: '1px solid #32383e',
+            color: '#fff',
+            padding: '0.5rem 1rem',
+            borderRadius: '4px',
+            fontSize: '0.8rem',
+            outline: 'none',
+            cursor: 'pointer',
+            minWidth: '200px'
+          }}
+        >
+          <option value="all">TODOS OS ITENS</option>
+          <option value="home">APENAS BANNERS HOME</option>
+          <option value="destaque">APENAS IMAGENS DESTAQUE</option>
+        </select>
       </div>
 
       <div className={styles.grid}>

@@ -12,7 +12,9 @@ import {
   Settings, 
   LogOut,
   Hammer,
-  MessageSquareQuote
+  MessageSquareQuote,
+  Menu,
+  X
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import styles from './layout.module.css';
@@ -23,6 +25,14 @@ export default function AdminLayoutClient({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <div className={styles.adminContainer} style={{ opacity: 0 }}>{children}</div>;
 
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: 'Dashboard', href: '/admin' },
@@ -53,11 +63,19 @@ export default function AdminLayoutClient({
 
   return (
     <div className={styles.adminContainer}>
-      <aside className={styles.sidebar}>
-        <div className={styles.logoContainer}>
-          <Link href="/">
-            <img src="/ggtransparente.png" alt="Guitar Garage" className={styles.adminLogo} />
-          </Link>
+      {/* OVERLAY MOBILE */}
+      {isSidebarOpen && <div className={styles.overlay} onClick={() => setIsSidebarOpen(false)}></div>}
+
+      <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
+        <div className={styles.sidebarHeader}>
+          <div className={styles.logoContainer}>
+            <Link href="/" onClick={() => setIsSidebarOpen(false)}>
+              <img src="/ggtransparente.png" alt="Guitar Garage" className={styles.adminLogo} />
+            </Link>
+          </div>
+          <button className={styles.closeSidebar} onClick={() => setIsSidebarOpen(false)}>
+            <X size={24} />
+          </button>
         </div>
 
         <nav className={styles.nav}>
@@ -65,6 +83,7 @@ export default function AdminLayoutClient({
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setIsSidebarOpen(false)}
               className={`${styles.navLink} ${pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href)) ? styles.active : ''}`}
             >
               {item.icon}
@@ -77,17 +96,6 @@ export default function AdminLayoutClient({
           <button 
             onClick={handleLogout} 
             className={styles.logoutBtn}
-            style={{ 
-              background: 'none', 
-              border: 'none', 
-              cursor: 'pointer', 
-              width: '100%', 
-              textAlign: 'left',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.9rem',
-              padding: '0.8rem 1.2rem'
-            }}
           >
             <LogOut size={18} />
             <span>Sair do Painel</span>
@@ -97,10 +105,15 @@ export default function AdminLayoutClient({
 
       <main className={styles.content}>
         <header className={styles.header}>
-          <div className={styles.breadcrumb}>
-            <span className={styles.bcParent}>{bc.parent}</span>
-            <span className={styles.bcSeparator}>/</span>
-            <span className={styles.bcCurrent}>{bc.current}</span>
+          <div className={styles.headerLeft}>
+            <button className={styles.menuToggle} onClick={() => setIsSidebarOpen(true)}>
+              <Menu size={24} />
+            </button>
+            <div className={styles.breadcrumb}>
+              <span className={styles.bcParent}>{bc.parent}</span>
+              <span className={styles.bcSeparator}>/</span>
+              <span className={styles.bcCurrent}>{bc.current}</span>
+            </div>
           </div>
           <div className={styles.userProfile}>
             <span>Administrador</span>

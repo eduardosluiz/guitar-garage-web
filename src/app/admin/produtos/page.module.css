@@ -16,6 +16,7 @@
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 1rem;
+  gap: 1.5rem;
 }
 
 .searchBox {
@@ -50,11 +51,14 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   border-radius: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 900px; /* Garante espaço para todas as colunas */
 }
 
 .table th {
@@ -69,24 +73,11 @@
   letter-spacing: 0.15em;
 }
 
-/* AJUSTE RIGOROSO DE ALINHAMENTO */
 .table td {
-  padding: 0.8rem 1.5rem; /* Reduzido para controle total */
+  padding: 0.8rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   font-size: 0.9rem;
   color: #ced4da;
-  vertical-align: middle !important;
-  height: 70px; /* Altura fixa controlada */
-}
-
-/* ELIMINAR QUALQUER RISCO OU DECORAÇÃO DE LINK */
-.table td a, 
-.table td button {
-  text-decoration: none !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  display: inline-flex !important;
   vertical-align: middle !important;
 }
 
@@ -107,10 +98,8 @@
   object-fit: cover;
 }
 
-/* CONTAINER DE AÇÕES SEM FLEX PARA EVITAR BUGS DE ALTURA */
 .actionsCell {
   white-space: nowrap;
-  font-size: 0; /* Remove espaços vazios entre inline-blocks */
 }
 
 .actionBtn {
@@ -126,11 +115,7 @@
   transition: all 0.3s ease;
   border-radius: 4px;
   margin-right: 0.6rem;
-  vertical-align: middle !important;
-}
-
-.actionBtn:last-child {
-  margin-right: 0;
+  text-decoration: none !important;
 }
 
 .actionBtn:hover {
@@ -156,3 +141,16 @@
 .disponivel { background: rgba(10, 179, 156, 0.1); color: #0ab39c; }
 .vendido { background: rgba(240, 101, 72, 0.1); color: #f06548; }
 .reservado { background: rgba(247, 184, 75, 0.1); color: #f7b84b; }
+
+@media (max-width: 1024px) {
+  .actions {
+    flex-direction: column-reverse;
+    align-items: flex-end; /* Alinha o botão à direita */
+    gap: 1.5rem;
+  }
+
+  .searchBox {
+    max-width: 100%;
+    width: 100%; /* Busca ocupa tudo */
+  }
+}

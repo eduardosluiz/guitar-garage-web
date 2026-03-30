@@ -1,0 +1,13 @@
+﻿diff --git a/src/app/servicos/lutheria/page.tsx b/src/app/servicos/lutheria/page.tsx
+index 194fa7c..52cfb9d 100644
+--- a/src/app/servicos/lutheria/page.tsx
++++ b/src/app/servicos/lutheria/page.tsx
+@@ -67,7 +67,7 @@ export default function Lutheria() {
+ 
+           <div className={styles.grid}>
+             <div className={styles.textSide}>
+-              <p>Desde 2012, a Guitar Garage ├® refer├¬ncia t├®cnica no Rio Grande do Sul. Nosso servi├ºo de lutheria ├® reconhecido pela excel├¬ncia no trato com instrumentos de alto valor e rel├¡quias hist├│ricas.</p>
++              <p>Desde 2002, a Guitar Garage ├® refer├¬ncia t├®cnica no Rio Grande do Sul. Nosso servi├ºo de lutheria ├® reconhecido pela excel├¬ncia no trato com instrumentos de alto valor e rel├¡quias hist├│ricas.</p>
+               <p>Combinamos t├®cnicas tradicionais com as melhores ferramentas do mercado para garantir o timbre definitivo.</p>
+               <div className={styles.servicesList}>
+                 {servicos.map((item, i) => (

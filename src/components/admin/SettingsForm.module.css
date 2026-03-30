@@ -37,10 +37,78 @@
   letter-spacing: 0.05em;
 }
 
+.socialGridFull {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.socialColumn {
+  width: 100%;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.statusToggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.statusToggle span {
+  letter-spacing: 1px;
+}
+
+.visible { 
+  background: rgba(10, 179, 156, 0.1); 
+  color: #0ab39c; 
+  border-color: rgba(10, 179, 156, 0.2); 
+}
+
+.hidden { 
+  background: rgba(240, 101, 72, 0.1); 
+  color: #f06548; 
+  border-color: rgba(240, 101, 72, 0.2); 
+}
+
 .gridFields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Aumentado o minmax para preencher melhor */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reduzido para caber em telas mobile */
   gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .sectionCard {
+    padding: 1.2rem;
+  }
+
+  .gridFields {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .labelRow {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .statusToggle {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .inputWrapper {

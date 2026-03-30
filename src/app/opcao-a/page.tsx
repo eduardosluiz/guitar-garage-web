@@ -53,7 +53,7 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroOverlay}></div>
         <div className={styles.heroContent}>
-          <div className={styles.heroTag}>CURADORIA DESDE 2012</div>
+          <div className={styles.heroTag}>CURADORIA DESDE 2002</div>
           <h1 className={styles.heroTitle}>A Arte de Tocar e <br /><span>o Prazer de Colecionar.</span></h1>
           <p className={styles.heroSubtitle}>Boutique especializada em instrumentos de investimento <span>PREMIUM</span> e de raridades vintage.</p>
           <div className={styles.heroActions}>
