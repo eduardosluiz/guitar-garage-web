@@ -33,7 +33,37 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
   });
 
   const categoryName = slug.toUpperCase().replace(/-/g, ' ');
-  const products = category?.produtos || [];
+  let products = category?.produtos || [];
+
+  // LÓGICA DE FALLBACK BASEADA NO SLUG
+  if (products.length === 0) {
+    const imgGtr = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800";
+    const imgBass = "https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=800";
+    const imgAmp = "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800";
+
+    if (slug === 'guitarras') {
+      products = [
+        { id: 3001, nome: 'Gibson ES-335 Figured', marca: { nome: 'Gibson' }, preco: 32000, slug: '#', imagens: [{ url: imgGtr }] },
+        { id: 3002, nome: 'Fender Telecaster 52 Reissue', marca: { nome: 'Fender' }, preco: 18900, slug: '#', imagens: [{ url: imgGtr }] },
+      ] as any;
+    } else if (slug === 'baixos') {
+      products = [
+        { id: 3101, nome: 'Fender Jazz Bass 1975', marca: { nome: 'Fender' }, preco: 22000, slug: '#', imagens: [{ url: imgBass }] },
+        { id: 3102, nome: 'Hofner 500/1 Violin Bass', marca: { nome: 'Hofner' }, preco: 15500, slug: '#', imagens: [{ url: imgBass }] },
+      ] as any;
+    } else if (slug === 'amps') {
+      products = [
+        { id: 3201, nome: 'Fender Deluxe Reverb 65', marca: { nome: 'Fender' }, preco: 14500, slug: '#', imagens: [{ url: imgAmp }] },
+        { id: 3202, nome: 'Marshall Bluesbreaker', marca: { nome: 'Marshall' }, preco: 24000, slug: '#', imagens: [{ url: imgAmp }] },
+      ] as any;
+    } else {
+      // Exemplos genéricos para outras categorias
+      products = [
+        { id: 3301, nome: `Exemplo ${categoryName} 1`, marca: { nome: 'Guitar Garage' }, preco: 1000, slug: '#', imagens: [{ url: imgGtr }] },
+        { id: 3302, nome: `Exemplo ${categoryName} 2`, marca: { nome: 'Guitar Garage' }, preco: 2000, slug: '#', imagens: [{ url: imgGtr }] },
+      ] as any;
+    }
+  }
 
   return (
     <main className={styles.main}>

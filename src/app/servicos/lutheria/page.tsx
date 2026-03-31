@@ -31,12 +31,30 @@ export default async function LutheriaPage() {
     }
   });
 
-  const projetos = projetosDb.map(p => ({
+  let projetos = projetosDb.map(p => ({
     id: p.id,
     title: p.titulo,
     description: p.descricao || '',
     images: p.imagens.map(img => img.url)
   }));
+
+  // LÓGICA DE FALLBACK
+  if (projetos.length === 0) {
+    projetos = [
+      {
+        id: 2001,
+        title: 'RESTAURAÇÃO COMPLETA: GIBSON SG 1968',
+        description: 'Recuperação estrutural de headstock e refino nitrocelulose original.',
+        images: ['https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800']
+      },
+      {
+        id: 2002,
+        title: 'REGULAGEM PREMIUM: FENDER PRECISION BASS',
+        description: 'Ajuste fino de ação, oitavas e hidratação de escala.',
+        images: ['https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=800']
+      }
+    ];
+  }
 
   return (
     <main className={styles.main}>

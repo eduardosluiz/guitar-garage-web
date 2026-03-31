@@ -36,7 +36,7 @@ export default async function NovidadesPage() {
   });
 
   // Formata os dados para o componente de cliente
-  const produtos = produtosDb.map(p => ({
+  let produtos = produtosDb.map(p => ({
     id: p.id,
     nome: p.nome,
     brand: p.marca?.nome || 'Guitar Garage',
@@ -44,6 +44,15 @@ export default async function NovidadesPage() {
     img: p.imagens[0]?.url || 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800',
     slug: p.slug
   }));
+
+  // LÓGICA DE FALLBACK
+  if (produtos.length === 0) {
+    produtos = [
+      { id: 1001, nome: 'Gibson Les Paul Standard 50s', brand: 'Gibson', price: 'R$ 28.500', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
+      { id: 1002, nome: 'Fender Stratocaster American Professional II', brand: 'Fender', price: 'R$ 16.900', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
+      { id: 1003, nome: 'PRS Silver Sky John Mayer', brand: 'PRS', price: 'R$ 22.000', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
+    ];
+  }
 
   return (
     <main className={styles.main}>
