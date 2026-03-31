@@ -5,6 +5,8 @@ import Footer from '@/components/common/Footer';
 import styles from './page.module.css';
 import ClientSobre from './ClientSobre';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Sobre() {
   // Buscar imagem de destaque para a página sobre (posicao: sobre)
   const banner = await prisma.banner.findFirst({

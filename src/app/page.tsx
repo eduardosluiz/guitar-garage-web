@@ -5,6 +5,8 @@ import { prisma } from '@/lib/prisma';
 import HomeClient from './HomeClient';
 import styles from './page.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   // 1. Busca Banners da Home
   const bannersDb = await prisma.banner.findMany({

@@ -6,6 +6,8 @@ import LutheriaClient from './LutheriaClient';
 import styles from './page.module.css';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Lutheria | Guitar Garage',
   description: 'Excelência técnica em restauração, regulagem e customização de instrumentos musicais.',

@@ -6,6 +6,8 @@ import NovidadesClient from './NovidadesClient';
 import styles from './page.module.css';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Novidades | Guitar Garage',
   description: 'Confira as últimas novidades em instrumentos musicais premium.',

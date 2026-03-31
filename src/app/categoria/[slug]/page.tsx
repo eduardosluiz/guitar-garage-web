@@ -5,6 +5,8 @@ import Footer from '@/components/common/Footer';
 import styles from './page.module.css';
 import ClientPage from './ClientPage';
 
+export const dynamic = 'force-dynamic';
+
 export default async function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
