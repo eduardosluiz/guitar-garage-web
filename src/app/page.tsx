@@ -62,10 +62,45 @@ export default async function Home() {
   }
 
   // 2. Busca Produtos por Categoria para as seções da Home
-  const guitars = await getProductsByCategory('guitarras');
-  const basses = await getProductsByCategory('baixos');
-  const acoustics = await getProductsByCategory('violoes');
-  const amps = await getProductsByCategory('amps');
+  let guitars = await getProductsByCategory('guitarras');
+  let basses = await getProductsByCategory('baixos');
+  let acoustics = await getProductsByCategory('violoes');
+  let amps = await getProductsByCategory('amps');
+
+  // LÓGICA DE FALLBACK: Se o banco estiver vazio, mostra os exemplos de desenvolvimento
+  const imgGtr = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800";
+  const imgBass = "https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=800";
+  const imgAmp = "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800";
+
+  if (guitars.length === 0) {
+    guitars = [
+      { id: 101, name: 'Gretsch 6120 Nashville', brand: 'Gretsch', price: 'R$ 24.900', img: imgGtr, slug: '#' },
+      { id: 102, name: 'Fender Stratocaster 1974', brand: 'Fender', price: 'R$ 18.500', img: imgGtr, slug: '#' },
+      { id: 103, name: 'Gibson SG Standard', brand: 'Gibson', price: 'R$ 16.200', img: imgGtr, slug: '#' },
+    ];
+  }
+
+  if (basses.length === 0) {
+    basses = [
+      { id: 201, name: 'Fender Precision 1978', brand: 'Fender', price: 'R$ 15.900', img: imgBass, slug: '#' },
+      { id: 202, name: 'Rickenbacker 4003', brand: 'Rickenbacker', price: 'R$ 22.500', img: imgBass, slug: '#' },
+      { id: 203, name: 'Music Man StingRay', brand: 'Music Man', price: 'R$ 14.200', img: imgBass, slug: '#' },
+    ];
+  }
+
+  if (acoustics.length === 0) {
+    acoustics = [
+      { id: 301, name: 'Gibson J-45 Standard', brand: 'Gibson', price: 'R$ 19.500', img: imgGtr, slug: '#' },
+      { id: 302, name: 'Martin D-28 Authentic', brand: 'Martin', price: 'R$ 32.000', img: imgGtr, slug: '#' },
+    ];
+  }
+
+  if (amps.length === 0) {
+    amps = [
+      { id: 401, name: 'Vox AC30 1964 JMI', brand: 'Vox', price: 'R$ 28.000', img: imgAmp, slug: '#' },
+      { id: 402, name: 'Marshall JTM45 Offset', brand: 'Marshall', price: 'R$ 32.500', img: imgAmp, slug: '#' },
+    ];
+  }
 
   return (
     <main className={styles.main}>
