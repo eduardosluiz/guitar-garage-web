@@ -8,11 +8,7 @@ node_modules
 .cursor
 .gemini
 .github
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
 *.patch
 *.txt
 *.ps1
@@ -21,5 +17,3 @@ PROJECT_REQUIREMENTS.md
 GEMINI.md
 prisma/dev.db
 prisma/dev.db-journal
-Dockerfile
-.dockerignore
