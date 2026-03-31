@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react';
 import styles from './page.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   // URLs ULTRA-ESTÁVEIS (Testadas)
   const imgGtr = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800";
