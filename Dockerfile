@@ -36,6 +36,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
+# O arquivo server.js já vem dentro do standalone, mas o standalone precisa ser copiado corretamente
+# O comando padrão para standalone é 'node server.js'
 
 USER nextjs
 EXPOSE 3000
