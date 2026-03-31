@@ -13,9 +13,9 @@ export default async function Footer() {
       email={config?.emailContato || "contato@guitargarage.com.br"}
       telefone={config?.telefone || "(51) 3331.3234"}
       socials={{
-        instagram: config?.instagramUrl || "https://instagram.com/guitargarage",
-        facebook: config?.facebookUrl || "https://facebook.com/guitargarage",
-        youtube: config?.youtubeUrl || "https://youtube.com/guitargarage"
+        instagram: config?.instagramUrl || "",
+        facebook: config?.facebookUrl || "",
+        youtube: config?.youtubeUrl || ""
       }}
       visibility={{
         instagram: config?.showInstagram ?? true,

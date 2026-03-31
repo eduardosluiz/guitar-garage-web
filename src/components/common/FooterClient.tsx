@@ -33,17 +33,17 @@ export default function FooterClient({ whatsapp, email, telefone, socials, visib
               Desde 2002, curando os melhores instrumentos vintage e de boutique para músicos exigentes.
             </p>
             <div className={styles.socials}>
-              {visibility.instagram && (
+              {visibility.instagram && socials.instagram && (
                 <a href={socials.instagram} target="_blank" rel="noopener noreferrer">
                   <Instagram size={20} />
                 </a>
               )}
-              {visibility.facebook && (
+              {visibility.facebook && socials.facebook && (
                 <a href={socials.facebook} target="_blank" rel="noopener noreferrer">
                   <Facebook size={20} />
                 </a>
               )}
-              {visibility.youtube && (
+              {visibility.youtube && socials.youtube && (
                 <a href={socials.youtube} target="_blank" rel="noopener noreferrer">
                   <Youtube size={20} />
                 </a>
