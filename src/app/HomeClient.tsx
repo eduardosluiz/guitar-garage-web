@@ -121,6 +121,12 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps }:
                 <div className={styles.reliquiaCaption}><span>VINTAGE</span><h4>HISTORIC COLLECTION</h4></div>
               </motion.div>
             </Link>
+            <Link href="/categoria/reliquias" className={styles.reliquiaArtItem}>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 30 }} transition={{ duration: 1.5, delay: 0.2 }}>
+                <img src={imgBass} alt="R2" />
+                <div className={styles.reliquiaCaption}><span>RARE</span><h4>PREMIUM FIND</h4></div>
+              </motion.div>
+            </Link>
           </div>
         </div>
       </section>

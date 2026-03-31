@@ -92,6 +92,7 @@ export default async function Home() {
     acoustics = [
       { id: 301, name: 'Gibson J-45 Standard', brand: 'Gibson', price: 'R$ 19.500', img: imgGtr, slug: '#' },
       { id: 302, name: 'Martin D-28 Authentic', brand: 'Martin', price: 'R$ 32.000', img: imgGtr, slug: '#' },
+      { id: 303, name: 'Taylor 814ce V-Class', brand: 'Taylor', price: 'R$ 28.900', img: imgGtr, slug: '#' },
     ];
   }
 
@@ -99,6 +100,7 @@ export default async function Home() {
     amps = [
       { id: 401, name: 'Vox AC30 1964 JMI', brand: 'Vox', price: 'R$ 28.000', img: imgAmp, slug: '#' },
       { id: 402, name: 'Marshall JTM45 Offset', brand: 'Marshall', price: 'R$ 32.500', img: imgAmp, slug: '#' },
+      { id: 403, name: 'Fender Twin Reverb 65', brand: 'Fender', price: 'R$ 12.200', img: imgAmp, slug: '#' },
     ];
   }
 

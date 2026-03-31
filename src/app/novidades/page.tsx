@@ -51,6 +51,9 @@ export default async function NovidadesPage() {
       { id: 1001, nome: 'Gibson Les Paul Standard 50s', brand: 'Gibson', price: 'R$ 28.500', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
       { id: 1002, nome: 'Fender Stratocaster American Professional II', brand: 'Fender', price: 'R$ 16.900', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
       { id: 1003, nome: 'PRS Silver Sky John Mayer', brand: 'PRS', price: 'R$ 22.000', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
+      { id: 1004, nome: 'Gretsch G6120 Nashville', brand: 'Gretsch', price: 'R$ 24.900', img: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800', slug: '#' },
+      { id: 1005, nome: 'Rickenbacker 4003 Bass', brand: 'Rickenbacker', price: 'R$ 22.500', img: 'https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=800', slug: '#' },
+      { id: 1006, nome: 'Vox AC30 1964 JMI', brand: 'Vox', price: 'R$ 28.000', img: 'https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800', slug: '#' },
     ];
   }
 
