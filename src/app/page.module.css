@@ -160,43 +160,146 @@
   .heroTitle { font-size: 4rem !important; }
   .titleStacked h2 { font-size: 2.5rem !important; }
 }
-
 @media (max-width: 768px) {
-  .hero { height: auto; min-height: auto; grid-template-columns: 1fr; display: flex; flex-direction: column; width: 100%; overflow: hidden; }
-  .heroLeft { padding: 4rem 5%; order: 2; text-align: center; width: 100%; }
-  .heroRight { height: 450px; order: 1; width: 100% !important; padding: 0 !important; margin: 0 !important; }
-  
-  .imageContainer { width: 100% !important; height: 100% !important; margin: 0 !important; }
+  .hero { 
+    height: auto; 
+    min-height: auto; 
+    display: flex !important; 
+    flex-direction: column !important; 
+    width: 100%; 
+    overflow: hidden; 
+    grid-template-columns: none; 
+  }
+  .heroLeft { 
+    order: 1 !important; 
+    padding: 4rem 1.5rem 3rem; 
+    width: 100%; 
+    background: #fff;
+    text-align: center;
+  }
+  .heroTitle { 
+    font-size: 2.2rem !important; 
+    letter-spacing: -1.5px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .heroRight { 
+    order: 2 !important; 
+    height: 450px; 
+
+    width: calc(100% + 3rem) !important; /* Compensa o padding do container */
+    margin-left: -1.5rem !important;
+    margin-right: -1.5rem !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .imageContainer { 
+    width: 100% !important; 
+    height: 100% !important; 
+  }
   .imageContainer img { width: 100% !important; height: 100% !important; object-fit: cover; }
-  
-  .carouselControls { left: 5% !important; bottom: 5% !important; gap: 1rem !important; }
-  .slideInfo { left: 5% !important; width: 90% !important; }
-  .slideInfo h3 { font-size: 2.2rem !important; }
-  
-  .heroTitle { font-size: 2.8rem !important; letter-spacing: -2px; }
+
+  /* CONTROLES PREMIUM MOBILE */
+  .carouselControls { 
+    position: absolute; 
+    top: 50%; 
+    left: 0; 
+    right: 0; 
+    transform: translateY(-50%);
+    display: flex; 
+    justify-content: space-between; 
+    padding: 0 1rem;
+    z-index: 20; 
+    pointer-events: none; /* Permite clicar no botão 'Ver Agora' que está atrás se necessário */
+  }
+  .navBtn { 
+    pointer-events: auto;
+    background: rgba(0,0,0,0.3); 
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2); 
+    width: 40px; 
+    height: 40px; 
+  }
+
+  .slideInfo { 
+    left: 1.5rem !important; 
+    bottom: 2rem !important;
+    top: auto !important;
+    transform: none !important;
+    width: 80% !important; 
+  }
+  .slideInfo h3 { 
+    font-size: 1.8rem !important; 
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* BOTÃO VER AGORA PREMIUM */
+  .slideLink { 
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #D4AF37 !important; /* Fundo Dourado Sólido */
+    color: #000 !important; /* Texto Preto */
+    border: 1px solid #D4AF37 !important;
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.7rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none !important;
+  }
+
   .heroDivider { margin: 2rem auto; }
   .heroFooterFixed p { margin: 0 auto 2rem; }
   .heroActions { justify-content: center; gap: 1rem; flex-wrap: wrap; }
   
-  /* Ajuste Seção Contato/Mapa */
-  .bookingContainer { 
-    grid-template-columns: 1fr !important; 
-    padding: 4rem 1rem !important; 
-    width: 100% !important;
-    gap: 3rem;
+  /* Reduzir Título THE VAULT */
+  .reliquiasTextSide h2 { 
+    font-size: 2.5rem !important; 
+    letter-spacing: -1.5px !important;
+    line-height: 1.1 !important;
   }
-  .mapBox { 
+
+  /* Ajuste Seção Contato/Mapa (FIX TOTAL WIDTH) */
+  .bookingSplitSection {
+    padding: 6rem 0;
+  }
+  .bookingContainer { 
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 1.5rem !important; 
+    width: 100% !important;
+    gap: 4rem !important;
+  }
+  .bookingLeft {
+    width: 100% !important;
+    text-align: center;
+  }
+  .bookingText {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 2rem 0 !important;
+    font-size: 1rem !important;
+  }
+  .bookingRightCol {
+    width: 100% !important;
+  }
+  .mapWrapper { 
     height: 300px !important; 
     width: 100% !important; 
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 2.5rem;
   }
-  .mapBox iframe {
+  .contactInfoGrid {
+    grid-template-columns: 1fr !important; /* Uma coluna só no mobile */
+    gap: 1.5rem !important;
     width: 100% !important;
   }
-  .bookingInfo {
-    padding: 0 !important;
-    width: 100% !important;
+  .infoItem {
+    justify-content: center; /* Centraliza ícone e texto */
+    font-size: 0.85rem !important;
   }
 
   .productFlex { grid-template-columns: 1fr; gap: 3rem; }
@@ -206,4 +309,27 @@
   .reliquiasTextSide p { margin: 2rem auto; }
   .reliquiasGallerySide { flex-direction: column; align-items: center; gap: 2rem; }
   .reliquiaArtItem { width: 100%; max-width: 320px; }
+
+  /* PADRONIZAÇÃO BOTÕES VER TODOS MOBILE */
+  .sectionHeader {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 2rem;
+    padding-bottom: 3rem !important;
+  }
+
+  .exploreLink, .exploreLinkWhite {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+    padding: 0.8rem 1.5rem !important;
+    border: 1px solid currentColor !important;
+    font-size: 0.7rem !important;
+    margin-top: 1rem;
+  }
+  
+  .exploreLinkWhite {
+    border-color: rgba(255,255,255,0.3) !important;
+  }
 }

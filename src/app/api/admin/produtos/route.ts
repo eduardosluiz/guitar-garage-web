@@ -33,7 +33,10 @@ export async function POST(req: Request) {
         marcaId: marcaId ? parseInt(marcaId) : null,
         categoriaId: categoriaId ? parseInt(categoriaId) : null,
         imagens: {
-          create: images.map((url: string) => ({ url }))
+          create: images.map((img: any) => ({ 
+            url: img.url,
+            ordem: img.ordem || 0
+          }))
         }
       }
     });
@@ -81,7 +84,10 @@ export async function PUT(req: Request) {
         marcaId: marcaId ? parseInt(marcaId) : null,
         categoriaId: categoriaId ? parseInt(categoriaId) : null,
         imagens: {
-          create: images.map((url: string) => ({ url }))
+          create: images.map((img: any) => ({ 
+            url: img.url,
+            ordem: img.ordem || 0
+          }))
         }
       }
     });

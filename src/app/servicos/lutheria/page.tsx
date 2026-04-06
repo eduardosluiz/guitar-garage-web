@@ -22,7 +22,7 @@ export default async function LutheriaPage() {
     include: {
       imagens: {
         orderBy: {
-          id: 'asc'
+          ordem: 'asc'
         }
       }
     },

@@ -52,6 +52,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  gap: 1rem;
 }
 
 .statusToggle {
@@ -59,33 +60,46 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 0.3rem 0.6rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.4rem 0.8rem;
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: 1px solid transparent;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .statusToggle span {
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .visible { 
-  background: rgba(10, 179, 156, 0.1); 
-  color: #0ab39c; 
-  border-color: rgba(10, 179, 156, 0.2); 
+  background: #00a884; /* Verde WhatsApp mais vibrante */
+  color: #fff !important; 
+  border-color: #00a884; 
+  box-shadow: 0 2px 4px rgba(0, 168, 132, 0.2);
 }
 
 .hidden { 
-  background: rgba(240, 101, 72, 0.1); 
-  color: #f06548; 
-  border-color: rgba(240, 101, 72, 0.2); 
+  background: #ef4444; /* Vermelho mais vivo */
+  color: #fff !important; 
+  border-color: #ef4444; 
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.statusToggle:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+.statusToggle:active {
+  transform: translateY(0);
 }
 
 .gridFields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reduzido para caber em telas mobile */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
   gap: 2rem;
 }
 
@@ -100,14 +114,14 @@
   }
 
   .labelRow {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-wrap: nowrap; /* Garante que fiquem lado a lado */
   }
 
   .statusToggle {
-    order: 3;
-    width: 100%;
-    justify-content: center;
+    order: unset;
+    width: auto;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.55rem;
   }
 }
 

@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, X, ArrowLeft } from 'lucide-react';
-import MediaUpload from '@/components/admin/MediaUpload'; 
+import MediaUpload, { MediaItem } from '@/components/admin/MediaUpload'; 
 import styles from '@/components/admin/ProductForm.module.css';
 
 interface LutheriaFormProps {
@@ -21,8 +21,10 @@ export default function LutheriaForm({ initialData }: LutheriaFormProps) {
     isAtivo: initialData?.isAtivo !== undefined ? initialData.isAtivo : true,
   });
 
-  // A galeria agora pode conter URLs de fotos e vídeos
-  const [media, setMedia] = useState<string[]>(initialData?.imagens?.map((img: any) => img.url) || []);
+  // A galeria agora usa o objeto MediaItem { url, ordem }
+  const [media, setMedia] = useState<MediaItem[]>(
+    initialData?.imagens?.map((img: any) => ({ url: img.url, ordem: img.ordem || 0 })) || []
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -52,7 +54,7 @@ export default function LutheriaForm({ initialData }: LutheriaFormProps) {
         body: JSON.stringify({ 
           ...formData, 
           id: initialData?.id, 
-          images: media // Enviamos tudo na mesma galeria
+          images: media 
         }),
       });
 
@@ -110,12 +112,11 @@ export default function LutheriaForm({ initialData }: LutheriaFormProps) {
           <div className={styles.card}>
             <h3>Galeria de Mídia (Fotos e Vídeos)</h3>
             <p style={{ fontSize: '0.75rem', color: '#878a99', marginBottom: '1.5rem' }}>
-              Você pode subir fotos e arquivos de vídeo (.mp4, .mov) para mostrar o processo.
+              A primeira imagem da lista será usada como **Capa** do projeto. Use as setas para organizar.
             </p>
             <MediaUpload 
               value={media} 
-              onChange={(url) => setMedia((prev) => [...prev, url])}
-              onRemove={(url) => setMedia((prev) => prev.filter((m) => m !== url))}
+              onChange={(items) => setMedia(items)}
               acceptVideo={true}
             />
           </div>

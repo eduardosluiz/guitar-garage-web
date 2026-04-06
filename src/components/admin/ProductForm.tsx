@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, X, ArrowLeft } from 'lucide-react';
-import ImageUpload from './ImageUpload';
+import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
 interface ProductFormProps {
@@ -15,7 +15,6 @@ interface ProductFormProps {
 
 export default function ProductForm({ categories, brands, initialData }: ProductFormProps) {
   const router = useRouter();
-  // ... rest of state stays the same
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     nome: initialData?.nome || '',
@@ -33,7 +32,9 @@ export default function ProductForm({ categories, brands, initialData }: Product
     especificacoes: initialData?.especificacoes || {},
   });
 
-  const [images, setImages] = useState<string[]>(initialData?.imagens?.map((img: any) => img.url) || []);
+  const [images, setImages] = useState<MediaItem[]>(
+    initialData?.imagens?.map((img: any) => ({ url: img.url, ordem: img.ordem || 0 })) || []
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -109,10 +110,12 @@ export default function ProductForm({ categories, brands, initialData }: Product
 
           <div className={styles.card}>
             <h3>Galeria de Imagens</h3>
-            <ImageUpload 
+            <p style={{ fontSize: '0.75rem', color: '#878a99', marginBottom: '1.5rem' }}>
+              A primeira imagem será a **Capa** do produto. Use as setas para organizar a ordem.
+            </p>
+            <MediaUpload 
               value={images} 
-              onChange={(url) => setImages((prev) => [...prev, url])}
-              onRemove={(url) => setImages((prev) => prev.filter((img) => img !== url))}
+              onChange={(items) => setImages(items)}
             />
           </div>
         </div>

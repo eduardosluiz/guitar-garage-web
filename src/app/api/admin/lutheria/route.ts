@@ -15,7 +15,10 @@ export async function POST(req: Request) {
         videoUrl,
         isAtivo: isAtivo !== undefined ? isAtivo : true,
         imagens: {
-          create: images.map((url: string) => ({ url }))
+          create: images.map((img: any) => ({ 
+            url: img.url,
+            ordem: img.ordem || 0
+          }))
         }
       }
     });
@@ -46,7 +49,10 @@ export async function PUT(req: Request) {
         videoUrl,
         isAtivo,
         imagens: {
-          create: images.map((url: string) => ({ url }))
+          create: images.map((img: any) => ({ 
+            url: img.url,
+            ordem: img.ordem || 0
+          }))
         }
       }
     });

@@ -65,9 +65,13 @@ export default function HeaderClient({ whatsapp, telefone }: HeaderClientProps) 
   return (
     <header className={styles.header}>
       <div className={styles.topBar}>
-        <p>ATENDIMENTO: SEG A SEX - 10H ÀS 18H | WHATSAPP: {whatsapp}</p>
+        <p>ATENDIMENTO: SEG A SEX - 10H ÀS 18H <span className={styles.topBarDivider}>|</span> <span className={styles.whatsappBreak}>WHATSAPP: {whatsapp}</span></p>
       </div>
       <div className={styles.container}>
+        <button className={styles.menuToggle} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Menu size={24} />
+        </button>
+
         <div className={styles.logo}>
           <Link href="/">
             <img src="/ggtransparente.png" alt="Guitar Garage" className={styles.logoImg} />
@@ -113,9 +117,6 @@ export default function HeaderClient({ whatsapp, telefone }: HeaderClientProps) 
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
             <span>ENTRE EM CONTATO</span>
           </a>
-          <button className={styles.menuToggle} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Menu size={24} />
-          </button>
         </div>
       </div>
 
