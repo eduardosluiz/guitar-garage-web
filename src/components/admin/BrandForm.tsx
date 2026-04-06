@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, X } from 'lucide-react';
-import ImageUpload from './ImageUpload';
+import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
 interface BrandFormProps {
@@ -19,8 +19,10 @@ export default function BrandForm({ initialData }: BrandFormProps) {
     slug: initialData?.slug || '',
   });
   
-  // Usando estado separado para o logo, seguindo o padrão que funcionou nos produtos
-  const [logoUrl, setLogoUrl] = useState<string>(initialData?.logo_url || '');
+  // Usando estado separado para o logo no formato MediaItem
+  const [logoMedia, setLogoMedia] = useState<MediaItem[]>(
+    initialData?.logo_url ? [{ url: initialData.logo_url, ordem: 0 }] : []
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,7 +45,7 @@ export default function BrandForm({ initialData }: BrandFormProps) {
         body: JSON.stringify({ 
           ...formData, 
           id: initialData?.id,
-          logo_url: logoUrl // Enviando o link da imagem corretamente
+          logo_url: logoMedia[0]?.url || '' // Enviando o link da imagem corretamente
         }),
       });
 
@@ -86,10 +88,9 @@ export default function BrandForm({ initialData }: BrandFormProps) {
         </div>
         <div className={styles.inputGroup}>
           <label>Logotipo da Marca</label>
-          <ImageUpload 
-            value={logoUrl ? [logoUrl] : []} 
-            onChange={(url) => setLogoUrl(url)}
-            onRemove={() => setLogoUrl('')}
+          <MediaUpload 
+            value={logoMedia} 
+            onChange={setLogoMedia}
           />
         </div>
       </div>

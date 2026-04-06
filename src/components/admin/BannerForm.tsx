@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, X } from 'lucide-react';
-import ImageUpload from './ImageUpload';
+import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
 interface BannerFormProps {
@@ -24,6 +24,14 @@ export default function BannerForm({ initialData }: BannerFormProps) {
     ordem: initialData?.ordem || 0,
     isAtivo: initialData?.isAtivo !== undefined ? initialData.isAtivo : true,
   });
+
+  const bannerMedia: MediaItem[] = formData.imagemUrl ? [{ url: formData.imagemUrl, ordem: 0 }] : [];
+
+  const handleMediaChange = (items: MediaItem[] | ((prev: MediaItem[]) => MediaItem[])) => {
+    const newItems = typeof items === 'function' ? items(bannerMedia) : items;
+    const latestUrl = newItems[newItems.length - 1]?.url || '';
+    setFormData(prev => ({ ...prev, imagemUrl: latestUrl }));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -89,10 +97,9 @@ export default function BannerForm({ initialData }: BannerFormProps) {
             </div>
             <div className={styles.inputGroup}>
               <label>Imagem do Banner (High-Res)</label>
-              <ImageUpload 
-                value={formData.imagemUrl ? [formData.imagemUrl] : []} 
-                onChange={(url) => setFormData(prev => ({ ...prev, imagemUrl: url }))}
-                onRemove={() => setFormData(prev => ({ ...prev, imagemUrl: '' }))}
+              <MediaUpload 
+                value={bannerMedia} 
+                onChange={handleMediaChange}
               />
             </div>
           </div>
