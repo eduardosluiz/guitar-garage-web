@@ -1,193 +1,103 @@
 ##########################################
 ### Syncing with origin/main
-### Mon, 06 Apr 2026 22:10:31 GMT
+### Mon, 06 Apr 2026 22:33:09 GMT
 ##########################################
 
-Commit: fix: rotas de categoria catch-all para suportar marcas e correção do menu 
+Commit: fix: build errors by updating all forms to MediaUpload and fixing category folder structure 
 #0 building with "default" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 1.32kB 0.0s done
-#1 DONE 0.1s
+#1 transferring dockerfile: 1.32kB done
+#1 DONE 0.0s
 
 #2 [internal] load metadata for docker.io/library/node:22-alpine
-#2 DONE 1.9s
+#2 DONE 0.4s
 
 #3 [internal] load .dockerignore
 #3 transferring context: 235B done
 #3 DONE 0.0s
 
-#4 [internal] load build context
+#4 [deps 1/6] FROM docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3
+#4 resolve docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3 0.0s done
 #4 DONE 0.0s
 
-#5 [deps 1/6] FROM docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3
-#5 resolve docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3 0.0s done
-#5 DONE 0.0s
+#5 [builder 2/6] WORKDIR /app
+#5 CACHED
 
-#4 [internal] load build context
-#4 ...
+#6 [runner 3/8] RUN addgroup --system --gid 1001 nodejs
+#6 CACHED
 
-#5 [deps 1/6] FROM docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3
-#5 DONE 0.2s
+#7 [runner 4/8] RUN adduser --system --uid 1001 nextjs
+#7 CACHED
 
-#4 [internal] load build context
-#4 ...
+#8 [internal] load build context
+#8 transferring context: 9.18kB 0.0s done
+#8 DONE 0.0s
 
-#6 [builder 2/6] WORKDIR /app
-#6 DONE 0.2s
+#9 [deps 3/6] WORKDIR /app
+#9 CACHED
 
-#4 [internal] load build context
-#4 transferring context: 1.98MB 0.8s done
-#4 DONE 0.8s
+#10 [deps 5/6] COPY prisma ./prisma/
+#10 CACHED
 
-#7 [runner 3/8] RUN addgroup --system --gid 1001 nodejs
-#7 DONE 0.8s
+#11 [builder 3/6] COPY --from=deps /app/node_modules ./node_modules
+#11 CACHED
 
-#8 [deps 2/6] RUN apk add --no-cache libc6-compat
-#8 ...
-
-#9 [runner 4/8] RUN adduser --system --uid 1001 nextjs
-#9 DONE 0.2s
-
-#8 [deps 2/6] RUN apk add --no-cache libc6-compat
-#8 2.445 (1/3) Installing musl-obstack (1.2.3-r2)
-#8 2.456 (2/3) Installing libucontext (1.3.3-r0)
-#8 2.462 (3/3) Installing gcompat (1.1.0-r4)
-#8 2.480 OK: 11.0 MiB in 21 packages
-#8 DONE 2.5s
-
-#10 [deps 3/6] WORKDIR /app
-#10 DONE 0.0s
-
-#11 [deps 4/6] COPY package*.json ./
-#11 DONE 0.0s
-
-#12 [deps 5/6] COPY prisma ./prisma/
-#12 DONE 0.0s
+#12 [deps 4/6] COPY package*.json ./
+#12 CACHED
 
 #13 [deps 6/6] RUN npm install
-#13 62.33 npm warn deprecated next@15.1.0: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/CVE-2025-66478 for more details.
-#13 69.94 
-#13 69.94 > guitar-garage-2.0@1.0.0 postinstall
-#13 69.94 > prisma generate
-#13 69.94 
-#13 71.74 Prisma schema loaded from prisma/schema.prisma
-#13 72.38 
-#13 72.38 ✔ Generated Prisma Client (v6.19.2) to ./node_modules/@prisma/client in 332ms
-#13 72.38 
-#13 72.38 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-#13 72.38 
-#13 72.38 Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
-#13 72.38 
-#13 72.38 ┌─────────────────────────────────────────────────────────┐
-#13 72.38 │  Update available 6.19.2 -> 7.6.0                       │
-#13 72.38 │                                                         │
-#13 72.38 │  This is a major update - please follow the guide at    │
-#13 72.38 │  https://pris.ly/d/major-version-upgrade                │
-#13 72.38 │                                                         │
-#13 72.38 │  Run the following to update                            │
-#13 72.38 │    npm i --save-dev prisma@latest                       │
-#13 72.38 │    npm i @prisma/client@latest                          │
-#13 72.38 └─────────────────────────────────────────────────────────┘
-#13 72.43 
-#13 72.43 added 376 packages, and audited 377 packages in 1m
-#13 72.43 
-#13 72.43 147 packages are looking for funding
-#13 72.43   run `npm fund` for details
-#13 72.66 
-#13 72.66 9 vulnerabilities (2 moderate, 6 high, 1 critical)
-#13 72.66 
-#13 72.66 To address issues that do not require attention, run:
-#13 72.66   npm audit fix
-#13 72.66 
-#13 72.66 To address all issues, run:
-#13 72.66   npm audit fix --force
-#13 72.66 
-#13 72.66 Run `npm audit` for details.
-#13 72.66 npm notice
-#13 72.66 npm notice New major version of npm available! 10.9.7 -> 11.12.1
-#13 72.66 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
-#13 72.66 npm notice To update run: npm install -g npm@11.12.1
-#13 72.66 npm notice
-#13 DONE 73.0s
+#13 CACHED
 
-#14 [builder 3/6] COPY --from=deps /app/node_modules ./node_modules
-#14 DONE 19.5s
+#14 [builder 4/6] COPY . .
+#14 CACHED
 
-#15 [builder 4/6] COPY . .
-#15 DONE 0.5s
+#15 [deps 2/6] RUN apk add --no-cache libc6-compat
+#15 CACHED
 
 #16 [builder 5/6] RUN npx prisma generate
-#16 2.614 Prisma schema loaded from prisma/schema.prisma
-#16 3.249 
-#16 3.249 ✔ Generated Prisma Client (v6.19.2) to ./node_modules/@prisma/client in 365ms
-#16 3.249 
-#16 3.249 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-#16 3.249 
-#16 3.249 Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
-#16 3.249 
-#16 3.285 npm notice
-#16 3.285 npm notice New major version of npm available! 10.9.7 -> 11.12.1
-#16 3.285 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
-#16 3.285 npm notice To update run: npm install -g npm@11.12.1
-#16 3.285 npm notice
-#16 DONE 3.4s
+#16 CACHED
 
 #17 [builder 6/6] RUN npm run build
-#17 0.297 
-#17 0.297 > guitar-garage-2.0@1.0.0 build
-#17 0.297 > next build
-#17 0.297 
-#17 1.321 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-#17 1.322 This information is used to shape Next.js' roadmap and prioritize features.
-#17 1.322 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-#17 1.322 https://nextjs.org/telemetry
-#17 1.322 
-#17 1.481    ▲ Next.js 15.1.0
-#17 1.481 
-#17 1.530    Creating an optimized production build ...
-#17 25.41 Failed to compile.
-#17 25.41 
-#17 25.41 ./src/components/admin/BannerForm.tsx
-#17 25.41 Module not found: Can't resolve './ImageUpload'
-#17 25.41 
-#17 25.41 https://nextjs.org/docs/messages/module-not-found
-#17 25.41 
-#17 25.41 ./src/components/admin/BrandForm.tsx
-#17 25.41 Module not found: Can't resolve './ImageUpload'
-#17 25.41 
-#17 25.41 https://nextjs.org/docs/messages/module-not-found
-#17 25.41 
-#17 25.41 ./src/components/admin/DestaqueForm.tsx
-#17 25.41 Module not found: Can't resolve './ImageUpload'
-#17 25.41 
-#17 25.41 https://nextjs.org/docs/messages/module-not-found
-#17 25.41 
-#17 25.41 ./src/app/categoria/[...slug]/page.tsx
-#17 25.41 Module not found: Can't resolve './page.module.css'
-#17 25.41 
-#17 25.41 https://nextjs.org/docs/messages/module-not-found
-#17 25.41 
-#17 25.41 ./src/app/categoria/[...slug]/page.tsx
-#17 25.41 Module not found: Can't resolve './ClientPage'
-#17 25.41 
-#17 25.41 https://nextjs.org/docs/messages/module-not-found
-#17 25.42 
-#17 25.43 
-#17 25.43 > Build failed because of webpack errors
+#17 0.238 
+#17 0.238 > guitar-garage-2.0@1.0.0 build
+#17 0.238 > next build
+#17 0.238 
+#17 1.155 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#17 1.156 This information is used to shape Next.js' roadmap and prioritize features.
+#17 1.156 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#17 1.156 https://nextjs.org/telemetry
+#17 1.156 
+#17 1.329    ▲ Next.js 15.1.0
+#17 1.329 
+#17 1.380    Creating an optimized production build ...
+#17 25.00 Failed to compile.
+#17 25.00 
+#17 25.00 ./src/app/categoria/[...slug]/page.tsx
+#17 25.00 Module not found: Can't resolve './page.module.css'
+#17 25.00 
+#17 25.00 https://nextjs.org/docs/messages/module-not-found
+#17 25.00 
+#17 25.00 ./src/app/categoria/[...slug]/page.tsx
+#17 25.00 Module not found: Can't resolve './ClientPage'
+#17 25.00 
+#17 25.00 https://nextjs.org/docs/messages/module-not-found
+#17 25.01 
+#17 25.01 
+#17 25.01 > Build failed because of webpack errors
 #17 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
 ------
  > [builder 6/6] RUN npm run build:
-25.41 
-25.41 https://nextjs.org/docs/messages/module-not-found
-25.41 
-25.41 ./src/app/categoria/[...slug]/page.tsx
-25.41 Module not found: Can't resolve './ClientPage'
-25.41 
-25.41 https://nextjs.org/docs/messages/module-not-found
-25.42 
-25.43 
-25.43 > Build failed because of webpack errors
+25.00 
+25.00 https://nextjs.org/docs/messages/module-not-found
+25.00 
+25.00 ./src/app/categoria/[...slug]/page.tsx
+25.00 Module not found: Can't resolve './ClientPage'
+25.00 
+25.00 https://nextjs.org/docs/messages/module-not-found
+25.01 
+25.01 
+25.01 > Build failed because of webpack errors
 ------
 
  2 warnings found (use docker --debug to expand):
@@ -204,7 +114,7 @@ Dockerfile:26
 ERROR: failed to build: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
 ##########################################
 ### Error
-### Mon, 06 Apr 2026 22:12:58 GMT
+### Mon, 06 Apr 2026 22:33:36 GMT
 ##########################################
 
-Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/Dockerfile -t easypanel/guitar-garage/guitar-garage-web --label 'keep=true' --build-arg 'DATABASE_URL=mysql://admin:8a6eeed8d62fc0b452d1@guitar-garage_db:3306/guitar_garage' --build-arg 'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=du3iy9bpu' --build-arg 'NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=guitar_garage_preset' --build-arg 'AUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'NEXTAUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'AUTH_TRUST_HOST=true' --build-arg 'NODE_ENV=production' --build-arg 'GIT_SHA=d84a7995860000202f318bcce1ba8d7251b61561' /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/
+Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/Dockerfile -t easypanel/guitar-garage/guitar-garage-web --label 'keep=true' --build-arg 'DATABASE_URL=mysql://admin:8a6eeed8d62fc0b452d1@guitar-garage_db:3306/guitar_garage' --build-arg 'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=du3iy9bpu' --build-arg 'NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=guitar_garage_preset' --build-arg 'AUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'NEXTAUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'AUTH_TRUST_HOST=true' --build-arg 'NODE_ENV=production' --build-arg 'GIT_SHA=4cd0d95f234b37d261507fb51bff1d8f368fbf90' /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/
