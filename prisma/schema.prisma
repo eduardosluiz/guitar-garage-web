@@ -124,6 +124,7 @@ model ProjetoLutheria {
 model ImagemProjeto {
   id        Int             @id @default(autoincrement())
   url       String
+  ordem     Int             @default(0)
   projetoId Int             @map("projeto_id")
   projeto   ProjetoLutheria @relation(fields: [projetoId], references: [id], onDelete: Cascade)
   createdAt DateTime        @default(now()) @map("created_at")

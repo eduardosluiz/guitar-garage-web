@@ -1,120 +1,18 @@
-##########################################
-### Syncing with origin/main
-### Mon, 06 Apr 2026 22:33:09 GMT
-##########################################
+PowerShell Extension v2025.4.0
+Copyright (c) Microsoft Corporation.
 
-Commit: fix: build errors by updating all forms to MediaUpload and fixing category folder structure 
-#0 building with "default" instance using docker driver
+https://aka.ms/vscode-powershell
+Type 'help' to get help.
 
-#1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 1.32kB done
-#1 DONE 0.0s
+PS C:\Users\dude_\guitar_garage> git add . 
+fatal: not a git repository (or any of the parent directories): .git
+PS C:\Users\dude_\guitar_garage> cd guitar_garage   
+PS C:\Users\dude_\guitar_garage\guitar_garage> git add .
+fatal: Unable to create 'C:/Users/dude_/guitar_garage/guitar_garage/.git/index.lock': File exists.
 
-#2 [internal] load metadata for docker.io/library/node:22-alpine
-#2 DONE 0.4s
-
-#3 [internal] load .dockerignore
-#3 transferring context: 235B done
-#3 DONE 0.0s
-
-#4 [deps 1/6] FROM docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3
-#4 resolve docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3 0.0s done
-#4 DONE 0.0s
-
-#5 [builder 2/6] WORKDIR /app
-#5 CACHED
-
-#6 [runner 3/8] RUN addgroup --system --gid 1001 nodejs
-#6 CACHED
-
-#7 [runner 4/8] RUN adduser --system --uid 1001 nextjs
-#7 CACHED
-
-#8 [internal] load build context
-#8 transferring context: 9.18kB 0.0s done
-#8 DONE 0.0s
-
-#9 [deps 3/6] WORKDIR /app
-#9 CACHED
-
-#10 [deps 5/6] COPY prisma ./prisma/
-#10 CACHED
-
-#11 [builder 3/6] COPY --from=deps /app/node_modules ./node_modules
-#11 CACHED
-
-#12 [deps 4/6] COPY package*.json ./
-#12 CACHED
-
-#13 [deps 6/6] RUN npm install
-#13 CACHED
-
-#14 [builder 4/6] COPY . .
-#14 CACHED
-
-#15 [deps 2/6] RUN apk add --no-cache libc6-compat
-#15 CACHED
-
-#16 [builder 5/6] RUN npx prisma generate
-#16 CACHED
-
-#17 [builder 6/6] RUN npm run build
-#17 0.238 
-#17 0.238 > guitar-garage-2.0@1.0.0 build
-#17 0.238 > next build
-#17 0.238 
-#17 1.155 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-#17 1.156 This information is used to shape Next.js' roadmap and prioritize features.
-#17 1.156 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-#17 1.156 https://nextjs.org/telemetry
-#17 1.156 
-#17 1.329    ▲ Next.js 15.1.0
-#17 1.329 
-#17 1.380    Creating an optimized production build ...
-#17 25.00 Failed to compile.
-#17 25.00 
-#17 25.00 ./src/app/categoria/[...slug]/page.tsx
-#17 25.00 Module not found: Can't resolve './page.module.css'
-#17 25.00 
-#17 25.00 https://nextjs.org/docs/messages/module-not-found
-#17 25.00 
-#17 25.00 ./src/app/categoria/[...slug]/page.tsx
-#17 25.00 Module not found: Can't resolve './ClientPage'
-#17 25.00 
-#17 25.00 https://nextjs.org/docs/messages/module-not-found
-#17 25.01 
-#17 25.01 
-#17 25.01 > Build failed because of webpack errors
-#17 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
-------
- > [builder 6/6] RUN npm run build:
-25.00 
-25.00 https://nextjs.org/docs/messages/module-not-found
-25.00 
-25.00 ./src/app/categoria/[...slug]/page.tsx
-25.00 Module not found: Can't resolve './ClientPage'
-25.00 
-25.00 https://nextjs.org/docs/messages/module-not-found
-25.01 
-25.01 
-25.01 > Build failed because of webpack errors
-------
-
- 2 warnings found (use docker --debug to expand):
- - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 31)
- - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 44)
-Dockerfile:26
---------------------
-  24 |     COPY . .
-  25 |     RUN npx prisma generate
-  26 | >>> RUN npm run build
-  27 |     
-  28 |     # Etapa 3: Runner
---------------------
-ERROR: failed to build: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
-##########################################
-### Error
-### Mon, 06 Apr 2026 22:33:36 GMT
-##########################################
-
-Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/Dockerfile -t easypanel/guitar-garage/guitar-garage-web --label 'keep=true' --build-arg 'DATABASE_URL=mysql://admin:8a6eeed8d62fc0b452d1@guitar-garage_db:3306/guitar_garage' --build-arg 'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=du3iy9bpu' --build-arg 'NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=guitar_garage_preset' --build-arg 'AUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'NEXTAUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'AUTH_TRUST_HOST=true' --build-arg 'NODE_ENV=production' --build-arg 'GIT_SHA=4cd0d95f234b37d261507fb51bff1d8f368fbf90' /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+PS C:\Users\dude_\guitar_garage\guitar_garage> 
