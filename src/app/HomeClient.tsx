@@ -99,8 +99,8 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <div className={styles.bentoGrid}>
           <BentoCard name="GUITARRAS" img={categoryImages["guitarras"] || imgGtr} cls={styles.bentoGtr} />
           <BentoCard name="BAIXOS" img={categoryImages["baixos"] || imgBass} cls={styles.bentoBass} />
-          <BentoCard name="AMPS" img={categoryImages["amps"] || imgAmp} cls={styles.bentoSmall} />
-          <BentoCard name="VIOLÕES" img={categoryImages["violoes"] || imgGtr} cls={styles.bentoSmall} />
+          <BentoCard name="AMPS" img={categoryImages["amps"] || categoryImages["amplificadores"] || imgAmp} cls={styles.bentoSmall} />
+          <BentoCard name="VIOLÕES" img={categoryImages["violoes"] || categoryImages["violes"] || categoryImages["violao"] || imgGtr} cls={styles.bentoSmall} />
           <BentoCard name="PEDAIS" img={categoryImages["pedais"] || imgAmp} cls={styles.bentoSmall} />
           <BentoCard name="CUSTOM" img={categoryImages["custom"] || imgBass} cls={styles.bentoSmall} />
         </div>
