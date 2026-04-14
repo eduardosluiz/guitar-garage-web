@@ -34,6 +34,7 @@ model Categoria {
   id        Int       @id @default(autoincrement())
   nome      String    @unique
   slug      String    @unique
+  imagemUrl String?   @map("imagem_url")
   produtos  Produto[]
   createdAt DateTime  @default(now()) @map("created_at")
 

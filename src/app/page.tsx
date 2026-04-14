@@ -104,6 +104,18 @@ export default async function Home() {
     ];
   }
 
+  // 3. Busca imagens das categorias
+  const categoriasDb = await prisma.categoria.findMany({
+    select: { slug: true, imagemUrl: true }
+  });
+  
+  const categoryImages: Record<string, string> = {};
+  categoriasDb.forEach(c => {
+    if (c.imagemUrl) {
+      categoryImages[c.slug] = c.imagemUrl;
+    }
+  });
+
   return (
     <main className={styles.main}>
       <Header />
@@ -114,6 +126,7 @@ export default async function Home() {
         basses={basses}
         acoustics={acoustics}
         amps={amps}
+        categoryImages={categoryImages}
       />
 
       <Footer />

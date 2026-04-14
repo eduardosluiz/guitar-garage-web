@@ -1,18 +1,32 @@
-PowerShell Extension v2025.4.0
-Copyright (c) Microsoft Corporation.
+ ▲ Next.js 15.1.0
+   - Local:        http://9d3468fdcf8d:80
+   - Network:      http://9d3468fdcf8d:80
 
-https://aka.ms/vscode-powershell
-Type 'help' to get help.
+ ✓ Starting...
+ ✓ Ready in 135ms
+   ▲ Next.js 15.1.0
+   - Local:        http://7f73dfc78867:80
+   - Network:      http://7f73dfc78867:80
 
-PS C:\Users\dude_\guitar_garage> git add . 
-fatal: not a git repository (or any of the parent directories): .git
-PS C:\Users\dude_\guitar_garage> cd guitar_garage   
-PS C:\Users\dude_\guitar_garage\guitar_garage> git add .
-fatal: Unable to create 'C:/Users/dude_/guitar_garage/guitar_garage/.git/index.lock': File exists.
+ ✓ Starting...
+ ✓ Ready in 121ms
+   ▲ Next.js 15.1.0
+   - Local:        http://8173a5f91e03:80
+   - Network:      http://8173a5f91e03:80
 
-Another git process seems to be running in this repository, e.g.
-an editor opened by 'git commit'. Please make sure all processes
-are terminated then try again. If it still fails, a git process
-may have crashed in this repository earlier:
-remove the file manually to continue.
-PS C:\Users\dude_\guitar_garage\guitar_garage> 
+ ✓ Starting...
+ ✓ Ready in 126ms
+   ▲ Next.js 15.1.0
+   - Local:        http://3c7014b5e2e3:80
+   - Network:      http://3c7014b5e2e3:80
+
+ ✓ Starting...
+ ✓ Ready in 127ms
+[Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')]
+[Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')]
+   ▲ Next.js 15.1.0
+   - Local:        http://ec252d5dbe6c:80
+   - Network:      http://ec252d5dbe6c:80
+
+ ✓ Starting...
+ ✓ Ready in 318ms

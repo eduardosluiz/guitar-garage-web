@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, X } from 'lucide-react';
+import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
 interface CategoryFormProps {
@@ -17,6 +18,10 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
     nome: initialData?.nome || '',
     slug: initialData?.slug || '',
   });
+
+  const [imagemMedia, setImagemMedia] = useState<MediaItem[]>(
+    initialData?.imagemUrl ? [{ url: initialData.imagemUrl, ordem: 0 }] : []
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,7 +41,11 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
       const response = await fetch('/api/admin/categorias', {
         method: initialData ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, id: initialData?.id }),
+        body: JSON.stringify({ 
+          ...formData, 
+          id: initialData?.id,
+          imagemUrl: imagemMedia[0]?.url || ''
+        }),
       });
 
       if (response.ok) {
@@ -75,6 +84,13 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
         <div className={styles.inputGroup}>
           <label>Slug (URL)</label>
           <input type="text" name="slug" value={formData.slug} onChange={handleChange} required placeholder="guitarras-eletricas" />
+        </div>
+        <div className={styles.inputGroup}>
+          <label>Imagem da Categoria</label>
+          <MediaUpload 
+            value={imagemMedia} 
+            onChange={setImagemMedia}
+          />
         </div>
       </div>
     </form>

@@ -29,9 +29,10 @@ interface HomeClientProps {
   basses: Product[];
   acoustics: Product[];
   amps: Product[];
+  categoryImages?: Record<string, string>;
 }
 
-export default function HomeClient({ slides, guitars, basses, acoustics, amps }: HomeClientProps) {
+export default function HomeClient({ slides, guitars, basses, acoustics, amps, categoryImages = {} }: HomeClientProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
@@ -96,12 +97,12 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps }:
           </div>
         </motion.div>
         <div className={styles.bentoGrid}>
-          <BentoCard name="GUITARRAS" img={imgGtr} cls={styles.bentoGtr} />
-          <BentoCard name="BAIXOS" img={imgBass} cls={styles.bentoBass} />
-          <BentoCard name="AMPS" img={imgAmp} cls={styles.bentoSmall} />
-          <BentoCard name="VIOLÕES" img={imgGtr} cls={styles.bentoSmall} />
-          <BentoCard name="PEDAIS" img={imgAmp} cls={styles.bentoSmall} />
-          <BentoCard name="CUSTOM" img={imgBass} cls={styles.bentoSmall} />
+          <BentoCard name="GUITARRAS" img={categoryImages["guitarras"] || imgGtr} cls={styles.bentoGtr} />
+          <BentoCard name="BAIXOS" img={categoryImages["baixos"] || imgBass} cls={styles.bentoBass} />
+          <BentoCard name="AMPS" img={categoryImages["amps"] || imgAmp} cls={styles.bentoSmall} />
+          <BentoCard name="VIOLÕES" img={categoryImages["violoes"] || imgGtr} cls={styles.bentoSmall} />
+          <BentoCard name="PEDAIS" img={categoryImages["pedais"] || imgAmp} cls={styles.bentoSmall} />
+          <BentoCard name="CUSTOM" img={categoryImages["custom"] || imgBass} cls={styles.bentoSmall} />
         </div>
       </section>
 
