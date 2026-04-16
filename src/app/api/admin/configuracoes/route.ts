@@ -15,28 +15,31 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { 
-      whatsapp, emailContato, 
+      whatsapp, showWhatsapp, emailContato, 
       instagramUrl, showInstagram,
       facebookUrl, showFacebook,
       youtubeUrl, showYoutube,
+      spotifyUrl, showSpotify,
       endereco, telefone 
     } = body;
 
     const config = await prisma.configuracao.upsert({
       where: { id: 1 },
       update: { 
-        whatsapp, emailContato, 
+        whatsapp, showWhatsapp, emailContato, 
         instagramUrl, showInstagram,
         facebookUrl, showFacebook,
         youtubeUrl, showYoutube,
+        spotifyUrl, showSpotify,
         telefone 
       },
       create: { 
         id: 1, 
-        whatsapp, emailContato, 
+        whatsapp, showWhatsapp, emailContato, 
         instagramUrl, showInstagram,
         facebookUrl, showFacebook,
         youtubeUrl, showYoutube,
+        spotifyUrl, showSpotify,
         telefone 
       },
     });

@@ -5,7 +5,10 @@ import { prisma } from '@/lib/prisma';
 export async function GET() {
   try {
     const banners = await prisma.banner.findMany({
-      orderBy: { ordem: 'asc' }
+      orderBy: [
+        { ordem: 'asc' },
+        { id: 'desc' }
+      ]
     });
     return NextResponse.json(banners);
   } catch (error) {

@@ -29,10 +29,11 @@ interface HomeClientProps {
   basses: Product[];
   acoustics: Product[];
   amps: Product[];
-  categoryImages?: Record<string, string>;
+  categoryList?: Array<{ name: string, slug: string, img: string, linkDestino?: string | null }>;
+  vintageList?: Product[];
 }
 
-export default function HomeClient({ slides, guitars, basses, acoustics, amps, categoryImages = {} }: HomeClientProps) {
+export default function HomeClient({ slides, guitars, basses, acoustics, amps, categoryList = [], vintageList = [] }: HomeClientProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
@@ -97,12 +98,18 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
           </div>
         </motion.div>
         <div className={styles.bentoGrid}>
-          <BentoCard name="GUITARRAS" img={categoryImages["guitarras"] || imgGtr} cls={styles.bentoGtr} />
-          <BentoCard name="BAIXOS" img={categoryImages["baixos"] || imgBass} cls={styles.bentoBass} />
-          <BentoCard name="AMPS" img={categoryImages["amps"] || categoryImages["amplificadores"] || imgAmp} cls={styles.bentoSmall} />
-          <BentoCard name="VIOLÕES" img={categoryImages["violoes"] || categoryImages["violes"] || categoryImages["violao"] || imgGtr} cls={styles.bentoSmall} />
-          <BentoCard name="PEDAIS" img={categoryImages["pedais"] || imgAmp} cls={styles.bentoSmall} />
-          <BentoCard name="CUSTOM" img={categoryImages["custom"] || imgBass} cls={styles.bentoSmall} />
+          {(categoryList.length >= 6 ? categoryList : [
+            ...categoryList,
+            { name: "GUITARRAS", slug: "guitarras", img: imgGtr },
+            { name: "BAIXOS", slug: "baixos", img: imgBass },
+            { name: "AMPS", slug: "amps", img: imgAmp },
+            { name: "VIOLÕES", slug: "violoes", img: imgGtr },
+            { name: "PEDAIS", slug: "pedais", img: imgAmp },
+            { name: "CUSTOM", slug: "custom", img: imgBass }
+          ].slice(0, 6)).map((c, i) => {
+            const cssClass = i === 0 ? styles.bentoGtr : i === 1 ? styles.bentoBass : styles.bentoSmall;
+            return <BentoCard key={'cat-' + c.slug + i} name={c.name} img={c.img || imgGtr} slug={c.slug} linkDestino={c.linkDestino} cls={cssClass} />;
+          })}
         </div>
       </section>
 
@@ -110,24 +117,39 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
       <section className={styles.reliquiasSection}>
         <div className={styles.reliquiasSplit}>
           <div className={styles.reliquiasTextSide}>
-            <span className={styles.preTitle}>THE VAULT</span>
-            <h2>O COFRE DAS<br /><span className={styles.textWhite}>Relíquias.</span></h2>
-            <p>Instrumentos históricos selecionados a dedo com alto potencial de valorização.</p>
-            <Link href="/categoria/reliquias" className={styles.btnReliquias}>VER RELÍQUIAS</Link>
+            <h2>VINTAGE<br />COLLECTION</h2>
+            <p>O tempo é o maior luthier. Instrumentos que carregam a alma de lendas. Condições "Vintage" exclusivas, prontas para um novo dono.</p>
+            <Link href="/categoria/vintage" className={styles.btnReliquias}>VER VINTAGE</Link>
           </div>
           <div className={styles.reliquiasGallerySide}>
-            <Link href="/categoria/reliquias" className={styles.reliquiaArtItem}>
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: -30 }} transition={{ duration: 1.5 }}>
-                <img src={imgGtr} alt="R1" />
-                <div className={styles.reliquiaCaption}><span>VINTAGE</span><h4>HISTORIC COLLECTION</h4></div>
-              </motion.div>
-            </Link>
-            <Link href="/categoria/reliquias" className={styles.reliquiaArtItem}>
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 30 }} transition={{ duration: 1.5, delay: 0.2 }}>
-                <img src={imgBass} alt="R2" />
-                <div className={styles.reliquiaCaption}><span>RARE</span><h4>PREMIUM FIND</h4></div>
-              </motion.div>
-            </Link>
+            {vintageList && vintageList.length > 0 ? (
+              vintageList.slice(0,2).map(p => (
+                <Link key={p.id} href={`/produto/${p.slug}`} className={styles.reliquiaArtItem}>
+                  <img src={p.img} alt={p.name} />
+                  <div className={styles.reliquiaCaption}>
+                    <span>{p.brand}</span>
+                    <h4>{p.name}</h4>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <>
+                <Link href="/categoria/vintage" className={styles.reliquiaArtItem}>
+                  <img src="https://images.unsplash.com/photo-1549448373-39ee6cff1ea4?q=80&w=800" alt="Vintage Detail 1" />
+                  <div className={styles.reliquiaCaption}>
+                    <span>FENDER</span>
+                    <h4>1968 Relic Stratocaster</h4>
+                  </div>
+                </Link>
+                <Link href="/categoria/vintage" className={styles.reliquiaArtItem}>
+                  <img src="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?q=80&w=800" alt="Vintage Detail 2" />
+                  <div className={styles.reliquiaCaption}>
+                    <span>GIBSON</span>
+                    <h4>1974 Classic Les Paul</h4>
+                  </div>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -206,7 +228,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
             <div className={styles.contactInfoGrid}>
               <div className={styles.infoItem}><Phone size={18} color="#D4AF37" /><p>(51) 3331.3234 | (51) 3062.7054</p></div>
               <div className={styles.infoItem}><Mail size={18} color="#D4AF37" /><p>contato@guitargarage.com.br</p></div>
-              <div className={styles.infoItem}><Clock size={18} color="#D4AF37" /><p>Segunda à Sexta: 13:30 - 19:00</p></div>
+              <div className={styles.infoItem}><Clock size={18} color="#D4AF37" /><p>Segunda à Sexta: 14:00 - 20:00</p></div>
               <div className={styles.infoItem}><MapPin size={18} color="#D4AF37" /><p>Rua Miguel Tostes, 870 | Porto Alegre</p></div>
             </div>
           </div>
@@ -231,9 +253,10 @@ function ProductCard({ p, isDark }: { p: Product, isDark?: boolean }) {
   );
 }
 
-function BentoCard({ name, img, cls }: { name: string, img: string, cls: string }) {
+function BentoCard({ name, img, slug, cls, linkDestino }: { name: string, img: string, slug: string, cls: string, linkDestino?: string | null }) {
+  const destino = linkDestino || `/categoria/${slug}`;
   return (
-    <Link href={`/categoria/${name.toLowerCase().replace('õ', 'o')}`} className={`${styles.luxuryCatCard} ${cls}`}>
+    <Link href={destino} className={`${styles.luxuryCatCard} ${cls}`}>
       <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 100, damping: 20 }} whileHover={{ scale: 1.02, rotateY: 5, rotateX: -2 }} className={styles.luxuryCardInner}>
         <img src={img} alt={name} />
         <div className={styles.luxuryOverlay}><h3>{name}</h3></div>

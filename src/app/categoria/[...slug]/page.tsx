@@ -50,8 +50,23 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
 
   let products = category?.produtos || [];
 
+  if (categorySlug === 'vintage') {
+    const vintageProducts = await prisma.produto.findMany({
+      where: {
+        status: 'Disponivel',
+        condicao: 'Vintage'
+      },
+      include: { 
+        imagens: { orderBy: { ordem: 'asc' }, take: 1 },
+        marca: true
+      }
+    });
+    products = vintageProducts;
+    categoryName = 'COLEÇÃO VINTAGE';
+  }
+
   // LÓGICA DE FALLBACK BASEADA NO SLUG (Apenas se o banco estiver vazio)
-  if (products.length === 0 && !category) {
+  if (products.length === 0 && !category && categorySlug !== 'vintage') {
     const imgGtr = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800";
     const imgBass = "https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=800";
     const imgAmp = "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800";
@@ -104,7 +119,7 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
             {brandSlug ? `MARCA: ${brandSlug.toUpperCase()}` : 'ESTOQUE DISPONÍVEL'}
           </span>
           <h1 className={styles.title}>
-            {categorySlug.toUpperCase().replace(/-/g, ' ')}<br /><span>COLEÇÃO</span>
+            {categorySlug === 'vintage' ? 'VINTAGE' : categorySlug.toUpperCase().replace(/-/g, ' ')}<br /><span>COLEÇÃO</span>
           </h1>
         </div>
       </section>

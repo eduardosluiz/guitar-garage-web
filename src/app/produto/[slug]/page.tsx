@@ -40,6 +40,9 @@ export default async function ProdutoDetalhePage({ params }: { params: Promise<{
     }
   });
 
+  const config = await prisma.configuracao.findFirst({ where: { id: 1 } });
+  const whatsappConfig = config?.whatsapp || '5551991898846';
+
   if (!productDb) {
     notFound();
   }
@@ -78,13 +81,8 @@ export default async function ProdutoDetalhePage({ params }: { params: Promise<{
       <Header />
 
       <section className={styles.container}>
-        <div className={styles.backNav}>
-          <Link href="/estoque" className={styles.backLink}>
-            <ArrowLeft size={16} /> VOLTAR PARA O ESTOQUE
-          </Link>
-        </div>
 
-        <ProdutoDetalheClient product={product} />
+        <ProdutoDetalheClient product={product} whatsapp={whatsappConfig} />
       </section>
 
       <Footer />

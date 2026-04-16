@@ -5,7 +5,10 @@ import BannerList from '@/components/admin/BannerList';
 
 export default async function AdminBanners() {
   const banners = await prisma.banner.findMany({
-    orderBy: { ordem: 'asc' }
+    orderBy: [
+      { ordem: 'asc' },
+      { id: 'desc' }
+    ]
   });
 
   return (

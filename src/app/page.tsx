@@ -14,9 +14,10 @@ export default async function Home() {
       posicao: 'home',
       isAtivo: true
     },
-    orderBy: {
-      ordem: 'asc'
-    }
+    orderBy: [
+      { ordem: 'asc' },
+      { id: 'desc' }
+    ]
   });
 
   const slides = bannersDb.length > 0 
@@ -28,7 +29,7 @@ export default async function Home() {
       }))
     : [
         { id: 1, title: "NOVIDADES", img: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=1920", href: "/novidades" },
-        { id: 2, title: "RELÍQUIAS", img: "https://images.unsplash.com/photo-1525201548942-d8b8967d0f5c?q=80&w=1920", href: "/categoria/reliquias" },
+        { id: 2, title: "VINTAGE", img: "https://images.unsplash.com/photo-1525201548942-d8b8967d0f5c?q=80&w=1920", href: "/categoria/vintage" },
       ];
 
   // Função auxiliar para buscar produtos por categoria
@@ -104,17 +105,35 @@ export default async function Home() {
     ];
   }
 
-  // 3. Busca imagens das categorias
-  const categoriasDb = await prisma.categoria.findMany({
-    select: { slug: true, imagemUrl: true }
+  // 2.5 Busca Vintage The Vault (2 mais recentes)
+  const vintageProductsDb = await prisma.produto.findMany({
+    where: { condicao: 'Vintage', status: 'Disponivel' },
+    include: { imagens: { orderBy: { ordem: 'asc' }, take: 1 }, marca: true },
+    orderBy: { createdAt: 'desc' },
+    take: 2
   });
   
-  const categoryImages: Record<string, string> = {};
-  categoriasDb.forEach(c => {
-    if (c.imagemUrl) {
-      categoryImages[c.slug] = c.imagemUrl;
-    }
+  const vintageProducts = vintageProductsDb.map(p => ({
+    id: p.id,
+    name: p.nome,
+    brand: p.marca?.nome || 'Guitar Garage',
+    price: p.preco ? p.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Sob consulta',
+    img: p.imagens[0]?.url || imgGtr,
+    slug: p.slug
+  }));
+
+  // 3. Busca imagens das categorias
+  const categoriasDb = await prisma.categoria.findMany({
+    select: { slug: true, imagemUrl: true, nome: true, linkDestino: true },
+    orderBy: { createdAt: 'asc' }
   });
+  
+  const categoryList = categoriasDb.slice(0, 6).map(c => ({
+    name: c.nome,
+    slug: c.slug,
+    img: c.imagemUrl || imgGtr,
+    linkDestino: c.linkDestino
+  }));
 
   return (
     <main className={styles.main}>
@@ -126,7 +145,8 @@ export default async function Home() {
         basses={basses}
         acoustics={acoustics}
         amps={amps}
-        categoryImages={categoryImages}
+        categoryList={categoryList}
+        vintageList={vintageProducts}
       />
 
       <Footer />

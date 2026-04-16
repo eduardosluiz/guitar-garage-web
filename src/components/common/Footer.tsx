@@ -15,12 +15,16 @@ export default async function Footer() {
       socials={{
         instagram: config?.instagramUrl || "",
         facebook: config?.facebookUrl || "",
-        youtube: config?.youtubeUrl || ""
+        youtube: config?.youtubeUrl || "",
+        spotify: config?.spotifyUrl || "",
+        whatsapp: config?.whatsapp || ""
       }}
       visibility={{
         instagram: config?.showInstagram ?? true,
         facebook: config?.showFacebook ?? true,
-        youtube: config?.showYoutube ?? true
+        youtube: config?.showYoutube ?? true,
+        spotify: config?.showSpotify ?? true,
+        whatsapp: config?.showWhatsapp ?? true
       }}
     />
   );

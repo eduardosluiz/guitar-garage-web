@@ -159,13 +159,15 @@ export default function ProductForm({ categories, brands, initialData }: Product
                 {categories.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
               </select>
             </div>
-            <div className={styles.inputGroup}>
-              <label>Marca</label>
-              <select name="marcaId" value={formData.marcaId} onChange={handleChange} required>
-                <option value="">Selecionar Marca</option>
-                {brands.map(b => <option key={b.id} value={b.id}>{b.nome}</option>)}
-              </select>
-            </div>
+            {categories.find(c => String(c.id) === String(formData.categoriaId))?.slug === 'guitarras' && (
+              <div className={styles.inputGroup}>
+                <label>Marca</label>
+                <select name="marcaId" value={formData.marcaId} onChange={handleChange} required>
+                  <option value="">Selecionar Marca</option>
+                  {brands.map(b => <option key={b.id} value={b.id}>{b.nome}</option>)}
+                </select>
+              </div>
+            )}
             <div className={styles.inputGroup}>
               <label>Condição</label>
               <select name="condicao" value={formData.condicao} onChange={handleChange}>

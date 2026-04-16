@@ -34,9 +34,10 @@ model Categoria {
   id        Int       @id @default(autoincrement())
   nome      String    @unique
   slug      String    @unique
-  imagemUrl String?   @map("imagem_url")
-  produtos  Produto[]
-  createdAt DateTime  @default(now()) @map("created_at")
+  imagemUrl   String?   @map("imagem_url")
+  linkDestino String?   @map("link_destino")
+  produtos    Produto[]
+  createdAt   DateTime  @default(now()) @map("created_at")
 
   @@map("categorias")
 }
@@ -95,6 +96,7 @@ model Banner {
 model Configuracao {
   id            Int      @id @default(1)
   whatsapp      String?
+  showWhatsapp  Boolean  @default(true) @map("show_whatsapp")
   emailContato  String?  @map("email_contato")
   instagramUrl  String?  @map("instagram_url")
   showInstagram Boolean  @default(true) @map("show_instagram")
@@ -102,6 +104,8 @@ model Configuracao {
   showFacebook  Boolean  @default(true) @map("show_facebook")
   youtubeUrl    String?  @map("youtube_url")
   showYoutube   Boolean  @default(true) @map("show_youtube")
+  spotifyUrl    String?  @map("spotify_url")
+  showSpotify   Boolean  @default(true) @map("show_spotify")
   telefone      String?
   updatedAt     DateTime @updatedAt @map("updated_at")
 

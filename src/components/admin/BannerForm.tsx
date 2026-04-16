@@ -20,7 +20,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
     ctaTexto: initialData?.ctaTexto || '',
     ctaLink: initialData?.ctaLink || '',
     imagemUrl: initialData?.imagemUrl || '',
-    posicao: initialData?.posicao || 'home',
+    posicao: initialData?.posicao || 'estoque',
     ordem: initialData?.ordem || 0,
     isAtivo: initialData?.isAtivo !== undefined ? initialData.isAtivo : true,
   });
@@ -112,7 +112,9 @@ export default function BannerForm({ initialData }: BannerFormProps) {
               <label>Local de Exibição</label>
               <select name="posicao" value={formData.posicao} onChange={handleChange}>
                 <optgroup label="Home e Gerais">
-                  <option value="home">Home - Carrossel</option>
+                  {initialData?.posicao === 'home' && (
+                    <option value="home">Home - Carrossel</option>
+                  )}
                   <option value="estoque">Página: Todo o Estoque</option>
                   <option value="novidades">Página: Novidades</option>
                   <option value="sobre">Página: Sobre a Garage</option>
@@ -124,7 +126,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
                   <option value="violoes">Categoria: Violões</option>
                   <option value="pedais">Categoria: Pedais</option>
                   <option value="custom-shop">Categoria: Custom Shop</option>
-                  <option value="reliquias">Categoria: Relíquias</option>
+                  <option value="vintage">Categoria: Vintage</option>
                 </optgroup>
                 <optgroup label="Páginas de Serviços">
                   <option value="lutheria">Serviço: Lutheria</option>

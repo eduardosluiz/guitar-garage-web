@@ -17,6 +17,7 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
   const [formData, setFormData] = useState({
     nome: initialData?.nome || '',
     slug: initialData?.slug || '',
+    linkDestino: initialData?.linkDestino || '',
   });
 
   const [imagemMedia, setImagemMedia] = useState<MediaItem[]>(
@@ -82,8 +83,26 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
           <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Ex: Guitarras Elétricas" />
         </div>
         <div className={styles.inputGroup}>
-          <label>Slug (URL)</label>
+          <label>Slug (URL) / Usado na navegação padrão</label>
           <input type="text" name="slug" value={formData.slug} onChange={handleChange} required placeholder="guitarras-eletricas" />
+        </div>
+        <div className={styles.inputGroup}>
+          <label>Página de Destino (Opcional - substitui a navegação padrão)</label>
+          <select name="linkDestino" value={formData.linkDestino} onChange={handleChange as any}>
+            <option value="">-- Usar formato padrão (/categoria/slug) --</option>
+            <optgroup label="Páginas Gerais">
+              <option value="/estoque">Página: Todo o Estoque</option>
+              <option value="/novidades">Página: Novidades</option>
+              <option value="/sobre">Página: Sobre a Garage</option>
+              <option value="/depoimentos">Página: Depoimentos</option>
+            </optgroup>
+            <optgroup label="Serviços">
+               <option value="/servicos">Página: Serviços Gerais</option>
+               <option value="/servicos/lutheria">Serviço: Lutheria</option>
+               <option value="/servicos/custom-pickups">Serviço: Custom Pickups</option>
+               <option value="/servicos/aulas">Serviço: Aulas</option>
+            </optgroup>
+          </select>
         </div>
         <div className={styles.inputGroup}>
           <label>Imagem da Categoria</label>

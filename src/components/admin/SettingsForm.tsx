@@ -30,6 +30,11 @@ const Icons = {
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.016 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.016 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/>
     </svg>
+  ),
+  Spotify: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.522 17.338c-.21.345-.662.455-1.008.245-2.76-1.685-6.233-2.062-10.334-1.13-.393.09-7.79-.158-8.88-.553-.344-.21-.454-.663-.244-1.008.21-.345.663-.454 1.008-.244 4.545-1.026 8.358-.592 11.458 1.303.346.21.456.663.245 1.008zm1.434-3.18c-.263.428-.824.568-1.252.304-3.155-1.942-7.986-2.523-11.66-1.408-.485.147-.996-.128-1.144-.613-.148-.485.128-.996.613-1.144 4.22-1.282 9.566-.632 13.136 1.562.427.263.568.824.305 1.252zm.126-3.328C15.226 8.528 8.847 8.31 5.152 9.432c-.57.173-1.168-.15-1.34-7.22-.173-.57.15-1.168.72-1.34 4.29-1.304 11.38-1.06 15.937 1.644.502.298.667.942.368 1.444-.298.502-.943.667-1.445.368z" fill="#1DB954"/>
+    </svg>
   )
 };
 
@@ -38,6 +43,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     whatsapp: initialData?.whatsapp || '',
+    showWhatsapp: initialData?.showWhatsapp !== undefined ? initialData.showWhatsapp : true,
     emailContato: initialData?.emailContato || '',
     instagramUrl: initialData?.instagramUrl || '',
     showInstagram: initialData?.showInstagram !== undefined ? initialData.showInstagram : true,
@@ -45,6 +51,8 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
     showFacebook: initialData?.showFacebook !== undefined ? initialData.showFacebook : true,
     youtubeUrl: initialData?.youtubeUrl || '',
     showYoutube: initialData?.showYoutube !== undefined ? initialData.showYoutube : true,
+    spotifyUrl: initialData?.spotifyUrl || '',
+    showSpotify: initialData?.showSpotify !== undefined ? initialData.showSpotify : true,
     telefone: initialData?.telefone || '',
   });
 
@@ -97,21 +105,32 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
         </div>
         <div className={styles.gridFields}>
           <div className={styles.inputWrapper}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Icons.WhatsApp /> WHATSAPP BUSINESS
-            </label>
+            <div className={styles.labelRow}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Icons.WhatsApp /> WHATSAPP BUSINESS
+              </label>
+              <label className={`${styles.statusToggle} ${formData.showWhatsapp ? styles.visible : styles.hidden}`} title="Alternar Visibilidade Ícone">
+                <input type="checkbox" name="showWhatsapp" checked={formData.showWhatsapp} onChange={handleChange} style={{ display: 'none' }} />
+                {formData.showWhatsapp ? <Eye key="eye-on-w" size={14} /> : <EyeOff key="eye-off-w" size={14} />}
+                <span>{formData.showWhatsapp ? 'VISÍVEL' : 'OCULTO'}</span>
+              </label>
+            </div>
             <input type="text" name="whatsapp" value={formData.whatsapp} onChange={handleChange} placeholder="Ex: 5511999999999" />
           </div>
           <div className={styles.inputWrapper}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Phone size={16} color="#878a99" /> TELEFONE FIXO
-            </label>
+            <div className={styles.labelRow}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Phone size={16} color="#878a99" /> TELEFONE FIXO
+              </label>
+            </div>
             <input type="text" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(11) 3333-3333" />
           </div>
           <div className={styles.inputWrapper}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Mail size={16} color="#878a99" /> E-MAIL DE CONTATO
-            </label>
+            <div className={styles.labelRow}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Mail size={16} color="#878a99" /> E-MAIL DE CONTATO
+              </label>
+            </div>
             <input type="email" name="emailContato" value={formData.emailContato} onChange={handleChange} placeholder="contato@guitargarage.com.br" />
           </div>
         </div>
@@ -171,6 +190,23 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
                   </label>
                 </div>
                 <input type="text" name="youtubeUrl" value={formData.youtubeUrl} onChange={handleChange} placeholder="Link do canal" />
+              </div>
+            </div>
+
+            {/* Spotify Row */}
+            <div className={styles.socialColumn}>
+              <div className={styles.inputWrapper}>
+                <div className={styles.labelRow}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Icons.Spotify /> SPOTIFY (PLAYLIST)
+                  </label>
+                  <label className={`${styles.statusToggle} ${formData.showSpotify ? styles.visible : styles.hidden}`}>
+                    <input type="checkbox" name="showSpotify" checked={formData.showSpotify} onChange={handleChange} style={{ display: 'none' }} />
+                    {formData.showSpotify ? <Eye key="eye-on-sp" size={14} /> : <EyeOff key="eye-off-sp" size={14} />}
+                    <span>{formData.showSpotify ? 'VISÍVEL' : 'OCULTO'}</span>
+                  </label>
+                </div>
+                <input type="text" name="spotifyUrl" value={formData.spotifyUrl} onChange={handleChange} placeholder="Link da playlist" />
               </div>
             </div>
           </div>

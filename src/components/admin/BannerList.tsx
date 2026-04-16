@@ -31,7 +31,24 @@ export default function BannerList({ initialBanners }: BannerListProps) {
   return (
     <>
       {/* Botões de Ação reposicionados */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
+        <Link 
+          href="/admin/banners/carrossel/novo" 
+          className="btn-boutique" 
+          style={{ 
+            fontSize: '0.65rem', 
+            height: '38px', 
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 1.2rem',
+            gap: '0.6rem'
+          }}
+        >
+          <PlusCircle size={14} /> 
+          <span className="desktop-text">NOVO CARROSSEL</span>
+          <span className="mobile-text">CARROSSEL</span>
+        </Link>
         <Link 
           href="/admin/banners/destaque/novo" 
           className="btn-boutique-outline" 
@@ -53,10 +70,12 @@ export default function BannerList({ initialBanners }: BannerListProps) {
         </Link>
         <Link 
           href="/admin/banners/novo" 
-          className="btn-boutique" 
+          className="btn-boutique-outline" 
           style={{ 
             fontSize: '0.65rem', 
             height: '38px', 
+            borderColor: 'rgba(212, 175, 55, 0.4)', 
+            color: 'var(--gold)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -65,8 +84,8 @@ export default function BannerList({ initialBanners }: BannerListProps) {
           }}
         >
           <PlusCircle size={14} /> 
-          <span className="desktop-text">BANNER HOME</span>
-          <span className="mobile-text">HOME</span>
+          <span className="desktop-text">OUTROS BANNERS</span>
+          <span className="mobile-text">BANNERS</span>
         </Link>
       </div>
 
