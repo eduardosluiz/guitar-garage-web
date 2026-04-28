@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -17,6 +17,7 @@ import {
   X
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './layout.module.css';
 
 export default function AdminLayoutClient({
@@ -25,15 +26,14 @@ export default function AdminLayoutClient({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  const [mounted, setMounted] = React.useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  React.useEffect(() => {
-    setMounted(true);
+  useEffect(() => {
+    setIsMounted(true);
   }, []);
 
-  if (!mounted) return <div className={styles.adminContainer} style={{ opacity: 0 }}>{children}</div>;
-
+  // Menu Items
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: 'Dashboard', href: '/admin' },
     { icon: <Package size={20} />, label: 'Produtos', href: '/admin/produtos' },
@@ -61,10 +61,22 @@ export default function AdminLayoutClient({
     signOut({ callbackUrl: '/login' });
   };
 
+  if (!isMounted) return null;
+
   return (
     <div className={styles.adminContainer}>
-      {/* OVERLAY MOBILE */}
-      {isSidebarOpen && <div className={styles.overlay} onClick={() => setIsSidebarOpen(false)}></div>}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div 
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.overlay} 
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
@@ -120,7 +132,9 @@ export default function AdminLayoutClient({
             <div className={styles.avatar}>A</div>
           </div>
         </header>
-        {children}
+        <div className={styles.childrenWrapper}>
+          {children}
+        </div>
       </main>
     </div>
   );

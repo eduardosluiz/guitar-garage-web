@@ -1,7 +1,7 @@
 // src/app/produto/[slug]/ProdutoDetalheClient.tsx
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, MouseEvent, TouchEvent, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, ShieldCheck, Truck, ChevronLeft, ChevronRight, ArrowLeft, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -34,6 +34,23 @@ export default function ProdutoDetalheClient({ product, whatsapp }: { product: P
   const router = useRouter();
   const [activeImg, setActiveImg] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  
+  // Estados para a Lupa
+  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
+  const [[x, y], setXY] = useState([0, 0]);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const nextImg = () => setActiveImg((prev) => (prev + 1) % product.images.length);
   const prevImg = () => setActiveImg((prev) => (prev - 1 + product.images.length) % product.images.length);
@@ -42,30 +59,64 @@ export default function ProdutoDetalheClient({ product, whatsapp }: { product: P
   const finalWhatsapp = cleanWhatsapp.startsWith('55') ? cleanWhatsapp : `55${cleanWhatsapp}`;
   const WHATSAPP_URL = `https://wa.me/${finalWhatsapp}?text=Olá, tenho interesse em saber mais sobre o instrumento: ${product.name}`;
 
+  // Funções da Lupa
+  const updateMagnifierPosition = (clientX: number, clientY: number, target: HTMLElement) => {
+    const { top, left, width, height } = target.getBoundingClientRect();
+    const xPos = clientX - left;
+    const yPos = clientY - top;
+    
+    if (xPos < 0 || yPos < 0 || xPos > width || yPos > height) {
+      setShowMagnifier(false);
+    } else {
+      setXY([xPos, yPos]);
+      setSize([width, height]);
+      setShowMagnifier(true);
+    }
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isMobile) return;
+    updateMagnifierPosition(e.clientX, e.clientY, e.currentTarget as HTMLElement);
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    // Zoom automático no mobile ao arrastar
+    const touch = e.touches[0];
+    updateMagnifierPosition(touch.clientX, touch.clientY, e.currentTarget as HTMLElement);
+  };
+
+  if (!isMounted) {
+    return (
+      <div className={styles.contentLayout} style={{ opacity: 0 }}>
+        <div className={styles.galleryCol}></div>
+        <aside className={styles.infoCol}></aside>
+      </div>
+    );
+  }
+
   return (
     <>
-      <div className={styles.backNav} style={{ marginBottom: '1rem' }}>
-        <button onClick={() => router.back()} className={styles.backLink} style={{ background: 'none', border: 'none', color: '#D4AF37', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>
+      <div className={styles.backNav}>
+        <button onClick={() => router.back()} className={styles.backLink}>
           <ArrowLeft size={16} /> VOLTAR A PÁGINA ANTERIOR
         </button>
       </div>
 
     <div className={styles.contentLayout}>
-      {/* COLUNA ESQUERDA: CARROSSEL DE IMAGENS */}
       <div className={styles.galleryCol}>
         <div className={styles.mainImageContainer}>
           <AnimatePresence mode="wait">
             {product.images.length > 0 ? (
-              <motion.img 
+              <motion.img
                 key={activeImg}
                 src={product.images[activeImg].url}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
                 className={styles.mainImg}
+                alt={product.name}
                 onClick={() => setIsZoomed(true)}
-                style={{ cursor: 'zoom-in' }}
               />
             ) : (
               <div className={styles.noImg}>Sem imagem disponível</div>
@@ -74,13 +125,12 @@ export default function ProdutoDetalheClient({ product, whatsapp }: { product: P
           
           {product.images.length > 1 && (
             <>
-              <button onClick={prevImg} className={styles.carouselBtn} style={{ left: '1rem' }}><ChevronLeft /></button>
-              <button onClick={nextImg} className={styles.carouselBtn} style={{ right: '1rem' }}><ChevronRight /></button>
+              <button onClick={prevImg} className={styles.carouselBtn} style={{ left: '1rem' }}><ChevronLeft size={24} /></button>
+              <button onClick={nextImg} className={styles.carouselBtn} style={{ right: '1rem' }}><ChevronRight size={24} /></button>
             </>
           )}
         </div>
 
-        {/* MINIATURAS */}
         <div className={styles.thumbnailGrid}>
           {product.images.map((img, i) => (
             <div 
@@ -94,11 +144,10 @@ export default function ProdutoDetalheClient({ product, whatsapp }: { product: P
         </div>
       </div>
 
-      {/* COLUNA DIREITA: INFORMAÇÕES */}
       <aside className={styles.infoCol}>
         <div className={styles.stickyContent}>
           <span className={styles.brandTag}>{product.brand}</span>
-          <h1 className={styles.productName}>{product.name}</h1>
+          <h1 className={productNameStyles(product.name)}>{product.name}</h1>
           <div className={`${styles.statusBadge} ${product.status !== 'Disponivel' ? styles.statusSold : ''}`}>
             {product.status.toUpperCase()}
           </div>
@@ -142,54 +191,85 @@ export default function ProdutoDetalheClient({ product, whatsapp }: { product: P
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }} 
             className={styles.zoomOverlay}
-            style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 9999, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-            onClick={() => setIsZoomed(false)}
+            onClick={() => { setIsZoomed(false); setShowMagnifier(false); }}
           >
-            <button onClick={() => setIsZoomed(false)} style={{ position: 'absolute', top: '2rem', right: '2rem', background: 'none', border: 'none', color: '#fff', cursor: 'pointer', zIndex: 10000 }}>
+            <button onClick={() => { setIsZoomed(false); setShowMagnifier(false); }} className={styles.closeZoomBtn}>
               <X size={32} />
             </button>
             
-            <div style={{ position: 'relative', flex: 1, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={(e) => e.stopPropagation()}>
-              {product.images.length > 1 && (
-                <button onClick={(e) => { e.stopPropagation(); prevImg(); }} style={{ position: 'absolute', left: '2rem', background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', borderRadius: '50%', padding: '1rem', cursor: 'pointer', display: 'flex', zIndex: 10 }}>
+            <div className={styles.modalBody} onClick={(e) => e.stopPropagation()}>
+              {/* Setas ocultas apenas se a lupa estiver sendo USADA (toque ativo) */}
+              {product.images.length > 1 && !showMagnifier && (
+                <button onClick={(e) => { e.stopPropagation(); prevImg(); }} className={styles.modalNavBtn} style={{ left: '1.5rem' }}>
                   <ChevronLeft size={32} />
                 </button>
               )}
               
-              <img src={product.images[activeImg].url} alt="Zoomed" style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain' }} />
+              <div 
+                className={styles.magnifierModalArea}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={() => setShowMagnifier(false)}
+                onTouchStart={(e) => updateMagnifierPosition(e.touches[0].clientX, e.touches[0].clientY, e.currentTarget)}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={() => setShowMagnifier(false)}
+              >
+                <img 
+                  src={product.images[activeImg].url} 
+                  alt="Zoomed" 
+                  className={styles.zoomedImg}
+                />
 
-              {product.images.length > 1 && (
-                <button onClick={(e) => { e.stopPropagation(); nextImg(); }} style={{ position: 'absolute', right: '2rem', background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', borderRadius: '50%', padding: '1rem', cursor: 'pointer', display: 'flex', zIndex: 10 }}>
+                {showMagnifier && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      pointerEvents: "none",
+                      height: isMobile ? "220px" : "300px",
+                      width: isMobile ? "220px" : "300px",
+                      top: `${y - (isMobile ? 110 : 150)}px`,
+                      left: `${x - (isMobile ? 110 : 150)}px`,
+                      border: "3px solid #D4AF37",
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      backgroundImage: `url('${product.images[activeImg].url}')`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: `${imgWidth * 2.2}px ${imgHeight * 2.2}px`,
+                      backgroundPosition: `${-x * 2.2 + (isMobile ? 110 : 150)}px ${-y * 2.2 + (isMobile ? 110 : 150)}px`,
+                      boxShadow: "0 0 50px rgba(0,0,0,0.8)",
+                      zIndex: 10001
+                    }}
+                  />
+                )}
+              </div>
+
+              {product.images.length > 1 && !showMagnifier && (
+                <button onClick={(e) => { e.stopPropagation(); nextImg(); }} className={styles.modalNavBtn} style={{ right: '1.5rem' }}>
                   <ChevronRight size={32} />
                 </button>
               )}
             </div>
 
-            {product.images.length > 1 && (
-              <div style={{ width: '100%', padding: '1.5rem', display: 'flex', justifyContent: 'center', gap: '1rem', backgroundColor: 'rgba(0,0,0,0.6)' }} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.zoomModalThumbnails} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.modalThumbGrid}>
                 {product.images.map((img, i) => (
                   <img 
                     key={i} 
                     src={img.url} 
                     alt={`Thumbnail view ${i}`}
                     onClick={() => setActiveImg(i)}
-                    style={{ 
-                      height: '70px', 
-                      width: '70px', 
-                      objectFit: 'cover', 
-                      borderRadius: '4px', 
-                      cursor: 'pointer',
-                      border: activeImg === i ? '2px solid #D4AF37' : '2px solid transparent',
-                      opacity: activeImg === i ? 1 : 0.5,
-                      transition: 'all 0.2s',
-                    }} 
+                    className={`${styles.modalThumb} ${activeImg === i ? styles.modalThumbActive : ''}`}
                   />
                 ))}
               </div>
-            )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
+}
+
+function productNameStyles(name: string) {
+  if (name.length > 40) return `${styles.productName} ${styles.productNameLong}`;
+  return styles.productName;
 }

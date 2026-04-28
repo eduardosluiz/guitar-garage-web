@@ -47,10 +47,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2rem;
+  padding: 0.8rem 2rem;
 }
 
-.logoImg { height: 60px; width: auto; display: block; }
+.logoImg { height: 85px; width: auto; display: block; }
 
 .navList { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
 
@@ -59,7 +59,7 @@
 .navLink {
   text-decoration: none;
   color: rgba(255,255,255,0.7);
-  font-family: 'Space Grotesk', sans-serif !important; /* FORÇAR FONTE */
+  font-family: 'Space Grotesk', sans-serif !important;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -87,7 +87,7 @@
   color: rgba(255,255,255,0.5);
   padding: 0.8rem 2rem;
   text-decoration: none;
-  font-family: 'Space Grotesk', sans-serif !important; /* FORÇAR FONTE */
+  font-family: 'Space Grotesk', sans-serif !important;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -116,25 +116,41 @@
 
 .ctaButton:hover { background: #fff; color: #000; }
 
-.menuToggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 5px; }
+.whatsappActionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #25D366;
+  transition: transform 0.3s ease;
+}
+
+.whatsappActionIcon:hover {
+  transform: scale(1.1);
+}
+
+.socialIcon {
+  display: flex;
+  transition: opacity 0.3s ease;
+}
+
+.socialIcon:hover {
+  opacity: 0.7;
+}
+
+.menuToggle { background: none; border: none; color: #fff; cursor: pointer; padding: 5px; display: none; }
 
 /* MOBILE MENU STYLES */
 .mobileMenu {
   position: fixed;
   top: 0;
-  right: -100%;
+  right: 0;
   width: 100%;
   height: 100vh;
   background-color: #000;
   z-index: 2000;
-  transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
   padding: 2rem;
   display: flex;
   flex-direction: column;
-}
-
-.mobileMenuOpen {
-  right: 0;
 }
 
 .mobileMenuHeader {
@@ -165,27 +181,28 @@
 .mobileNavLink {
   color: #fff;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.1rem; /* REDUZIDO */
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .mobileSubList {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   padding-left: 1rem;
   border-left: 1px solid rgba(255,255,255,0.1);
 }
 
 .mobileSubLink {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.85rem; /* REDUZIDO */
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -194,7 +211,7 @@
   
   .container {
     display: grid;
-    grid-template-columns: 1fr auto 1fr; /* Três colunas iguais para centralização perfeita */
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: 0.8rem 1.5rem;
   }
@@ -212,19 +229,12 @@
   }
 
   .logoImg {
-    height: 45px; /* Reduzido levemente para caber melhor no mobile */
+    height: 60px;
   }
 
   .actions { 
     grid-column: 3;
     justify-self: end;
     margin: 0;
-  }
-
-  .ctaButton { 
-    padding: 0.3rem 0.6rem; 
-    font-size: 0.5rem; 
-    letter-spacing: 0.5px;
-    white-space: nowrap; /* Impede que o texto quebre em duas linhas dentro do botão */
   }
 }

@@ -75,7 +75,14 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
 
   return ( 
     <div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+      {/* GRID DE COLUNAS PARA OTIMIZAR ESPAÇO */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', 
+        gap: '1rem', 
+        marginBottom: '1.5rem',
+        width: '100%'
+      }}>
         {sortedValue.map((item, index) => {
           const { url, ordem } = item;
           const isVideo = url.endsWith('.mp4') || url.endsWith('.mov') || url.includes('/video/upload/');
@@ -86,8 +93,8 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
               key={url} 
               style={{ 
                 position: 'relative', 
-                width: '160px', 
-                height: '160px', 
+                aspectRatio: '1/1',
+                width: '100%', 
                 borderRadius: '8px', 
                 overflow: 'hidden', 
                 border: isMain ? '2px solid var(--gold)' : '1px solid rgba(255, 255, 255, 0.1)', 

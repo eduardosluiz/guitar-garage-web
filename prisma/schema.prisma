@@ -55,6 +55,7 @@ model Produto {
   status         String    @default("Disponivel")
   isDestaque     Boolean   @default(false) @map("is_destaque")
   isNovidade     Boolean   @default(true)  @map("is_novidade")
+  isVintageDestaque Boolean @default(false) @map("is_vintage_destaque")
   marcaId        Int?      @map("marca_id")
   categoriaId    Int?      @map("categoria_id")
   marca          Marca?    @relation(fields: [marcaId], references: [id])
@@ -80,6 +81,7 @@ model Imagem {
 
 model Banner {
   id         Int      @id @default(autoincrement())
+  preTitulo  String?  @map("pre_titulo")
   titulo     String?
   subtitulo  String?
   ctaTexto   String?  @map("cta_texto")

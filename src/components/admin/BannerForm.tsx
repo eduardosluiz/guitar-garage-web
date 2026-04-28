@@ -15,6 +15,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
+    preTitulo: initialData?.preTitulo || '',
     titulo: initialData?.titulo || '',
     subtitulo: initialData?.subtitulo || '',
     ctaTexto: initialData?.ctaTexto || '',
@@ -88,6 +89,10 @@ export default function BannerForm({ initialData }: BannerFormProps) {
           <div className={styles.card}>
             <h3>Conteúdo Visual</h3>
             <div className={styles.inputGroup}>
+              <label>Texto Auxiliar (Amarelo)</label>
+              <input type="text" name="preTitulo" value={formData.preTitulo} onChange={handleChange} placeholder="Ex: ESTOQUE DISPONÍVEL" />
+            </div>
+            <div className={styles.inputGroup}>
               <label>Título do Banner</label>
               <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} placeholder="Ex: NOVIDADES 2026" />
             </div>
@@ -107,17 +112,17 @@ export default function BannerForm({ initialData }: BannerFormProps) {
 
         <div className={styles.sideCol}>
           <div className={styles.card}>
-            <h3>Link e Ordem</h3>
+            <h3>Configurações</h3>
             <div className={styles.inputGroup}>
               <label>Local de Exibição</label>
               <select name="posicao" value={formData.posicao} onChange={handleChange}>
                 <optgroup label="Home e Gerais">
-                  {initialData?.posicao === 'home' && (
-                    <option value="home">Home - Carrossel</option>
+                  {formData.posicao === 'home' && (
+                    <option value="home">Home - Carrossel (Legado)</option>
                   )}
                   <option value="estoque">Página: Todo o Estoque</option>
                   <option value="novidades">Página: Novidades</option>
-                  <option value="sobre">Página: Sobre a Garage</option>
+                  <option value="sobre">Página: Sobre a Garage (Proprietário)</option>
                 </optgroup>
                 <optgroup label="Categorias de Produtos">
                   <option value="guitarras">Categoria: Guitarras</option>
@@ -130,23 +135,29 @@ export default function BannerForm({ initialData }: BannerFormProps) {
                 </optgroup>
                 <optgroup label="Páginas de Serviços">
                   <option value="lutheria">Serviço: Lutheria</option>
-                  <option value="pickups">Serviço: Custom Pickups</option>
+                  <option value="custom-pickups">Serviço: Custom Pickups</option>
                   <option value="aulas">Serviço: Aulas</option>
                 </optgroup>
               </select>
             </div>
-            <div className={styles.inputGroup}>
-              <label>Texto do Botão (CTA)</label>
-              <input type="text" name="ctaTexto" value={formData.ctaTexto} onChange={handleChange} placeholder="Ex: VER AGORA" />
-            </div>
-            <div className={styles.inputGroup}>
-              <label>Link do Botão</label>
-              <input type="text" name="ctaLink" value={formData.ctaLink} onChange={handleChange} placeholder="Ex: /categoria/novidades" />
-            </div>
-            <div className={styles.inputGroup}>
-              <label>Ordem de Exibição</label>
-              <input type="number" name="ordem" value={formData.ordem} onChange={handleChange} />
-            </div>
+
+            {formData.posicao === 'home' && (
+              <>
+                <div className={styles.inputGroup}>
+                  <label>Texto do Botão (CTA)</label>
+                  <input type="text" name="ctaTexto" value={formData.ctaTexto} onChange={handleChange} placeholder="Ex: VER AGORA" />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label>Link do Botão</label>
+                  <input type="text" name="ctaLink" value={formData.ctaLink} onChange={handleChange} placeholder="Ex: /categoria/novidades" />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label>Ordem de Exibição</label>
+                  <input type="number" name="ordem" value={formData.ordem} onChange={handleChange} />
+                </div>
+              </>
+            )}
+
             <div className={styles.checkboxGroup}>
               <label>
                 <input type="checkbox" name="isAtivo" checked={formData.isAtivo} onChange={handleChange} />

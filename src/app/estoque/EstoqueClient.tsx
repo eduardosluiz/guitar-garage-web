@@ -14,14 +14,33 @@ const CATEGORIES = [
   { name: 'CUSTOM SHOP', slug: 'custom-shop', img: 'https://images.unsplash.com/photo-1564186763535-ebb21ef52784?q=80&w=800' }
 ];
 
-export default function EstoqueClient() {
+export default function EstoqueClient({ banner }: { banner: any }) {
   return (
     <>
-      <section className={styles.hero}>
+      <section 
+        className={styles.hero}
+        style={{ 
+          backgroundImage: banner ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner ? 'transparent' : '#0A0A0A',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
         <div className={styles.container}>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.preTitle}>INVENTÁRIO</motion.span>
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.preTitle}>
+            {banner?.preTitulo || 'INVENTÁRIO'}
+          </motion.span>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className={styles.title}>
-            EXPLORE NOSSO<br /><span>ESTOQUE PREMIUM</span>
+            {banner?.titulo ? (
+              <>
+                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
+                <span>{banner.titulo.split(' ').slice(-1)}</span>
+              </>
+            ) : (
+              <>
+                EXPLORE NOSSO<br /><span>ESTOQUE PREMIUM</span>
+              </>
+            )}
           </motion.h1>
         </div>
       </section>

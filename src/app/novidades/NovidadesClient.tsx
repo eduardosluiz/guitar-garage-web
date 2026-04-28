@@ -6,16 +6,17 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import styles from './page.module.css';
 
-interface Produto {
+interface Product {
   id: number;
-  nome: string;
+  name: string;
   brand: string;
   price: string;
   img: string;
   slug: string;
+  status: string;
 }
 
-export default function NovidadesClient({ produtos }: { produtos: Produto[] }) {
+export default function NovidadesClient({ produtos }: { produtos: Product[] }) {
   return (
     <section className={styles.productsSection}>
       <div className={styles.container}>
@@ -30,14 +31,15 @@ export default function NovidadesClient({ produtos }: { produtos: Produto[] }) {
             >
               <Link href={`/produto/${p.slug}`} className={styles.productCard}>
                 <div className={styles.imgWrapper}>
-                  <img src={p.img} alt={p.nome} />
+                  <img src={p.img} alt={p.name} />
+                  {p.status === 'Vendido' && <div className={styles.soldBadge}>VENDIDO</div>}
                   <span className={styles.tag}>NEW</span>
                 </div>
                 <div className={styles.info}>
                   <span className={styles.brand}>{p.brand}</span>
-                  <h3>{p.nome}</h3>
+                  <h3>{p.name}</h3>
                   <div className={styles.footer}>
-                    <span className={styles.price}>{p.price}</span>
+                    <span className={styles.price}>{p.status === 'Vendido' ? 'Vendido' : p.price}</span>
                     <span className={styles.viewLink}>VER DETALHES <ArrowUpRight size={14} /></span>
                   </div>
                 </div>

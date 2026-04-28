@@ -27,6 +27,7 @@ export default function ProductForm({ categories, brands, initialData }: Product
     status: initialData?.status || 'Disponivel',
     isDestaque: initialData?.isDestaque || false,
     isNovidade: initialData?.isNovidade || true,
+    isVintageDestaque: initialData?.isVintageDestaque || false,
     marcaId: initialData?.marcaId || '',
     categoriaId: initialData?.categoriaId || '',
     especificacoes: initialData?.especificacoes || {},
@@ -172,11 +173,19 @@ export default function ProductForm({ categories, brands, initialData }: Product
               <label>Condição</label>
               <select name="condicao" value={formData.condicao} onChange={handleChange}>
                 <option value="Novo">Novo</option>
-                <option value="Semi-novo">Semi-novo</option>
+                <option value="Usado">Usado</option>
                 <option value="Vintage">Vintage</option>
-                <option value="Relic">Relic</option>
               </select>
             </div>
+
+            {formData.condicao === 'Vintage' && (
+              <div className={styles.checkboxGroup} style={{ marginTop: '-0.5rem', marginBottom: '1.5rem' }}>
+                <label style={{ color: '#D4AF37', fontWeight: 700 }}>
+                  <input type="checkbox" name="isVintageDestaque" checked={formData.isVintageDestaque} onChange={handleChange} />
+                  Destaque VINTAGE COLLECTION
+                </label>
+              </div>
+            )}
             <div className={styles.inputGroup}>
               <label>Ano</label>
               <input type="number" name="ano" value={formData.ano} onChange={handleChange} placeholder="Ex: 1974" />

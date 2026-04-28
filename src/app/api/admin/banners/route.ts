@@ -19,10 +19,11 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo } = body;
+    const { preTitulo, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo } = body;
 
     const banner = await prisma.banner.create({
       data: {
+        preTitulo,
         titulo,
         subtitulo,
         ctaTexto,
@@ -44,11 +45,12 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo } = body;
+    const { id, preTitulo, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo } = body;
 
     const banner = await prisma.banner.update({
       where: { id },
       data: {
+        preTitulo,
         titulo,
         subtitulo,
         ctaTexto,

@@ -1,5 +1,5 @@
 /* src/app/categoria/[slug]/page.module.css */
-.main { background-color: #fff; color: #1a1a1a; }
+.main { background-color: #fff; color: #1a1a1a; min-height: 100vh; }
 
 /* FORÇAR HEADER PRETO */
 .main :global(header) { background-color: #000 !important; }
@@ -13,6 +13,8 @@
   text-align: center;
   color: #fff;
 }
+
+.container { max-width: 1600px; margin: 0 auto; padding: 0 5%; }
 
 .preTitle {
   font-family: 'Space Grotesk', sans-serif;
@@ -42,6 +44,10 @@
   align-items: center;
   max-width: 1600px;
   margin: 0 auto;
+  position: sticky;
+  top: 80px;
+  background: #fff;
+  z-index: 10;
 }
 
 .filterLeft { display: flex; align-items: center; gap: 3rem; }
@@ -58,25 +64,117 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterBtnActive {
+  background-color: #000;
+  color: #fff;
 }
 
 .count { font-size: 0.7rem; color: #888; letter-spacing: 1px; font-weight: 600; }
 
-.sortBtn {
+.filterRight { display: flex; align-items: center; }
+
+.sortWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sortLabel {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.sortSelect {
   background: transparent;
   border: none;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
   cursor: pointer;
+  appearance: none;
+  padding-right: 25px;
+  text-transform: uppercase;
+}
+
+.sortSelect:focus { outline: none; }
+
+.sortIcon {
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+  color: #D4AF37;
+}
+
+/* DRAWER DE FILTROS */
+.filtersDrawer {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+}
+
+.filtersContainer {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 3rem 5%;
+  display: flex;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+
+.filterGroup h4 {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.filterOptions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filterOptions button {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterOptions button:hover { border-color: #000; }
+
+.optActive {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+.clearFilters {
+  background: none;
+  border: none;
+  color: #D4AF37;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 5px;
 }
 
 /* GRID DE PRODUTOS */
-.productSection { padding: 6rem 5%; max-width: 1600px; margin: 0 auto; }
+.productSection { padding: 6rem 5%; max-width: 1600px; margin: 0 auto; min-height: 400px; }
 
 .grid {
   display: grid;
@@ -92,6 +190,21 @@
   background-color: #f9f9f9;
   overflow: hidden;
   margin-bottom: 2.5rem;
+}
+
+.soldBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #ef4444;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  border-radius: 2px;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 .imageBox img {
@@ -130,13 +243,37 @@
 .info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; }
 .price { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 300; color: #1e7e34; }
 
+.emptyState {
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.emptyState p {
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.emptyState button {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 1rem 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
 @media (max-width: 1024px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
   .title { font-size: 3rem; }
   .filterLeft { gap: 1.5rem; }
   .count { display: none; }
+  .filtersContainer { gap: 2rem; }
 }
 
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
+  .filterBar { flex-direction: column; gap: 1.5rem; align-items: flex-start; position: static; }
+  .filterLeft { width: 100%; justify-content: space-between; }
 }

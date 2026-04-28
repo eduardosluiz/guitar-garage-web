@@ -4,18 +4,37 @@ import { motion } from 'framer-motion';
 import { GraduationCap, Music, Users, ArrowRight, BookOpen, Mic2 } from 'lucide-react';
 import styles from './page.module.css';
 
-export default function AulasClient() {
+export default function AulasClient({ banner }: { banner: any }) {
   return (
     <>
-      <section className={styles.hero}>
+      <section 
+        className={styles.hero}
+        style={{ 
+          backgroundImage: banner ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner ? 'transparent' : '#0A0A0A',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
         <div className={styles.heroContent}>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.preTitle}>MENTORIA MUSICAL</motion.span>
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.preTitle}>
+            {banner?.preTitulo || 'MENTORIA MUSICAL'}
+          </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             className={styles.title}
           >
-            AULAS DE<br /><span>GUITARRA, BAIXO E VIOLÃO.</span>
+            {banner?.titulo ? (
+              <>
+                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
+                <span>{banner.titulo.split(' ').slice(-1)}</span>
+              </>
+            ) : (
+              <>
+                AULAS DE<br /><span>GUITARRA, BAIXO E VIOLÃO.</span>
+              </>
+            )}
           </motion.h1>
         </div>
       </section>

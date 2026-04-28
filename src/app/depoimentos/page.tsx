@@ -2,6 +2,8 @@ import React from 'react';
 import { prisma } from '@/lib/prisma';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
+import DepoimentoForm from '@/components/common/DepoimentoForm';
+import DepoimentosCarousel from '@/components/common/DepoimentosCarousel';
 import styles from '../sobre/page.module.css';
 import { Metadata } from 'next';
 
@@ -37,23 +39,15 @@ export default async function DepoimentosPage() {
         </div>
         
         {depoimentos.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
-            {depoimentos.map(dep => (
-              <div key={dep.id} style={{ backgroundColor: '#fcfcfc', padding: '2rem', border: '1px solid #eee', borderRadius: '8px' }}>
-                <div style={{ color: '#D4AF37', marginBottom: '1rem', display: 'flex', gap: '4px', fontSize: '1.2rem' }}>
-                  {'★'.repeat(5)}
-                </div>
-                <p style={{ fontStyle: 'italic', color: '#444', lineHeight: 1.6, marginBottom: '1.5rem', fontSize: '1.05rem' }}>"{dep.texto}"</p>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem', color: '#111' }}>{dep.nome}</span>
-                  {dep.email && <span style={{ fontSize: '0.8rem', color: '#888' }}>Cliente Especial</span>}
-                </div>
-              </div>
-            ))}
-          </div>
+          <DepoimentosCarousel depoimentos={depoimentos} />
         ) : (
           <p style={{ marginTop: '2rem', color: '#777', fontSize: '1.1rem' }}>Ainda não há depoimentos cadastrados.</p>
         )}
+
+        {/* Formulário de Envio */}
+        <div style={{ maxWidth: '900px', margin: '0 auto', borderTop: '1px solid #eee', marginTop: '6rem' }}>
+          <DepoimentoForm />
+        </div>
       </div>
 
       <Footer />

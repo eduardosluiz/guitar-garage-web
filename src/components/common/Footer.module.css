@@ -2,7 +2,7 @@
 .footer {
   background-color: #0a0a0a;
   color: #fff;
-  padding: 8rem 0 0;
+  padding: 5rem 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -16,13 +16,13 @@
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 5rem;
-  margin-bottom: 8rem;
+  margin-bottom: 4rem;
 }
 
 .footerLogo {
-  height: 40px;
+  height: 70px;
   width: auto;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   display: block;
 }
 
@@ -31,7 +31,7 @@
   line-height: 1.8;
   color: #fff;
   max-width: 320px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   font-weight: 300;
   opacity: 0.8;
 }
@@ -47,7 +47,7 @@
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 4px;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: #fff;
   text-transform: uppercase;
 }
@@ -88,12 +88,39 @@
 
 .bottomBar {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 3rem 0;
-  text-align: center;
+  padding: 2rem 0;
   font-size: 0.65rem;
   color: #fff;
   opacity: 0.6;
   letter-spacing: 1.5px;
+}
+
+.bottomContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.privacyLink {
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.privacyLink:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .bottomContent {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
 }
 
 @media (max-width: 1024px) {

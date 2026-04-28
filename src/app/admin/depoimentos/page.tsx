@@ -1,9 +1,9 @@
-// src/app/admin/depoimentos/page.tsx
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { PlusCircle, Edit2, MessageSquareQuote, Eye, EyeOff } from 'lucide-react';
 import DeleteButtonGeneral from '@/components/admin/DeleteButtonGeneral';
+import StatusToggleButton from '@/components/admin/StatusToggleButton';
 import styles from '../produtos/page.module.css';
 
 export default async function AdminDepoimentos() {
@@ -47,16 +47,17 @@ export default async function AdminDepoimentos() {
                   </td>
                   <td>
                     {d.isAtivo ? (
-                      <span style={{ color: '#0ab39c', fontSize: '0.7rem', fontWeight: 700 }}>
-                        <Eye size={12} /> ATIVO
+                      <span style={{ color: '#0ab39c', fontSize: '0.7rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0ab39c' }}></div> PUBLICADO
                       </span>
                     ) : (
-                      <span style={{ color: '#f06548', fontSize: '0.7rem', fontWeight: 700 }}>
-                        <EyeOff size={12} /> OCULTO
+                      <span style={{ color: '#f06548', fontSize: '0.7rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#f06548' }}></div> PENDENTE
                       </span>
                     )}
                   </td>
                   <td className={styles.actionsCell}>
+                    <StatusToggleButton id={d.id} initialStatus={d.isAtivo} resource="depoimentos" />
                     <Link href={`/admin/depoimentos/${d.id}`} title="Editar" className={styles.actionBtn}>
                       <Edit2 size={16} />
                     </Link>

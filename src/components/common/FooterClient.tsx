@@ -97,7 +97,7 @@ export default function FooterClient({ whatsapp, email, telefone, socials, visib
           <div className={styles.column}>
             <h3>EXPLORAR</h3>
             <ul>
-              <li><Link href="/estoque">Todo o Estoque</Link></li>
+              <li><Link href="/depoimentos">Depoimentos</Link></li>
               <li><Link href="/novidades">Novidades</Link></li>
               <li><Link href="/servicos">Lutheria & Aulas</Link></li>
               <li><Link href="/sobre">Sobre a Garage</Link></li>
@@ -126,7 +126,10 @@ export default function FooterClient({ whatsapp, email, telefone, socials, visib
         </div>
       </div>
       <div className={styles.bottomBar}>
-        <p>© 2026 Guitar Garage. Todos os direitos reservados.</p>
+        <div className={styles.bottomContent}>
+          <p>© 2026 Guitar Garage. Todos os direitos reservados.</p>
+          <Link href="/politica-de-privacidade" className={styles.privacyLink}>Políticas de Privacidade</Link>
+        </div>
       </div>
     </footer>
   );

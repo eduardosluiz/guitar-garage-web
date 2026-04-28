@@ -83,10 +83,6 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
           <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Ex: Guitarras Elétricas" />
         </div>
         <div className={styles.inputGroup}>
-          <label>Slug (URL) / Usado na navegação padrão</label>
-          <input type="text" name="slug" value={formData.slug} onChange={handleChange} required placeholder="guitarras-eletricas" />
-        </div>
-        <div className={styles.inputGroup}>
           <label>Página de Destino (Opcional - substitui a navegação padrão)</label>
           <select name="linkDestino" value={formData.linkDestino} onChange={handleChange as any}>
             <option value="">-- Usar formato padrão (/categoria/slug) --</option>
@@ -95,6 +91,15 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
               <option value="/novidades">Página: Novidades</option>
               <option value="/sobre">Página: Sobre a Garage</option>
               <option value="/depoimentos">Página: Depoimentos</option>
+            </optgroup>
+            <optgroup label="Categorias Específicas">
+              <option value="/categoria/guitarras">Página: Guitarras</option>
+              <option value="/categoria/baixos">Página: Baixos</option>
+              <option value="/categoria/violoes">Página: Violões</option>
+              <option value="/categoria/amps">Página: Amps</option>
+              <option value="/categoria/pedais">Página: Pedais</option>
+              <option value="/categoria/vintage">Página: Vintage Collection</option>
+              <option value="/categoria/custom-shop">Página: Custom Shop</option>
             </optgroup>
             <optgroup label="Serviços">
                <option value="/servicos">Página: Serviços Gerais</option>

@@ -30,62 +30,64 @@ export default function BannerList({ initialBanners }: BannerListProps) {
 
   return (
     <>
-      {/* Botões de Ação reposicionados */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
+      {/* Botões de Ação reposicionados - Lado a Lado em uma linha */}
+      <div style={{ 
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '1rem', 
+        marginBottom: '2rem' 
+      }}>
         <Link 
           href="/admin/banners/carrossel/novo" 
           className="btn-boutique" 
           style={{ 
             fontSize: '0.65rem', 
-            height: '38px', 
-            display: 'inline-flex',
+            height: '42px', 
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 1.2rem',
-            gap: '0.6rem'
+            padding: '0 0.5rem',
+            gap: '0.5rem'
           }}
         >
           <PlusCircle size={14} /> 
-          <span className="desktop-text">NOVO CARROSSEL</span>
-          <span className="mobile-text">CARROSSEL</span>
+          <span style={{ whiteSpace: 'nowrap' }}>CARROSSEL</span>
         </Link>
         <Link 
           href="/admin/banners/destaque/novo" 
           className="btn-boutique-outline" 
           style={{ 
             fontSize: '0.65rem', 
-            height: '38px', 
+            height: '42px', 
             borderColor: 'rgba(212, 175, 55, 0.4)', 
             color: 'var(--gold)',
-            display: 'inline-flex',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 1.2rem',
-            gap: '0.6rem'
+            padding: '0 0.5rem',
+            gap: '0.5rem'
           }}
         >
           <PlusCircle size={14} /> 
-          <span className="desktop-text">IMAGEM DESTAQUE</span>
-          <span className="mobile-text">DESTAQUE</span>
+          <span style={{ whiteSpace: 'nowrap' }}>DESTAQUE</span>
         </Link>
         <Link 
           href="/admin/banners/novo" 
           className="btn-boutique-outline" 
           style={{ 
             fontSize: '0.65rem', 
-            height: '38px', 
+            height: '42px', 
             borderColor: 'rgba(212, 175, 55, 0.4)', 
             color: 'var(--gold)',
-            display: 'inline-flex',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 1.2rem',
-            gap: '0.6rem'
+            padding: '0 0.5rem',
+            gap: '0.5rem'
           }}
         >
           <PlusCircle size={14} /> 
-          <span className="desktop-text">OUTROS BANNERS</span>
-          <span className="mobile-text">BANNERS</span>
+          <span style={{ whiteSpace: 'nowrap' }}>BANNERS</span>
         </Link>
       </div>
 
@@ -97,31 +99,37 @@ export default function BannerList({ initialBanners }: BannerListProps) {
         marginBottom: '2rem', 
         display: 'flex', 
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        gap: '1rem'
+        justifyContent: 'space-between',
+        gap: '1rem',
+        flexWrap: 'wrap'
       }}>
         <span style={{ fontSize: '0.7rem', color: '#878a99', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
-          Filtrar por:
+          Itens cadastrados: {filteredBanners.length}
         </span>
-        <select 
-          value={filter} 
-          onChange={(e) => setFilter(e.target.value as any)}
-          style={{
-            backgroundColor: '#2a2f34',
-            border: '1px solid #32383e',
-            color: '#fff',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            fontSize: '0.8rem',
-            outline: 'none',
-            cursor: 'pointer',
-            minWidth: '200px'
-          }}
-        >
-          <option value="all">TODOS OS ITENS</option>
-          <option value="home">APENAS BANNERS HOME</option>
-          <option value="destaque">APENAS IMAGENS DESTAQUE</option>
-        </select>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <span style={{ fontSize: '0.7rem', color: '#878a99', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
+            Filtrar:
+          </span>
+          <select 
+            value={filter} 
+            onChange={(e) => setFilter(e.target.value as any)}
+            style={{
+              backgroundColor: '#2a2f34',
+              border: '1px solid #32383e',
+              color: '#fff',
+              padding: '0.5rem 1rem',
+              borderRadius: '4px',
+              fontSize: '0.8rem',
+              outline: 'none',
+              cursor: 'pointer',
+              minWidth: '180px'
+            }}
+          >
+            <option value="all">TODOS OS ITENS</option>
+            <option value="home">BANNERS HOME</option>
+            <option value="destaque">IMAGENS DESTAQUE</option>
+          </select>
+        </div>
       </div>
 
       <div className={styles.grid}>

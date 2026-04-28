@@ -29,17 +29,19 @@ export default async function AdminCategorias() {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Slug</th>
+              <th>Destino</th>
               <th>Qtd. Produtos</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {categories.length > 0 ? (
-              categories.map((c) => (
+              categories.map((c: any) => (
                 <tr key={c.id}>
                   <td style={{ fontWeight: 600, color: '#fff' }}>{c.nome}</td>
-                  <td>{c.slug}</td>
+                  <td style={{ fontSize: '0.75rem', color: '#878a99' }}>
+                    {c.linkDestino || `/categoria/${c.slug}`}
+                  </td>
                   <td>{c._count.produtos}</td>
                   <td className={styles.actionsCell}>
                     <Link href={`/admin/categorias/${c.id}`} title="Editar" className={styles.actionBtn}>

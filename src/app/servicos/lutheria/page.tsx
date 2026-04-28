@@ -14,7 +14,15 @@ export const metadata: Metadata = {
 };
 
 export default async function LutheriaPage() {
-  // Busca os projetos de lutheria do banco de dados
+  // 1. Busca banner específico para lutheria
+  const banner = await prisma.banner.findFirst({
+    where: { 
+      posicao: 'lutheria',
+      isAtivo: true 
+    }
+  });
+
+  // 2. Busca os projetos de lutheria do banco de dados
   const projetosDb = await prisma.projetoLutheria.findMany({
     where: {
       isAtivo: true
@@ -60,11 +68,28 @@ export default async function LutheriaPage() {
     <main className={styles.main}>
       <Header />
 
-      <section className={styles.hero}>
+      <section 
+        className={styles.hero}
+        style={{ 
+          backgroundImage: banner ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner ? 'transparent' : '#0A0A0A',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
         <div className={styles.heroContent}>
-          <span className={styles.preTitle}>EXCELÊNCIA TÉCNICA</span>
+          <span className={styles.preTitle}>{banner?.preTitulo || 'EXCELÊNCIA TÉCNICA'}</span>
           <h1 className={styles.title}>
-            LUTHERIA<br /><span>DE ALTA PERFORMANCE.</span>
+            {banner?.titulo ? (
+              <>
+                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
+                <span>{banner.titulo.split(' ').slice(-1)}</span>
+              </>
+            ) : (
+              <>
+                LUTHERIA<br /><span>DE ALTA PERFORMANCE.</span>
+              </>
+            )}
           </h1>
         </div>
       </section>

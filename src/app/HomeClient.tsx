@@ -21,6 +21,7 @@ interface Product {
   price: string;
   img: string;
   slug: string;
+  status?: string;
 }
 
 interface HomeClientProps {
@@ -239,14 +240,18 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
 }
 
 function ProductCard({ p, isDark }: { p: Product, isDark?: boolean }) {
+  const isVendido = p.status === 'Vendido';
   return (
     <Link href={`/produto/${p.slug}`} className={styles.productCardLink}>
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} whileHover={{ scale: 1.02, y: -10 }} transition={{ type: "spring", stiffness: 200, damping: 20 }} className={styles.productItem}>
-        <div className={styles.imgWrapper}><img src={p.img} alt={p.name} /></div>
+        <div className={styles.imgWrapper}>
+          <img src={p.img} alt={p.name} />
+          {isVendido && <div className={styles.soldBadge}>VENDIDO</div>}
+        </div>
         <div className={styles.info}>
           <span className={styles.brandName}>{p.brand}</span>
           <h3>{p.name}</h3>
-          <span className={isDark ? styles.priceDark : styles.priceLight}>{p.price}</span>
+          <span className={isDark ? styles.priceDark : styles.priceLight}>{isVendido ? 'Vendido' : p.price}</span>
         </div>
       </motion.div>
     </Link>

@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { 
       nome, slug, preco, descricao, peso, ano, condicao, status, 
-      isDestaque, isNovidade, marcaId, categoriaId, images 
+      isDestaque, isNovidade, isVintageDestaque, marcaId, categoriaId, images 
     } = body;
 
     const parsePrice = (val: any) => {
@@ -29,6 +29,7 @@ export async function POST(req: Request) {
         status,
         isDestaque,
         isNovidade,
+        isVintageDestaque,
         especificacoes: JSON.stringify(body.especificacoes || {}),
         marcaId: marcaId ? parseInt(marcaId) : null,
         categoriaId: categoriaId ? parseInt(categoriaId) : null,
@@ -53,7 +54,7 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const { 
       id, nome, slug, preco, descricao, peso, ano, condicao, status, 
-      isDestaque, isNovidade, marcaId, categoriaId, images 
+      isDestaque, isNovidade, isVintageDestaque, marcaId, categoriaId, images 
     } = body;
 
     // Primeiro, deletar imagens antigas (ou fazer um sync mais inteligente)
@@ -80,6 +81,7 @@ export async function PUT(req: Request) {
         status,
         isDestaque,
         isNovidade,
+        isVintageDestaque,
         especificacoes: JSON.stringify(body.especificacoes || {}),
         marcaId: marcaId ? parseInt(marcaId) : null,
         categoriaId: categoriaId ? parseInt(categoriaId) : null,

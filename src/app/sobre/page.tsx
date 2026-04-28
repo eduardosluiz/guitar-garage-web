@@ -22,12 +22,28 @@ export default async function Sobre() {
     <main className={styles.main}>
       <Header />
 
-      {/* HERO INSTITUCIONAL */}
-      <section className={styles.hero}>
+      <section 
+        className={styles.hero}
+        style={{ 
+          backgroundImage: banner ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner ? 'transparent' : '#0A0A0A',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
         <div className={styles.heroContent}>
-          <span className={styles.preTitle}>NOSSA HISTÓRIA</span>
+          <span className={styles.preTitle}>{banner?.preTitulo || 'NOSSA HISTÓRIA'}</span>
           <h1 className={styles.title}>
-            CURADORIA PARA<br /><span>O TIMBRE PERFEITO.</span>
+            {banner?.titulo ? (
+              <>
+                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
+                <span>{banner.titulo.split(' ').slice(-1)}</span>
+              </>
+            ) : (
+              <>
+                CURADORIA PARA<br /><span>O TIMBRE PERFEITO.</span>
+              </>
+            )}
           </h1>
         </div>
       </section>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Mic2, Zap, Target, ArrowRight, PlayCircle, Music } from 'lucide-react';
 import styles from './page.module.css';
 
-export default function CustomPickupsClient() {
+export default function CustomPickupsClient({ banner }: { banner: any }) {
   const samples = [
     "Two Tone - NECK (Solon Fishbone)",
     "Two Tone - NECK/ MIDDLE (Solon Fishbone)",
@@ -20,11 +20,30 @@ export default function CustomPickupsClient() {
 
   return (
     <>
-      <section className={styles.hero}>
+      <section 
+        className={styles.hero}
+        style={{ 
+          backgroundImage: banner ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner ? 'transparent' : '#0A0A0A',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
         <div className={styles.heroContent}>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.preTitle}>TONE CHASING</motion.span>
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.preTitle}>
+            {banner?.preTitulo || 'TONE CHASING'}
+          </motion.span>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className={styles.title}>
-            GG CUSTOM<br /><span>HANDWOUND PICKUPS.</span>
+            {banner?.titulo ? (
+              <>
+                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
+                <span>{banner.titulo.split(' ').slice(-1)}</span>
+              </>
+            ) : (
+              <>
+                GG CUSTOM<br /><span>HANDWOUND PICKUPS.</span>
+              </>
+            )}
           </motion.h1>
         </div>
       </section>

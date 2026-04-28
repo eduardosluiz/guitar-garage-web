@@ -70,6 +70,21 @@
   margin-bottom: 1.5rem;
 }
 
+.soldBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #ef4444;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  border-radius: 2px;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
 .imgWrapper img {
   width: 100%;
   height: 100%;
