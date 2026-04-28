@@ -1,171 +1,253 @@
-Uncaught Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+##########################################
+### Syncing with origin/main
+### Tue, 28 Apr 2026 23:14:55 GMT
+##########################################
 
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
+Commit: feat: correções visuais, menu mobile e otimização admin 
+#0 building with "default" instance using docker driver
 
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.52kB 0.0s done
+#1 DONE 0.1s
 
-https://react.dev/link/hydration-mismatch
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 DONE 1.6s
 
-  ...
-    <OuterLayoutRouter parallelRouterKey="children" segmentPath={[...]} template={<RenderFromTemplateContext>}>
-      <RenderFromTemplateContext>
-        <ScrollAndFocusHandler segmentPath={[...]}>
-          <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
-            <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
-              <LoadingBoundary loading={null}>
-                <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
-                  <RedirectBoundary>
-                    <RedirectErrorBoundary router={{...}}>
-                      <InnerLayoutRouter parallelRouterKey="children" url="/categoria..." tree={[...]} childNodes={Map} ...>
-                        <CategoriaPage>
-+                         <main className="page_main__ZrM4y">
--                         <div className="simulator-pre-loader simulator" aria-label="Loading" role="status">
-                        ...
+#3 [internal] load .dockerignore
+#3 transferring context: 235B done
+#3 DONE 0.0s
 
-    at throwOnHydrationMismatch (react-dom-client.development.js:4129:11)
-    at beginWork (react-dom-client.development.js:9935:17)
-    at runWithFiberInDEV (react-dom-client.development.js:544:16)
-    at performUnitOfWork (react-dom-client.development.js:15064:22)
-    at workLoopConcurrent (react-dom-client.development.js:15058:9)
-    at renderRootConcurrent (react-dom-client.development.js:15033:15)
-    at performWorkOnRoot (react-dom-client.development.js:14350:13)
-    at performWorkOnRootViaSchedulerTask (react-dom-client.development.js:15955:7)
-    at MessagePort.performWorkUntilDeadline (scheduler.development.js:44:48)
-throwOnHydrationMismatch @ react-dom-client.development.js:4129
-beginWork @ react-dom-client.development.js:9935
-runWithFiberInDEV @ react-dom-client.development.js:544
-performUnitOfWork @ react-dom-client.development.js:15064
-workLoopConcurrent @ react-dom-client.development.js:15058
-renderRootConcurrent @ react-dom-client.development.js:15033
-performWorkOnRoot @ react-dom-client.development.js:14350
-performWorkOnRootViaSchedulerTask @ react-dom-client.development.js:15955
-performWorkUntilDeadline @ scheduler.development.js:44
-postMessage
-schedulePerformWorkUntilDeadline @ scheduler.development.js:221
-performWorkUntilDeadline @ scheduler.development.js:80
-postMessage
-schedulePerformWorkUntilDeadline @ scheduler.development.js:221
-performWorkUntilDeadline @ scheduler.development.js:80
-postMessage
-schedulePerformWorkUntilDeadline @ scheduler.development.js:221
-performWorkUntilDeadline @ scheduler.development.js:80
-postMessage
-schedulePerformWorkUntilDeadline @ scheduler.development.js:221
-requestHostCallback @ scheduler.development.js:168
-exports.unstable_scheduleCallback @ scheduler.development.js:344
-scheduleTaskForRootDuringMicrotask @ react-dom-client.development.js:15933
-processRootScheduleInMicrotask @ react-dom-client.development.js:15853
-eval @ react-dom-client.development.js:15986Understand this error
-app-router.js:53 NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
-    at removeChild (react-dom-client.development.js:19094:22)
-    at runWithFiberInDEV (react-dom-client.development.js:544:16)
-    at commitDeletionEffectsOnFiber (react-dom-client.development.js:11721:17)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11922:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:12169:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:12394:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:12394:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11959:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11959:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:12394:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:12394:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:12394:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11959:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
-    at commitMutationEffectsOnFiber (react-dom-client.development.js:11943:11)
-    at recursivelyTraverseMutationEffects (react-dom-client.development.js:11932:11)
+#4 [deps 1/6] FROM docker.io/library/node:22-alpine@sha256:8ea2348b068a9544dae7317b4f3aafcdc032df1647bb7d768a05a5cad1a7683f
+#4 resolve docker.io/library/node:22-alpine@sha256:8ea2348b068a9544dae7317b4f3aafcdc032df1647bb7d768a05a5cad1a7683f 0.1s done
+#4 DONE 0.3s
 
-The above error occurred in the <div> component. It was handled by the <ReactDevOverlay> error boundary.
-onCaughtError @ app-router.js:53
-logCaughtError @ react-dom-client.development.js:7498
-runWithFiberInDEV @ react-dom-client.development.js:544
-update.callback @ react-dom-client.development.js:7531
-callCallback @ react-dom-client.development.js:10686
-commitCallbacks @ react-dom-client.development.js:10706
-runWithFiberInDEV @ react-dom-client.development.js:544
-commitClassCallbacks @ react-dom-client.development.js:10925
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11496
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11419
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11419
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11424
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11419
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11419
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11419
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11419
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11601
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:12428
-commitLayoutEffectOnFiber @ react-dom-client.development.js:11501
-commitLayoutEffects @ react-dom-client.development.js:12422
-commitRootImpl @ react-dom-client.development.js:15375
-commitRoot @ react-dom-client.development.js:15273
-commitRootWhenReady @ react-dom-client.development.js:14584
-performWorkOnRoot @ react-dom-client.development.js:14505
-performSyncWorkOnRoot @ react-dom-client.development.js:15970
-flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:15830
-commitRootImpl @ react-dom-client.development.js:15422
-commitRoot @ react-dom-client.development.js:15273
-onUnsuspend @ react-dom-client.development.js:20076Understand this error
-chunk-contentScript.js:1 Nightly Wallet Injected Successfully
-simulator.js:13 Uncaught (in promise) Error: Cannot read properties of undefined (reading 'frameId')
-    at m (simulator.js:13:295249)
+#5 [deps 2/6] RUN apk add --no-cache libc6-compat
+#5 ...
+
+#6 [builder 2/6] WORKDIR /app
+#6 DONE 0.2s
+
+#7 [internal] load build context
+#7 transferring context: 2.06MB 0.5s done
+#7 DONE 0.5s
+
+#8 [runner 3/8] RUN addgroup --system --gid 1001 nodejs
+#8 DONE 0.5s
+
+#5 [deps 2/6] RUN apk add --no-cache libc6-compat
+#5 ...
+
+#9 [runner 4/8] RUN adduser --system --uid 1001 nextjs
+#9 DONE 0.3s
+
+#5 [deps 2/6] RUN apk add --no-cache libc6-compat
+#5 2.125 (1/3) Installing musl-obstack (1.2.3-r2)
+#5 2.141 (2/3) Installing libucontext (1.3.3-r0)
+#5 2.152 (3/3) Installing gcompat (1.1.0-r4)
+#5 2.170 OK: 11.0 MiB in 21 packages
+#5 DONE 2.3s
+
+#10 [deps 3/6] WORKDIR /app
+#10 DONE 0.0s
+
+#11 [deps 4/6] COPY package*.json ./
+#11 DONE 0.1s
+
+#12 [deps 5/6] COPY prisma ./prisma/
+#12 DONE 0.1s
+
+#13 [deps 6/6] RUN npm install
+#13 69.82 npm warn deprecated next@15.1.0: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/CVE-2025-66478 for more details.
+#13 78.35 
+#13 78.35 > guitar-garage-2.0@1.0.0 postinstall
+#13 78.35 > prisma generate
+#13 78.35 
+#13 80.31 Prisma schema loaded from prisma/schema.prisma
+#13 80.96 ┌─────────────────────────────────────────────────────────┐
+#13 80.96 │  Update available 6.19.2 -> 7.8.0                       │
+#13 80.96 │                                                         │
+#13 80.96 │  This is a major update - please follow the guide at    │
+#13 80.96 │  https://pris.ly/d/major-version-upgrade                │
+#13 80.96 │                                                         │
+#13 80.96 │  Run the following to update                            │
+#13 80.96 │    npm i --save-dev prisma@latest                       │
+#13 80.96 │    npm i @prisma/client@latest                          │
+#13 80.96 └─────────────────────────────────────────────────────────┘
+#13 80.96 
+#13 80.96 ✔ Generated Prisma Client (v6.19.2) to ./node_modules/@prisma/client in 350ms
+#13 80.96 
+#13 80.96 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#13 80.96 
+#13 80.96 Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+#13 80.96 
+#13 81.01 
+#13 81.01 added 376 packages, and audited 377 packages in 1m
+#13 81.01 
+#13 81.02 147 packages are looking for funding
+#13 81.02   run `npm fund` for details
+#13 81.28 
+#13 81.28 10 vulnerabilities (3 moderate, 6 high, 1 critical)
+#13 81.28 
+#13 81.28 To address issues that do not require attention, run:
+#13 81.28   npm audit fix
+#13 81.28 
+#13 81.28 To address all issues, run:
+#13 81.28   npm audit fix --force
+#13 81.28 
+#13 81.28 Run `npm audit` for details.
+#13 81.28 npm notice
+#13 81.28 npm notice New major version of npm available! 10.9.7 -> 11.13.0
+#13 81.28 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
+#13 81.28 npm notice To update run: npm install -g npm@11.13.0
+#13 81.28 npm notice
+#13 DONE 81.6s
+
+#14 [builder 3/6] COPY --from=deps /app/node_modules ./node_modules
+#14 DONE 18.3s
+
+#15 [builder 4/6] COPY . .
+#15 DONE 0.6s
+
+#16 [builder 5/6] RUN npx prisma generate
+#16 4.120 Prisma schema loaded from prisma/schema.prisma
+#16 4.971 
+#16 4.971 ✔ Generated Prisma Client (v6.19.2) to ./node_modules/@prisma/client in 483ms
+#16 4.971 
+#16 4.971 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#16 4.971 
+#16 4.971 Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+#16 4.971 
+#16 5.008 npm notice
+#16 5.008 npm notice New major version of npm available! 10.9.7 -> 11.13.0
+#16 5.008 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
+#16 5.008 npm notice To update run: npm install -g npm@11.13.0
+#16 5.008 npm notice
+#16 DONE 5.1s
+
+#17 [builder 6/6] RUN npm run build
+#17 0.386 
+#17 0.386 > guitar-garage-2.0@1.0.0 build
+#17 0.386 > next build
+#17 0.386 
+#17 1.696 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#17 1.696 This information is used to shape Next.js' roadmap and prioritize features.
+#17 1.697 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#17 1.698 https://nextjs.org/telemetry
+#17 1.698 
+#17 1.885    ▲ Next.js 15.1.0
+#17 1.886 
+#17 1.916    Creating an optimized production build ...
+#17 37.75  ⚠ Compiled with warnings
+#17 37.75 
+#17 37.75 ./node_modules/@prisma/client/runtime/wasm-engine-edge.js
+#17 37.75 A Node.js API is used (setImmediate at line: 12) which is not supported in the Edge Runtime.
+#17 37.75 Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+#17 37.75 
+#17 37.75 Import trace for requested module:
+#17 37.75 ./node_modules/@prisma/client/runtime/wasm-engine-edge.js
+#17 37.75 ./node_modules/.prisma/client/wasm.js
+#17 37.75 ./node_modules/.prisma/client/default.js
+#17 37.75 ./node_modules/@prisma/client/default.js
+#17 37.75 ./src/lib/prisma.ts
+#17 37.75 ./src/auth.ts
+#17 37.75 
+#17 37.75 ./node_modules/bcryptjs/index.js
+#17 37.75 A Node.js module is loaded ('crypto' at line 32) which is not supported in the Edge Runtime.
+#17 37.75 Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+#17 37.75 
+#17 37.75 Import trace for requested module:
+#17 37.75 ./node_modules/bcryptjs/index.js
+#17 37.75 ./src/auth.ts
+#17 37.75 
+#17 37.75 ./node_modules/bcryptjs/index.js
+#17 37.75 A Node.js API is used (setImmediate at line: 335) which is not supported in the Edge Runtime.
+#17 37.75 Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+#17 37.75 
+#17 37.75 Import trace for requested module:
+#17 37.75 ./node_modules/bcryptjs/index.js
+#17 37.75 ./src/auth.ts
+#17 37.75 
+#17 37.75 ./node_modules/bcryptjs/index.js
+#17 37.75 A Node.js API is used (setImmediate at line: 336) which is not supported in the Edge Runtime.
+#17 37.75 Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+#17 37.75 
+#17 37.75 Import trace for requested module:
+#17 37.75 ./node_modules/bcryptjs/index.js
+#17 37.75 ./src/auth.ts
+#17 37.75 
+#17 62.89  ✓ Compiled successfully
+#17 62.90    Linting and checking validity of types ...
+#17 84.08    Collecting page data ...
+#17 92.18    Generating static pages (0/13) ...
+#17 94.54    Generating static pages (3/13) 
+#17 94.54    Generating static pages (6/13) 
+#17 94.54    Generating static pages (9/13) 
+#17 100.0 prisma:error 
+#17 100.0 Invalid `prisma.configuracao.findFirst()` invocation:
+#17 100.0 
+#17 100.0 
+#17 100.0 Can't reach database server at `guitar-garage_db:3306`
+#17 100.0 
+#17 100.0 Please make sure your database server is running at `guitar-garage_db:3306`.
+#17 100.0 prisma:error 
+#17 100.0 Invalid `prisma.configuracao.findFirst()` invocation:
+#17 100.0 
+#17 100.0 
+#17 100.0 Can't reach database server at `guitar-garage_db:3306`
+#17 100.0 
+#17 100.0 Please make sure your database server is running at `guitar-garage_db:3306`.
+#17 100.0 Error occurred prerendering page "/politica-de-privacidade". Read more: https://nextjs.org/docs/messages/prerender-error
+#17 100.0 PrismaClientInitializationError: 
+#17 100.0 Invalid `prisma.configuracao.findFirst()` invocation:
+#17 100.0 
+#17 100.0 
+#17 100.0 Can't reach database server at `guitar-garage_db:3306`
+#17 100.0 
+#17 100.0 Please make sure your database server is running at `guitar-garage_db:3306`.
+#17 100.0     at ei.handleRequestError (/app/node_modules/@prisma/client/runtime/library.js:121:7568)
+#17 100.0     at ei.handleAndLogRequestError (/app/node_modules/@prisma/client/runtime/library.js:121:6593)
+#17 100.0     at ei.request (/app/node_modules/@prisma/client/runtime/library.js:121:6300)
+#17 100.0     at async a (/app/node_modules/@prisma/client/runtime/library.js:130:9551)
+#17 100.0     at async i (/app/.next/server/chunks/3331.js:1:16987)
+#17 100.0 Export encountered an error on /politica-de-privacidade/page: /politica-de-privacidade, exiting the build.
+#17 100.1  ⨯ Static worker exited with code: 1 and signal: null
+#17 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+------
+ > [builder 6/6] RUN npm run build:
+100.0 Can't reach database server at `guitar-garage_db:3306`
+100.0 
+100.0 Please make sure your database server is running at `guitar-garage_db:3306`.
+100.0     at ei.handleRequestError (/app/node_modules/@prisma/client/runtime/library.js:121:7568)
+100.0     at ei.handleAndLogRequestError (/app/node_modules/@prisma/client/runtime/library.js:121:6593)
+100.0     at ei.request (/app/node_modules/@prisma/client/runtime/library.js:121:6300)
+100.0     at async a (/app/node_modules/@prisma/client/runtime/library.js:130:9551)
+100.0     at async i (/app/.next/server/chunks/3331.js:1:16987)
+100.0 Export encountered an error on /politica-de-privacidade/page: /politica-de-privacidade, exiting the build.
+100.1  ⨯ Static worker exited with code: 1 and signal: null
+------
+
+ 9 warnings found (use docker --debug to expand):
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "NEXTAUTH_SECRET") (line 26)
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 38)
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "NEXTAUTH_SECRET") (line 18)
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "AUTH_SECRET") (line 25)
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "AUTH_TRUST_HOST") (line 27)
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 51)
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 52)
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "AUTH_SECRET") (line 17)
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "AUTH_TRUST_HOST") (line 19)
+Dockerfile:33
+--------------------
+  31 |     COPY . .
+  32 |     RUN npx prisma generate
+  33 | >>> RUN npm run build
+  34 |     
+  35 |     # Etapa 3: Runner
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+##########################################
+### Error
+### Tue, 28 Apr 2026 23:18:47 GMT
+##########################################
+
+Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/Dockerfile -t easypanel/guitar-garage/guitar-garage-web --label 'keep=true' --build-arg 'DATABASE_URL=mysql://admin:8a6eeed8d62fc0b452d1@guitar-garage_db:3306/guitar_garage' --build-arg 'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=du3iy9bpu' --build-arg 'NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=guitar_garage_preset' --build-arg 'AUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'NEXTAUTH_SECRET=69056261c0667e813cc0d057020d2971' --build-arg 'AUTH_TRUST_HOST=true' --build-arg 'NODE_ENV=production' --build-arg 'GIT_SHA=a4b60a40d0c51fd2e7a3c8144e8a1dfd0b6eb6e8' /etc/easypanel/projects/guitar-garage/guitar-garage-web/code/

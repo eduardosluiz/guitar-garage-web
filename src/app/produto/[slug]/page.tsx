@@ -3,8 +3,6 @@ import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import ProdutoDetalheClient from './ProdutoDetalheClient';
 import styles from './page.module.css';
 import { Metadata } from 'next';
@@ -47,12 +45,9 @@ export default async function ProdutoDetalhePage({ params }: { params: Promise<{
     notFound();
   }
 
-  // Parse especificações do JSON string ou Texto se necessário
   let extraSpecs = [];
   try {
     if (productDb.especificacoes) {
-      // Se for um JSON string, parseia. Se for texto puro, talvez precise de outro tratamento.
-      // Por enquanto, assumimos texto simples e podemos melhorar se houver padrão.
       const lines = productDb.especificacoes.split('\n');
       extraSpecs = lines.filter(l => l.includes(':')).map(line => {
         const [label, value] = line.split(':');
@@ -77,14 +72,11 @@ export default async function ProdutoDetalhePage({ params }: { params: Promise<{
   };
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} suppressHydrationWarning>
       <Header />
-
       <section className={styles.container}>
-
         <ProdutoDetalheClient product={product} whatsapp={whatsappConfig} />
       </section>
-
       <Footer />
     </main>
   );
