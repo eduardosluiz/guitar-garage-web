@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { PlusCircle, Edit2, MessageSquareQuote, Eye, EyeOff } from 'lucide-react';
 import DeleteButtonGeneral from '@/components/admin/DeleteButtonGeneral';
 import StatusToggleButton from '@/components/admin/StatusToggleButton';
+import SearchInput from '@/components/admin/SearchInput';
 import styles from '../produtos/page.module.css';
 
-export default async function AdminDepoimentos() {
+interface PageProps {
+  searchParams: Promise<{ q?: string }>;
+}
+
+export default async function AdminDepoimentos({ searchParams }: PageProps) {
+  const { q } = await searchParams;
+
   const data = await prisma.depoimento.findMany({
+    where: q ? {
+      OR: [
+        { nome: { contains: q } },
+        { texto: { contains: q } }
+      ]
+    } : {},
     orderBy: { createdAt: 'desc' }
   });
 
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
-        <div className={styles.searchBox}>
-          <MessageSquareQuote size={18} />
-          <input type="text" placeholder="Buscar depoimento..." />
-        </div>
+        <Suspense fallback={<div className={styles.searchBox}><MessageSquareQuote size={18} /><input type="text" placeholder="Buscar depoimento..." disabled /></div>}>
+          <SearchInput placeholder="Buscar depoimento..." icon={MessageSquareQuote} />
+        </Suspense>
         <Link href="/admin/depoimentos/novo" className="btn-boutique">
           <PlusCircle size={16} /> NOVO DEPOIMENTO
         </Link>

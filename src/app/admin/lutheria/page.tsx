@@ -1,24 +1,36 @@
 // src/app/admin/lutheria/page.tsx
-import React from 'react';
+import React, { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { PlusCircle, Edit2, Hammer, Eye, EyeOff } from 'lucide-react';
+import { PlusCircle, Edit2, Wrench } from 'lucide-react';
 import DeleteButtonGeneral from '@/components/admin/DeleteButtonGeneral';
+import SearchInput from '@/components/admin/SearchInput';
 import styles from '../produtos/page.module.css';
 
-export default async function AdminLutheria() {
+interface PageProps {
+  searchParams: Promise<{ q?: string }>;
+}
+
+export default async function AdminLutheria({ searchParams }: PageProps) {
+  const { q } = await searchParams;
+
   const projects = await prisma.projetoLutheria.findMany({
-    include: { imagens: true },
+    where: q ? {
+      OR: [
+        { titulo: { contains: q } },
+        { descricao: { contains: q } }
+      ]
+    } : {},
+    include: { imagens: { orderBy: { ordem: 'asc' }, take: 1 } },
     orderBy: { createdAt: 'desc' }
   });
 
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
-        <div className={styles.searchBox}>
-          <Hammer size={18} />
-          <input type="text" placeholder="Buscar projeto..." />
-        </div>
+        <Suspense fallback={<div className={styles.searchBox}><Wrench size={18} /><input type="text" placeholder="Buscar projeto..." disabled /></div>}>
+          <SearchInput placeholder="Buscar projeto..." icon={Wrench} />
+        </Suspense>
         <Link href="/admin/lutheria/novo" className="btn-boutique">
           <PlusCircle size={16} /> NOVO PROJETO
         </Link>

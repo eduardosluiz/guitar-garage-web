@@ -142,8 +142,8 @@ export default function Home() {
             <span className={styles.preTitle}>GRAVES PROFUNDOS</span>
             <h2 className={styles.playfairTitle}>Baixos de Coleção</h2>
           </div>
-          <Link href="/categoria/baixos" className={styles.categoryLink}>
-            VER TODOS OS BAIXOS <ArrowRight size={14} />
+          <Link href="/categoria/amplificadores" className={styles.categoryLink}>
+            VER TODOS <ArrowRight size={16} />
           </Link>
         </div>
         <div className={styles.goldLineLeft}></div>
@@ -159,8 +159,8 @@ export default function Home() {
             <span className={styles.preTitle}>POTÊNCIA VINTAGE</span>
             <h2 className={styles.playfairTitle}>Amplificadores & Raridades</h2>
           </div>
-          <Link href="/categoria/amps" className={styles.categoryLink}>
-            VER AMPLIFICADORES <ArrowRight size={14} />
+          <Link href="/categoria/amplificadores" className={styles.categoryLink}>
+            VER TODOS <ArrowRight size={16} />
           </Link>
         </div>
         <div className={styles.goldLineLeft}></div>

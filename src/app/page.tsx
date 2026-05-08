@@ -41,7 +41,8 @@ export default async function Home() {
     const products = await prisma.produto.findMany({
       where: {
         categoria: { slug: slug },
-        status: 'Disponivel'
+        status: 'Disponivel',
+        isDestaque: true // Puxa apenas os marcados como Destaque na Home
       },
       include: {
         marca: true,
@@ -66,7 +67,7 @@ export default async function Home() {
   let guitars = await getProductsByCategory('guitarras');
   let basses = await getProductsByCategory('baixos');
   let acoustics = await getProductsByCategory('violoes');
-  let amps = await getProductsByCategory('amps');
+  let amps = await getProductsByCategory('amplificadores');
 
   // FALLBACKS para as seções não ficarem vazias na primeira visualização
   const imgGtr = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=800";

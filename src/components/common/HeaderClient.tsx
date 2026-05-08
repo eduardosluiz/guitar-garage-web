@@ -27,7 +27,7 @@ const MENU_ITEMS = [
     ]
   },
   { name: 'BAIXOS', href: '/categoria/baixos' },
-  { name: 'AMPS', href: '/categoria/amps' },
+  { name: 'AMPS', href: '/categoria/amplificadores' },
   { name: 'VIOLÕES', href: '/categoria/violoes' },
   { name: 'SERVIÇOS', href: '/servicos' },
   { name: 'DEPOIMENTOS', href: '/depoimentos' }

@@ -96,7 +96,7 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
               <option value="/categoria/guitarras">Página: Guitarras</option>
               <option value="/categoria/baixos">Página: Baixos</option>
               <option value="/categoria/violoes">Página: Violões</option>
-              <option value="/categoria/amps">Página: Amps</option>
+              <option value="/categoria/amplificadores">Página: Amps</option>
               <option value="/categoria/pedais">Página: Pedais</option>
               <option value="/categoria/vintage">Página: Vintage Collection</option>
               <option value="/categoria/custom-shop">Página: Custom Shop</option>

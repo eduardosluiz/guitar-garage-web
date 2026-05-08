@@ -1,13 +1,27 @@
 // src/app/admin/produtos/page.tsx
-import React from 'react';
+import React, { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { PlusCircle, Search, Edit2, ExternalLink } from 'lucide-react';
 import DeleteButton from '@/components/admin/DeleteButton';
+import SearchInput from '@/components/admin/SearchInput';
 import styles from './page.module.css';
 
-export default async function AdminProdutos() {
+interface PageProps {
+  searchParams: Promise<{ q?: string }>;
+}
+
+export default async function AdminProdutos({ searchParams }: PageProps) {
+  const { q } = await searchParams;
+
   const products = await prisma.produto.findMany({
+    where: q ? {
+      OR: [
+        { nome: { contains: q } },
+        { marca: { nome: { contains: q } } },
+        { categoria: { nome: { contains: q } } }
+      ]
+    } : {},
     include: { marca: true, categoria: true, imagens: true },
     orderBy: { createdAt: 'desc' }
   });
@@ -15,10 +29,9 @@ export default async function AdminProdutos() {
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
-        <div className={styles.searchBox}>
-          <Search size={18} />
-          <input type="text" placeholder="Buscar instrumento..." />
-        </div>
+        <Suspense fallback={<div className={styles.searchBox}><Search size={18} /><input type="text" placeholder="Buscar instrumento..." disabled /></div>}>
+          <SearchInput placeholder="Buscar instrumento..." />
+        </Suspense>
         <Link href="/admin/produtos/novo" className="btn-boutique">
           <PlusCircle size={16} /> 
           <span className="desktop-text">NOVO PRODUTO</span>

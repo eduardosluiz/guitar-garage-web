@@ -76,7 +76,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
                 <img src={slides[currentSlide].img} alt="Hero" />
                 <div className={styles.overlayGradient}></div>
                 <div className={styles.slideInfo}>
-                  <span className={styles.slideTag}>DESTAQUE</span>
+                  <span className={styles.slideTag}>NOVIDADES</span>
                   <h3>{slides[currentSlide].title}</h3>
                   <Link href={slides[currentSlide].href} className={styles.slideLink}>VER AGORA <ArrowRight size={16} /></Link>
                 </div>
@@ -103,7 +103,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
             ...categoryList,
             { name: "GUITARRAS", slug: "guitarras", img: imgGtr },
             { name: "BAIXOS", slug: "baixos", img: imgBass },
-            { name: "AMPS", slug: "amps", img: imgAmp },
+            { name: "AMPS", slug: "amplificadores", img: imgAmp },
             { name: "VIOLÕES", slug: "violoes", img: imgGtr },
             { name: "PEDAIS", slug: "pedais", img: imgAmp },
             { name: "CUSTOM", slug: "custom", img: imgBass }
@@ -205,7 +205,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
               <span className={styles.preTitle}>POTÊNCIA</span>
               <h2>AMPLIFICADORES<br /><span>Estoque</span></h2>
             </div>
-            <Link href="/categoria/amps" className={styles.exploreLink}>VER TODOS <ArrowRight size={16} /></Link>
+            <Link href="/categoria/amplificadores" className={styles.exploreLink}>VER TODOS <ArrowRight size={16} /></Link>
           </motion.div>
           <div className={styles.productFlex}>{amps.map(p => <ProductCard key={p.id} p={p} />)}</div>
         </section>

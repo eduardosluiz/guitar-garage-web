@@ -1,13 +1,21 @@
 // src/app/admin/marcas/page.tsx
-import React from 'react';
+import React, { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { PlusCircle, Edit2, Image as ImageIcon } from 'lucide-react';
+import { PlusCircle, Edit2, ShieldCheck, Search } from 'lucide-react';
 import DeleteButtonGeneral from '@/components/admin/DeleteButtonGeneral';
-import styles from '../produtos/page.module.css'; // Reusando CSS da tabela de produtos
+import SearchInput from '@/components/admin/SearchInput';
+import styles from '../produtos/page.module.css';
 
-export default async function AdminMarcas() {
+interface PageProps {
+  searchParams: Promise<{ q?: string }>;
+}
+
+export default async function AdminMarcas({ searchParams }: PageProps) {
+  const { q } = await searchParams;
+
   const brands = await prisma.marca.findMany({
+    where: q ? { nome: { contains: q } } : {},
     include: { _count: { select: { produtos: true } } },
     orderBy: { nome: 'asc' }
   });
@@ -15,10 +23,9 @@ export default async function AdminMarcas() {
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
-        <div className={styles.searchBox}>
-          <ImageIcon size={18} />
-          <input type="text" placeholder="Buscar marca..." />
-        </div>
+        <Suspense fallback={<div className={styles.searchBox}><Search size={18} /><input type="text" placeholder="Buscar marca..." disabled /></div>}>
+          <SearchInput placeholder="Buscar marca..." />
+        </Suspense>
         <Link href="/admin/marcas/novo" className="btn-boutique">
           <PlusCircle size={16} /> NOVA MARCA
         </Link>

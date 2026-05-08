@@ -155,7 +155,7 @@ export default function CarrosselForm() {
                     <optgroup label="Categorias">
                       <option value="/categoria/guitarras">Categoria: Guitarras</option>
                       <option value="/categoria/baixos">Categoria: Baixos</option>
-                      <option value="/categoria/amps">Categoria: Amps</option>
+                      <option value="/categoria/amplificadores">Categoria: Amps</option>
                       <option value="/categoria/violoes">Categoria: Violões</option>
                       <option value="/categoria/pedais">Categoria: Pedais</option>
                       <option value="/categoria/custom">Categoria: Custom Shop</option>
