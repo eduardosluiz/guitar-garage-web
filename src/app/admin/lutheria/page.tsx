@@ -2,7 +2,7 @@
 import React, { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { PlusCircle, Edit2, Wrench } from 'lucide-react';
+import { PlusCircle, Edit2, Wrench, Eye, EyeOff } from 'lucide-react';
 import DeleteButtonGeneral from '@/components/admin/DeleteButtonGeneral';
 import SearchInput from '@/components/admin/SearchInput';
 import styles from '../produtos/page.module.css';
