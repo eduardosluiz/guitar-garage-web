@@ -1,5 +1,3 @@
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -24,46 +22,48 @@ model Marca {
   nome      String    @unique
   slug      String    @unique
   logo_url  String?
-  produtos  Produto[]
   createdAt DateTime  @default(now()) @map("created_at")
+  produtos  Produto[]
 
   @@map("marcas")
 }
 
 model Categoria {
-  id        Int       @id @default(autoincrement())
-  nome      String    @unique
-  slug      String    @unique
+  id          Int       @id @default(autoincrement())
+  nome        String    @unique
+  slug        String    @unique
+  createdAt   DateTime  @default(now()) @map("created_at")
   imagemUrl   String?   @map("imagem_url")
   linkDestino String?   @map("link_destino")
   produtos    Produto[]
-  createdAt   DateTime  @default(now()) @map("created_at")
 
   @@map("categorias")
 }
 
 model Produto {
-  id             Int       @id @default(autoincrement())
-  nome           String
-  slug           String    @unique
-  preco          Float?
-  descricao      String?   @db.Text
-  especificacoes String?   @db.Text
-  peso           String?
-  ano            Int?
-  condicao       String    @default("Novo")
-  status         String    @default("Disponivel")
-  isDestaque     Boolean   @default(false) @map("is_destaque")
-  isNovidade     Boolean   @default(true)  @map("is_novidade")
-  isVintageDestaque Boolean @default(false) @map("is_vintage_destaque")
-  marcaId        Int?      @map("marca_id")
-  categoriaId    Int?      @map("categoria_id")
-  marca          Marca?    @relation(fields: [marcaId], references: [id])
-  categoria      Categoria? @relation(fields: [categoriaId], references: [id])
-  imagens        Imagem[]
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @updatedAt @map("updated_at")
+  id                Int        @id @default(autoincrement())
+  nome              String
+  slug              String     @unique
+  preco             Float?
+  descricao         String?    @db.Text
+  especificacoes    String?    @db.Text
+  peso              String?
+  ano               Int?
+  condicao          String     @default("Novo")
+  status            String     @default("Disponivel")
+  isDestaque        Boolean    @default(false) @map("is_destaque")
+  isNovidade        Boolean    @default(true) @map("is_novidade")
+  marcaId           Int?       @map("marca_id")
+  categoriaId       Int?       @map("categoria_id")
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
+  isVintageDestaque Boolean    @default(false) @map("is_vintage_destaque")
+  imagens           Imagem[]
+  categoria         Categoria? @relation(fields: [categoriaId], references: [id])
+  marca             Marca?     @relation(fields: [marcaId], references: [id])
 
+  @@index([categoriaId], map: "produtos_categoria_id_fkey")
+  @@index([marcaId], map: "produtos_marca_id_fkey")
   @@map("produtos")
 }
 
@@ -73,32 +73,46 @@ model Imagem {
   altText   String?  @map("alt_text")
   ordem     Int      @default(0)
   produtoId Int      @map("produto_id")
-  produto   Produto  @relation(fields: [produtoId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @map("created_at")
+  produto   Produto  @relation(fields: [produtoId], references: [id], onDelete: Cascade)
 
+  @@index([produtoId], map: "imagens_produto_id_fkey")
   @@map("imagens")
 }
 
 model Banner {
-  id         Int      @id @default(autoincrement())
-  preTitulo  String?  @map("pre_titulo")
-  titulo     String?
-  subtitulo  String?
-  ctaTexto   String?  @map("cta_texto")
-  ctaLink    String?  @map("cta_link")
-  imagemUrl  String   @map("imagem_url")
-  posicao    String   @default("home") // 'home', 'lutheria', 'aulas', 'pickups'
-  ordem      Int      @default(0)
-  isAtivo    Boolean  @default(true) @map("is_ativo")
-  createdAt  DateTime @default(now()) @map("created_at")
+  id        Int           @id @default(autoincrement())
+  titulo    String?
+  subtitulo String?
+  ctaTexto  String?       @map("cta_texto")
+  ctaLink   String?       @map("cta_link")
+  imagemUrl String        @map("imagem_url")
+  posicao   String        @default("home")
+  ordem     Int           @default(0)
+  isAtivo   Boolean       @default(true) @map("is_ativo")
+  createdAt DateTime      @default(now()) @map("created_at")
+  preTitulo String?       @map("pre_titulo")
+  media     BannerMedia[]
 
   @@map("banners")
+}
+
+model BannerMedia {
+  id        Int      @id @default(autoincrement())
+  url       String
+  tipo      String   @default("imagem")
+  ordem     Int      @default(0)
+  bannerId  Int      @map("banner_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  banner    Banner   @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+
+  @@index([bannerId], map: "banner_media_banner_id_fkey")
+  @@map("banner_media")
 }
 
 model Configuracao {
   id            Int      @id @default(1)
   whatsapp      String?
-  showWhatsapp  Boolean  @default(true) @map("show_whatsapp")
   emailContato  String?  @map("email_contato")
   instagramUrl  String?  @map("instagram_url")
   showInstagram Boolean  @default(true) @map("show_instagram")
@@ -106,24 +120,25 @@ model Configuracao {
   showFacebook  Boolean  @default(true) @map("show_facebook")
   youtubeUrl    String?  @map("youtube_url")
   showYoutube   Boolean  @default(true) @map("show_youtube")
-  spotifyUrl    String?  @map("spotify_url")
-  showSpotify   Boolean  @default(true) @map("show_spotify")
   telefone      String?
   updatedAt     DateTime @updatedAt @map("updated_at")
+  showSpotify   Boolean  @default(true) @map("show_spotify")
+  showWhatsapp  Boolean  @default(true) @map("show_whatsapp")
+  spotifyUrl    String?  @map("spotify_url")
 
   @@map("configuracoes")
 }
 
 model ProjetoLutheria {
-  id          Int             @id @default(autoincrement())
-  titulo      String
-  slug        String          @unique
-  descricao   String?         @db.Text
-  videoUrl    String?         @map("video_url")
-  isAtivo     Boolean         @default(true) @map("is_ativo")
-  imagens     ImagemProjeto[]
-  createdAt   DateTime        @default(now()) @map("created_at")
-  updatedAt   DateTime        @updatedAt @map("updated_at")
+  id        Int             @id @default(autoincrement())
+  titulo    String
+  slug      String          @unique
+  descricao String?         @db.Text
+  videoUrl  String?         @map("video_url")
+  isAtivo   Boolean         @default(true) @map("is_ativo")
+  createdAt DateTime        @default(now()) @map("created_at")
+  updatedAt DateTime        @updatedAt @map("updated_at")
+  imagens   ImagemProjeto[]
 
   @@map("lutheria_projetos")
 }
@@ -131,11 +146,12 @@ model ProjetoLutheria {
 model ImagemProjeto {
   id        Int             @id @default(autoincrement())
   url       String
-  ordem     Int             @default(0)
   projetoId Int             @map("projeto_id")
-  projeto   ProjetoLutheria @relation(fields: [projetoId], references: [id], onDelete: Cascade)
   createdAt DateTime        @default(now()) @map("created_at")
+  ordem     Int             @default(0)
+  projeto   ProjetoLutheria @relation(fields: [projetoId], references: [id], onDelete: Cascade)
 
+  @@index([projetoId], map: "lutheria_imagens_projeto_id_fkey")
   @@map("lutheria_imagens")
 }
 

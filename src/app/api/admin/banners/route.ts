@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 export async function GET() {
   try {
     const banners = await prisma.banner.findMany({
+      include: { media: true },
       orderBy: [
         { ordem: 'asc' },
         { id: 'desc' }
@@ -19,7 +20,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { preTitulo, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo } = body;
+    const { preTitulo, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo, media } = body;
 
     const banner = await prisma.banner.create({
       data: {
@@ -31,7 +32,14 @@ export async function POST(req: Request) {
         imagemUrl,
         posicao: posicao || 'home',
         ordem: parseInt(ordem) || 0,
-        isAtivo: isAtivo !== undefined ? isAtivo : true
+        isAtivo: isAtivo !== undefined ? isAtivo : true,
+        media: {
+          create: (media || []).map((item: any) => ({
+            url: item.url,
+            tipo: (item.url.endsWith('.mp3') || item.url.endsWith('.wav') || item.url.endsWith('.ogg') || (item.url.includes('/video/upload/') && !item.url.endsWith('.mp4'))) ? 'audio' : 'imagem',
+            ordem: item.ordem
+          }))
+        }
       }
     });
 
@@ -45,7 +53,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, preTitulo, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo } = body;
+    const { id, preTitulo, titulo, subtitulo, ctaTexto, ctaLink, imagemUrl, posicao, ordem, isAtivo, media } = body;
 
     const banner = await prisma.banner.update({
       where: { id },
@@ -58,7 +66,15 @@ export async function PUT(req: Request) {
         imagemUrl,
         posicao: posicao || 'home',
         ordem: parseInt(ordem) || 0,
-        isAtivo: isAtivo
+        isAtivo: isAtivo,
+        media: {
+          deleteMany: {},
+          create: (media || []).map((item: any) => ({
+            url: item.url,
+            tipo: (item.url.endsWith('.mp3') || item.url.endsWith('.wav') || item.url.endsWith('.ogg') || (item.url.includes('/video/upload/') && !item.url.endsWith('.mp4'))) ? 'audio' : 'imagem',
+            ordem: item.ordem
+          }))
+        }
       }
     });
 

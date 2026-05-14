@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Save, X } from 'lucide-react';
+import { Save, X, Info } from 'lucide-react';
 import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
@@ -21,17 +21,27 @@ export default function BannerForm({ initialData }: BannerFormProps) {
     ctaTexto: initialData?.ctaTexto || '',
     ctaLink: initialData?.ctaLink || '',
     imagemUrl: initialData?.imagemUrl || '',
-    posicao: initialData?.posicao || 'estoque',
+    posicao: initialData?.posicao || 'guitarras',
     ordem: initialData?.ordem || 0,
     isAtivo: initialData?.isAtivo !== undefined ? initialData.isAtivo : true,
+    media: initialData?.media || []
   });
 
-  const bannerMedia: MediaItem[] = formData.imagemUrl ? [{ url: formData.imagemUrl, ordem: 0 }] : [];
-
   const handleMediaChange = (items: MediaItem[] | ((prev: MediaItem[]) => MediaItem[])) => {
-    const newItems = typeof items === 'function' ? items(bannerMedia) : items;
-    const latestUrl = newItems[newItems.length - 1]?.url || '';
-    setFormData(prev => ({ ...prev, imagemUrl: latestUrl }));
+    const newItems = typeof items === 'function' ? items(formData.media) : items;
+    
+    // Encontrar a primeira imagem para ser a capa
+    const firstImage = newItems.find(item => 
+      item.url.endsWith('.jpg') || item.url.endsWith('.jpeg') || 
+      item.url.endsWith('.png') || item.url.endsWith('.webp') ||
+      !item.url.includes('/video/upload/')
+    );
+
+    setFormData(prev => ({ 
+      ...prev, 
+      media: newItems,
+      imagemUrl: firstImage?.url || newItems[0]?.url || '' 
+    }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -42,7 +52,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.imagemUrl) {
+    if (!formData.imagemUrl && formData.media.length === 0) {
       alert('A imagem do banner é obrigatória');
       return;
     }
@@ -73,7 +83,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.header}>
-        <h2>{initialData ? 'Editar Banner' : 'Novo Banner'}</h2>
+        <h2>{initialData ? 'Editar Banner de Topo' : 'Novo Banner de Topo (Hero)'}</h2>
         <div className={styles.headerActions}>
           <button type="button" onClick={() => router.back()} className="btn-boutique-outline">
             <X size={16} /> Cancelar
@@ -87,24 +97,53 @@ export default function BannerForm({ initialData }: BannerFormProps) {
       <div className={styles.grid}>
         <div className={styles.mainCol}>
           <div className={styles.card}>
-            <h3>Conteúdo Visual</h3>
+            <h3>Local e Conteúdo Visual</h3>
+            
             <div className={styles.inputGroup}>
+              <label>Página onde o Banner aparecerá</label>
+              <select name="posicao" value={formData.posicao} onChange={handleChange}>
+                <optgroup label="Banners de Topo (Hero)">
+                  <option value="novidades">Página: Novidades (Top)</option>
+                  <option value="guitarras">Categoria: Guitarras (Top)</option>
+                  <option value="baixos">Categoria: Baixos (Top)</option>
+                  <option value="amps">Categoria: Amps (Top)</option>
+                  <option value="violoes">Categoria: Violões (Top)</option>
+                  <option value="pedais">Categoria: Pedais (Top)</option>
+                  <option value="custom-shop">Categoria: Custom Shop (Top)</option>
+                  <option value="vintage">Categoria: Vintage (Top)</option>
+                </optgroup>
+
+                <optgroup label="Páginas de Serviços (Top)">
+                  <option value="servicos">Página: Todos os Serviços</option>
+                  <option value="lutheria">Página: Lutheria</option>
+                  <option value="aulas">Página: Aulas</option>
+                </optgroup>
+
+                <optgroup label="Institucional">
+                  <option value="sobre">Página: Sobre a Garage</option>
+                  <option value="depoimentos">Página: Depoimentos</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div className={styles.inputGroup} style={{ marginTop: '2rem' }}>
               <label>Texto Auxiliar (Amarelo)</label>
               <input type="text" name="preTitulo" value={formData.preTitulo} onChange={handleChange} placeholder="Ex: ESTOQUE DISPONÍVEL" />
             </div>
             <div className={styles.inputGroup}>
-              <label>Título do Banner</label>
-              <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} placeholder="Ex: NOVIDADES 2026" />
+              <label>Título Principal do Banner</label>
+              <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} placeholder="Ex: RARIDADES VINTAGE" />
             </div>
             <div className={styles.inputGroup}>
               <label>Subtítulo / Descrição Curta</label>
               <input type="text" name="subtitulo" value={formData.subtitulo} onChange={handleChange} placeholder="Ex: Confira as novas raridades que chegaram." />
             </div>
             <div className={styles.inputGroup}>
-              <label>Imagem do Banner (High-Res)</label>
+              <label>Imagem de Fundo (Horizontal High-Res)</label>
               <MediaUpload 
-                value={bannerMedia} 
+                value={formData.media} 
                 onChange={handleMediaChange}
+                onlyImages={true}
               />
             </div>
           </div>
@@ -112,53 +151,15 @@ export default function BannerForm({ initialData }: BannerFormProps) {
 
         <div className={styles.sideCol}>
           <div className={styles.card}>
-            <h3>Configurações</h3>
-            <div className={styles.inputGroup}>
-              <label>Local de Exibição</label>
-              <select name="posicao" value={formData.posicao} onChange={handleChange}>
-                <optgroup label="Home e Gerais">
-                  {formData.posicao === 'home' && (
-                    <option value="home">Home - Carrossel (Legado)</option>
-                  )}
-                  <option value="estoque">Página: Todo o Estoque</option>
-                  <option value="novidades">Página: Novidades</option>
-                  <option value="sobre">Página: Sobre a Garage (Proprietário)</option>
-                </optgroup>
-                <optgroup label="Categorias de Produtos">
-                  <option value="guitarras">Categoria: Guitarras</option>
-                  <option value="baixos">Categoria: Baixos</option>
-                  <option value="amps">Categoria: Amps</option>
-                  <option value="violoes">Categoria: Violões</option>
-                  <option value="pedais">Categoria: Pedais</option>
-                  <option value="custom-shop">Categoria: Custom Shop</option>
-                  <option value="vintage">Categoria: Vintage</option>
-                </optgroup>
-                <optgroup label="Páginas de Serviços">
-                  <option value="lutheria">Serviço: Lutheria</option>
-                  <option value="custom-pickups">Serviço: Custom Pickups</option>
-                  <option value="aulas">Serviço: Aulas</option>
-                </optgroup>
-              </select>
-            </div>
-
-            {formData.posicao === 'home' && (
-              <>
-                <div className={styles.inputGroup}>
-                  <label>Texto do Botão (CTA)</label>
-                  <input type="text" name="ctaTexto" value={formData.ctaTexto} onChange={handleChange} placeholder="Ex: VER AGORA" />
-                </div>
-                <div className={styles.inputGroup}>
-                  <label>Link do Botão</label>
-                  <input type="text" name="ctaLink" value={formData.ctaLink} onChange={handleChange} placeholder="Ex: /categoria/novidades" />
-                </div>
-                <div className={styles.inputGroup}>
-                  <label>Ordem de Exibição</label>
-                  <input type="number" name="ordem" value={formData.ordem} onChange={handleChange} />
-                </div>
-              </>
-            )}
-
-            <div className={styles.checkboxGroup}>
+            <h3><Info size={16} style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} /> Informações</h3>
+            <p style={{ fontSize: '0.8rem', color: '#878a99', lineHeight: '1.6' }}>
+              Esta seção gerencia os <strong>Banners de Topo (Hero)</strong> das páginas do site.
+              <br /><br />
+              <strong>Atenção:</strong> O banner da página de <em>Custom Pickups (Tones)</em> agora é gerenciado exclusivamente no novo menu <strong>Tones</strong>.
+              <br /><br />
+              Se uma página não tiver um banner cadastrado, o sistema exibirá automaticamente o fundo preto padrão da Guitar Garage.
+            </p>
+            <div className={styles.checkboxGroup} style={{ marginTop: '2rem' }}>
               <label>
                 <input type="checkbox" name="isAtivo" checked={formData.isAtivo} onChange={handleChange} />
                 Banner Ativo

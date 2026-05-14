@@ -11,6 +11,88 @@
 .title { font-family: 'Space Grotesk', sans-serif; font-size: 4rem; line-height: 0.9; font-weight: 700; letter-spacing: -2px; }
 .title span { font-weight: 300; color: #888; }
 
+.servicesGrid {
+  padding: 10rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+
+.tonesSection {
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.serviceCard {
+  background: #fff;
+  border: 1px solid #eee;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+  border-color: #D4AF37;
+}
+
+.cardImage {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: #000;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: transform 0.8s ease;
+}
+
+.serviceCard:hover .cardImage img {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.iconOverlay {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: #D4AF37;
+  background: rgba(0,0,0,0.5);
+  padding: 1rem;
+  border-radius: 50%;
+  backdrop-filter: blur(5px);
+}
+
+.cardContent { 
+  padding: 3rem; 
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardContent h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.cardContent p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 3rem;
+  flex: 1;
+}
+
 .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
 
 /* TÍTULOS PREMIUM STACKED */
@@ -19,7 +101,8 @@
 .titleStacked h2 span { font-weight: 300; color: #888; }
 
 /* SAMPLES SECTION */
-.samplesSection { padding: 8rem 0; background-color: #f9f9f9; }
+.samplesSection { margin-bottom: 3rem; background: transparent; }
+.samplesSectionMain { padding: 8rem 0; background-color: #f9f9f9; }
 .samplesGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
 .samplesList { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 .sampleItem { display: flex; align-items: center; gap: 15px; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: #444; border-bottom: 1px solid #eee; padding-bottom: 0.75rem; }
@@ -43,21 +126,265 @@
 .externalLink:hover { color: #D4AF37; gap: 15px; }
 
 /* TELE SET SECTION */
-.teleSet { padding: 10rem 0; }
-.gridSplit { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8rem; align-items: center; }
-.imageGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.imageGrid img { width: 100%; height: auto; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+.teleSet { padding: 10rem 0; background: #fff; }
+.textContentFull { width: 100%; }
+.textContentFull h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; line-height: 0.9; font-weight: 700; margin-bottom: 2rem; }
+.textContentFull h2 span { font-weight: 300; color: #888; }
 
-.textContent h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; line-height: 0.9; font-weight: 700; margin-bottom: 2rem; }
-.textContent h2 span { font-weight: 300; color: #888; }
-.textContent p { font-size: 1.1rem; line-height: 1.8; color: #555; margin-bottom: 2rem; }
+.textGridTwoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  margin-top: 4rem;
+}
+
+.textGridTwoCols p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
 .divider { width: 60px; height: 2px; background: #D4AF37; margin-bottom: 3rem; }
 
-.ctaBtn { background: transparent; color: #000; border: 1px solid rgba(0,0,0,0.3); padding: 0.8rem 2rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; cursor: pointer; display: inline-flex; align-items: center; gap: 12px; transition: all 0.3s ease; text-transform: uppercase; text-decoration: none; }
+.ctaBtn { 
+  background: transparent; 
+  color: #000; 
+  border: 1px solid rgba(0,0,0,0.3); 
+  padding: 0.8rem 2rem; 
+  font-family: 'Space Grotesk', sans-serif; 
+  font-weight: 700; 
+  font-size: 0.7rem; 
+  letter-spacing: 2px; 
+  cursor: pointer; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 12px; 
+  transition: all 0.3s ease; 
+  text-transform: uppercase; 
+  text-decoration: none;
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+}
 .ctaBtn:hover { background: #000; color: #fff; border-color: #000; }
 
 @media (max-width: 1024px) {
-  .samplesGrid, .gridSplit { grid-template-columns: 1fr; gap: 4rem; }
+  .samplesGrid, .servicesGrid, .textGridTwoCols { grid-template-columns: 1fr; gap: 4rem; }
   .title { font-size: 2.5rem; }
-  .textContent h2 { font-size: 2.2rem; }
+  .textContentFull h2 { font-size: 2.2rem; }
+}
+/* src/app/servicos/custom-pickups/page.module.css (partial for details) */
+.pageWrapper {
+  background-color: #000;
+  min-height: 100vh;
+  padding: 120px 5% 80px;
+  color: #fff;
+}
+
+.backNav {
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+}
+
+.backLink {
+  background: none;
+  border: none;
+  color: #D4AF37;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.backLink:hover {
+  opacity: 0.7;
+}
+
+.contentLayout {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 8rem;
+}
+
+.galleryCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+}
+
+.mainImageContainer {
+  position: relative;
+  aspect-ratio: 16/10;
+  background: #000;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.mainImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carouselBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  color: #fff;
+}
+
+.carouselBtn:hover {
+  background: #D4AF37;
+  color: #000;
+}
+
+.thumbnailGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.thumb {
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background: #111;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+.thumbActive {
+  border-color: #D4AF37;
+}
+
+.thumbActive img {
+  opacity: 1;
+}
+
+.infoCol {
+}
+
+.stickyContent {
+  position: sticky;
+  top: 120px;
+}
+
+.brandTag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #D4AF37;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.productName {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 2rem;
+  letter-spacing: -2px;
+  color: #fff;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 3rem;
+}
+
+.samplesSection {
+  margin-bottom: 3rem;
+}
+
+.samplesSection h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.samplesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sampleItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+.ctaButton {
+  background: #D4AF37;
+  color: #000;
+  text-decoration: none;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 3rem;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #fff;
+  color: #000;
+}
+
+.benefits {
+  display: none;
+}
+
+.specsSection {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .contentLayout { grid-template-columns: 1fr; gap: 4rem; }
+  .productName { font-size: 2.5rem; }
+  .pageWrapper { padding-top: 100px; }
 }

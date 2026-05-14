@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PlusCircle, Edit2, Layers } from 'lucide-react';
 import DeleteButtonGeneral from '@/components/admin/DeleteButtonGeneral';
 import SearchInput from '@/components/admin/SearchInput';
-import styles from '../produtos/page.module.css'; // Reusando CSS da tabela de produtos
+import styles from './page.module.css'; // Usando o CSS local da própria pasta
 
 interface PageProps {
   searchParams: Promise<{ q?: string }>;
@@ -24,7 +24,7 @@ export default async function AdminCategorias({ searchParams }: PageProps) {
     <div className={styles.container}>
       <div className={styles.actions}>
         <Suspense fallback={<div className={styles.searchBox}><Layers size={18} /><input type="text" placeholder="Buscar categoria..." disabled /></div>}>
-          <SearchInput placeholder="Buscar categoria..." icon={Layers} />
+          <SearchInput placeholder="Buscar categoria..." />
         </Suspense>
         <Link href="/admin/categorias/novo" className="btn-boutique">
           <PlusCircle size={16} /> NOVA CATEGORIA

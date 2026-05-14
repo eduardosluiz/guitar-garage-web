@@ -28,7 +28,7 @@ export default async function AdminDepoimentos({ searchParams }: PageProps) {
     <div className={styles.container}>
       <div className={styles.actions}>
         <Suspense fallback={<div className={styles.searchBox}><MessageSquareQuote size={18} /><input type="text" placeholder="Buscar depoimento..." disabled /></div>}>
-          <SearchInput placeholder="Buscar depoimento..." icon={MessageSquareQuote} />
+          <SearchInput placeholder="Buscar depoimento..." />
         </Suspense>
         <Link href="/admin/depoimentos/novo" className="btn-boutique">
           <PlusCircle size={16} /> NOVO DEPOIMENTO

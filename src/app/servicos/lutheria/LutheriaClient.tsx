@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Wrench, CheckCircle2, ArrowRight, AlertTriangle, ShieldCheck, X, ChevronLeft, ChevronRight, Droplet, Zap } from 'lucide-react';
+import { Wrench, CheckCircle2, ArrowRight, AlertTriangle, ShieldCheck, X, ChevronLeft, ChevronRight, Droplet, Zap, Phone } from 'lucide-react';
 import styles from './page.module.css';
 
 interface Projeto {
@@ -15,13 +15,19 @@ interface Projeto {
 
 interface LutheriaClientProps {
   projetos: Projeto[];
+  whatsapp: string;
+  internalImage?: string;
 }
 
-export default function LutheriaClient({ projetos }: LutheriaClientProps) {
+export default function LutheriaClient({ projetos, whatsapp, internalImage }: LutheriaClientProps) {
   const [selectedProject, setSelectedProject] = useState<Projeto | null>(null);
   const [activeImg, setActiveImg] = useState(0);
 
-  const imgLuth = "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=1200";
+  const imgLuthFallback = "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=1200";
+  const displayInternalImage = internalImage || imgLuthFallback;
+
+  const cleanWhatsapp = whatsapp.replace(/\D/g, '');
+  const WHATSAPP_URL = `https://wa.me/${cleanWhatsapp}?text=Olá, gostaria de solicitar um orçamento de lutheria.`;
 
   const servicos = [
     "Regulagem Completa (Oitavas, tensor, altura)",
@@ -51,8 +57,12 @@ export default function LutheriaClient({ projetos }: LutheriaClientProps) {
 
           <div className={styles.grid}>
             <div className={styles.textSide}>
-              <p>Desde 2002, a Guitar Garage é referência técnica no Rio Grande do Sul. Nosso serviço de lutheria é reconhecido pela excelência no trato com instrumentos de alto valor e relíquias históricas.</p>
-              <p>Combinamos técnicas tradicionais com as melhores ferramentas do mercado para garantir o timbre definitivo.</p>
+              <p>
+                Desde 2002, a Guitar Garage se aprimora a cada dia. Nosso serviço de lutheria é reconhecido pela excelência no trato com instrumentos de seis e quatro cordas.<br />
+                Combinamos técnicas tradicionais ferramentas adequadas para garantir conforto e a melhor tocabilidade possível.<br />
+                Nosso serviço vai de uma simples regulagem até uma completa restauração ou refinish.<br />
+                Somos referência e pioneiros no Brasil nas técnicas de envelhecimento e restauração de instrumentos.
+              </p>
               <div className={styles.servicesList}>
                 {servicos.map((item, i) => (
                   <div key={i} className={styles.listItem}>
@@ -61,11 +71,13 @@ export default function LutheriaClient({ projetos }: LutheriaClientProps) {
                   </div>
                 ))}
               </div>
-              <a href="https://wa.me/555133313234" target="_blank" className={styles.ctaBtn}>SOLICITAR ORÇAMENTO <ArrowRight size={16} /></a>
+              <a href={WHATSAPP_URL} target="_blank" className={styles.ctaBtn} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.8rem' }}>
+                <Phone size={16} fill="currentColor" /> SOLICITAR ORÇAMENTO <ArrowRight size={16} />
+              </a>
             </div>
 
             <div className={styles.imageSide}>
-              <img src={imgLuth} alt="Lutheria Workshop" />
+              <img src={displayInternalImage} alt="Lutheria Workshop" />
               
               <div className={styles.manifestoBlock}>
                 <div className={styles.manifestoItem}>
@@ -107,7 +119,7 @@ export default function LutheriaClient({ projetos }: LutheriaClientProps) {
           <div className={styles.galleryGrid}>
             {projetos.map((projeto, index) => (
               <div key={index} className={styles.galleryItem} onClick={() => handleOpenModal(projeto)}>
-                <img src={projeto.images[0] || imgLuth} alt={projeto.title} />
+                <img src={projeto.images[0] || imgLuthFallback} alt={projeto.title} />
                 <div className={styles.galleryOverlay}>
                   <span>VISUALIZAR PROJETO</span>
                 </div>

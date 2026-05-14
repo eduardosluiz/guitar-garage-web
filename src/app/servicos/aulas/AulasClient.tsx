@@ -1,10 +1,21 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { GraduationCap, Music, Users, ArrowRight, BookOpen, Mic2 } from 'lucide-react';
+import { GraduationCap, Music, Users, ArrowRight, BookOpen, Mic2, Phone } from 'lucide-react';
 import styles from './page.module.css';
 
-export default function AulasClient({ banner }: { banner: any }) {
+export default function AulasClient({ 
+  banner, 
+  whatsapp, 
+  professorImage 
+}: { 
+  banner: any, 
+  whatsapp: string, 
+  professorImage?: string 
+}) {
+  const cleanWhatsapp = whatsapp.replace(/\D/g, '');
+  const WHATSAPP_URL = `https://wa.me/${cleanWhatsapp}?text=Olá, gostaria de informações sobre as aulas na Guitar Garage.`;
+
   return (
     <>
       <section 
@@ -52,17 +63,13 @@ export default function AulasClient({ banner }: { banner: any }) {
           <div className={styles.mainGrid}>
             <div className={styles.infoSide}>
               <span className={styles.instructorName}>PROF. RODRIGO CHAISE</span>
+              <span className={styles.instructorSubtitle}>Guitarrista e vocalista da Banda Chaise Brothers.</span>
               
               <p>
-                A Guitar Garage dispõe de sala de aula equipada, material didático exclusivo e instrumentos 
-                apropriados para uma experiência de aprendizado completa. Nossas aulas são ministradas 
-                individualmente ou em duplas por professores reconhecidamente qualificados.
-              </p>
-
-              <p>
-                Os pontos abordados incluem: Conceitos teóricos de harmonia e improvisação, técnica e 
-                prática em Violão, Guitarra e Contrabaixo. Possuímos um grande acervo de material 
-                relacionado às particularidades e linguagem do Blues e Rock.
+                A Guitar Garage dispõe de material didático exclusivo e instrumentos apropriados para uma experiênca de aprendizado completa num ambiente imersivo.<br />
+                Nossas aulas são ministradas individualmente ou em duplas.<br />
+                Os pontos abordados incluem: Conceitos teóricos de harmonia e improvisação, técnica e prática em violão, guitarra e contrabaixo. timbragem e aprimoramento nos mais diversos estilos.<br />
+                Possuímos um grande acervo de material relacionado às particularidades e linguagem do Blues e Rock.
               </p>
               
               <div className={styles.benefits}>
@@ -84,7 +91,9 @@ export default function AulasClient({ banner }: { banner: any }) {
 
               <div className={styles.callToAction}>
                 <p>Temos horários disponíveis. Para obter mais informações sobre horários, preços e pacotes, entre em contato.</p>
-                <button className={styles.ctaBtn}>CONSULTAR DISPONIBILIDADE <ArrowRight size={16} /></button>
+                <a href={WHATSAPP_URL} target="_blank" className={styles.ctaBtn} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.8rem' }}>
+                  <Phone size={16} fill="currentColor" /> CONSULTAR DISPONIBILIDADE <ArrowRight size={16} />
+                </a>
               </div>
             </div>
             <div className={styles.imageSide}>
@@ -95,7 +104,7 @@ export default function AulasClient({ banner }: { banner: any }) {
                 viewport={{ once: true }}
                 className={styles.imageWrapper}
               >
-                <img src="/profrodrigo.jpg" alt="Prof. Rodrigo Chaise - Aulas de Música" />
+                <img src={professorImage || "/profrodrigo.jpg"} alt="Professor - Aulas de Música" />
               </motion.div>
             </div>
           </div>

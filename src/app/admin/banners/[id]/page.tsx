@@ -16,7 +16,8 @@ export default async function EditarBanner({
   if (isNaN(bannerId)) notFound();
 
   const banner = await prisma.banner.findUnique({
-    where: { id: bannerId }
+    where: { id: bannerId },
+    include: { media: true }
   });
 
   if (!banner) notFound();

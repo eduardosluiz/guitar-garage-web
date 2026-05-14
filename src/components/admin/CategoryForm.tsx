@@ -24,7 +24,7 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
     initialData?.imagemUrl ? [{ url: initialData.imagemUrl, ordem: 0 }] : []
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 

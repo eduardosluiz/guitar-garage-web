@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default async function LutheriaPage() {
-  // 1. Busca banner específico para lutheria
+  const config = await prisma.configuracao.findFirst();
+
+  // 1. Busca banner específico para lutheria (Hero)
   const banner = await prisma.banner.findFirst({
     where: { 
       posicao: 'lutheria',
@@ -22,7 +24,15 @@ export default async function LutheriaPage() {
     }
   });
 
-  // 2. Busca os projetos de lutheria do banco de dados
+  // 2. Busca imagem interna (Demonstração/Ambiente)
+  const internalImage = await prisma.banner.findFirst({
+    where: { 
+      posicao: 'imagem-lutheria',
+      isAtivo: true 
+    }
+  });
+
+  // 3. Busca os projetos de lutheria do banco de dados
   const projetosDb = await prisma.projetoLutheria.findMany({
     where: {
       isAtivo: true
@@ -94,7 +104,11 @@ export default async function LutheriaPage() {
         </div>
       </section>
 
-      <LutheriaClient projetos={projetos} />
+      <LutheriaClient 
+        projetos={projetos} 
+        whatsapp={config?.whatsapp || "555133313234"}
+        internalImage={internalImage?.imagemUrl}
+      />
 
       <Footer />
     </main>

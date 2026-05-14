@@ -8,10 +8,9 @@ import styles from '@/app/admin/produtos/page.module.css';
 
 interface SearchInputProps {
   placeholder?: string;
-  icon?: LucideIcon;
 }
 
-export default function SearchInput({ placeholder = "Buscar...", icon: Icon = Search }: SearchInputProps) {
+export default function SearchInput({ placeholder = "Buscar..." }: SearchInputProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -38,7 +37,7 @@ export default function SearchInput({ placeholder = "Buscar...", icon: Icon = Se
 
   return (
     <div className={styles.searchBox}>
-      <Icon size={18} />
+      <Search size={18} />
       <input 
         type="text" 
         placeholder={placeholder} 

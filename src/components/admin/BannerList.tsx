@@ -20,9 +20,18 @@ export default function BannerList({ initialBanners }: BannerListProps) {
   }, []);
 
   const filteredBanners = initialBanners.filter(b => {
+    // Excluir itens de Tones da listagem geral de Banners (serão editados na nova página Tones)
+    const isTone = [
+      'custom-pickups', 
+      'card-two-tone', 'card-three-tone', 'card-buttertone',
+      'two-tone', 'three-tone', 'buttertone'
+    ].includes(b.posicao);
+    
+    if (isTone) return false;
+
     if (filter === 'all') return true;
     if (filter === 'home') return b.posicao === 'home';
-    if (filter === 'destaque') return b.posicao !== 'home';
+    if (filter === 'destaque') return b.posicao !== 'home' && !isTone;
     return true;
   });
 
@@ -33,7 +42,7 @@ export default function BannerList({ initialBanners }: BannerListProps) {
       {/* Botões de Ação reposicionados - Lado a Lado em uma linha */}
       <div style={{ 
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '1rem', 
         marginBottom: '2rem' 
       }}>
@@ -51,25 +60,7 @@ export default function BannerList({ initialBanners }: BannerListProps) {
           }}
         >
           <PlusCircle size={14} /> 
-          <span style={{ whiteSpace: 'nowrap' }}>CARROSSEL</span>
-        </Link>
-        <Link 
-          href="/admin/banners/destaque/novo" 
-          className="btn-boutique-outline" 
-          style={{ 
-            fontSize: '0.65rem', 
-            height: '42px', 
-            borderColor: 'rgba(212, 175, 55, 0.4)', 
-            color: 'var(--gold)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 0.5rem',
-            gap: '0.5rem'
-          }}
-        >
-          <PlusCircle size={14} /> 
-          <span style={{ whiteSpace: 'nowrap' }}>DESTAQUE</span>
+          <span style={{ whiteSpace: 'nowrap' }}>IMAGENS INTERNAS</span>
         </Link>
         <Link 
           href="/admin/banners/novo" 
@@ -87,7 +78,7 @@ export default function BannerList({ initialBanners }: BannerListProps) {
           }}
         >
           <PlusCircle size={14} /> 
-          <span style={{ whiteSpace: 'nowrap' }}>BANNERS</span>
+          <span style={{ whiteSpace: 'nowrap' }}>BANNERS DE TOPO (HERO)</span>
         </Link>
       </div>
 
@@ -98,8 +89,8 @@ export default function BannerList({ initialBanners }: BannerListProps) {
         borderRadius: '4px', 
         marginBottom: '2rem', 
         display: 'flex', 
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
         gap: '1rem',
         flexWrap: 'wrap'
       }}>
@@ -126,8 +117,8 @@ export default function BannerList({ initialBanners }: BannerListProps) {
             }}
           >
             <option value="all">TODOS OS ITENS</option>
-            <option value="home">BANNERS HOME</option>
-            <option value="destaque">IMAGENS DESTAQUE</option>
+            <option value="home">IMAGENS INTERNAS</option>
+            <option value="destaque">BANNERS DE TOPO</option>
           </select>
         </div>
       </div>

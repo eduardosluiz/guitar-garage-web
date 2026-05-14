@@ -14,7 +14,8 @@ import {
   Hammer,
   MessageSquareQuote,
   Menu,
-  X
+  X,
+  Music
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,6 +41,7 @@ export default function AdminLayoutClient({
     { icon: <Tag size={20} />, label: 'Marcas', href: '/admin/marcas' },
     { icon: <Layers size={20} />, label: 'Categorias', href: '/admin/categorias' },
     { icon: <Hammer size={20} />, label: 'Lutheria', href: '/admin/lutheria' },
+    { icon: <Music size={20} />, label: 'Tones', href: '/admin/tones' },
     { icon: <MessageSquareQuote size={20} />, label: 'Depoimentos', href: '/admin/depoimentos' },
     { icon: <ImageIcon size={20} />, label: 'Banners', href: '/admin/banners' },
     { icon: <Settings size={20} />, label: 'Configurações', href: '/admin/configuracoes' },

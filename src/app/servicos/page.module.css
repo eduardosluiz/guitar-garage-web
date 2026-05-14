@@ -43,6 +43,17 @@
   gap: 4rem;
 }
 
+.introTitleHero {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #D4AF37;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 2rem;
+}
+
 .serviceCard {
   background: #fff;
   border: 1px solid #eee;

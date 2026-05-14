@@ -1,10 +1,10 @@
 import React from 'react';
-import CarrosselForm from '@/components/admin/CarrosselForm';
+import InternalImagesForm from '@/components/admin/InternalImagesForm';
 
-export default function NovoCarrosselPage() {
+export default function NovaImagemInternaPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <CarrosselForm />
+      <InternalImagesForm />
     </div>
   );
 }

@@ -61,10 +61,9 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
           </motion.div>
           <div className={styles.heroDivider} />
           <div className={styles.heroFooterFixed}>
-            <p>Instrumentos de qualidade que você merece.</p>
+            <p>Cuidadosamente testados e selecionados por Solon Fishbone.</p>
             <div className={styles.heroActions}>
-              <Link href={slides[currentSlide]?.href || "/estoque"} className={styles.btnInventario}>VER INVENTÁRIO <ArrowUpRight size={16} /></Link>
-              <Link href="/sobre" className={styles.playBtn}>SOBRE NÓS</Link>
+              <Link href="/sobre" className={styles.btnInventario}>SOBRE NÓS <ArrowUpRight size={16} /></Link>
             </div>
           </div>
         </div>
@@ -119,7 +118,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <div className={styles.reliquiasSplit}>
           <div className={styles.reliquiasTextSide}>
             <h2>VINTAGE<br />COLLECTION</h2>
-            <p>O tempo é o maior luthier. Instrumentos que carregam a alma de lendas. Condições "Vintage" exclusivas, prontas para um novo dono.</p>
+            <p>Certas coisas só o tempo pode fazer.<br />Reservamos este espaço para os instrumentos vintage disponíveis.<br />Timbre, feeling e história, além de um excelente investimento.</p>
             <Link href="/categoria/vintage" className={styles.btnReliquias}>VER VINTAGE</Link>
           </div>
           <div className={styles.reliquiasGallerySide}>

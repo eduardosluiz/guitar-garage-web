@@ -2,7 +2,7 @@
 "use client";
 
 import { CldUploadWidget } from "next-cloudinary";
-import { ImagePlus, Trash, Video, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ImagePlus, Trash, Video, ChevronLeft, ChevronRight, Star, Music } from "lucide-react";
 import React from "react";
 
 export interface MediaItem {
@@ -14,12 +14,18 @@ interface MediaUploadProps {
   value: MediaItem[];
   onChange: (value: MediaItem[] | ((prev: MediaItem[]) => MediaItem[])) => void;
   acceptVideo?: boolean;
+  acceptAudio?: boolean;
+  onlyImages?: boolean;
+  onlyAudio?: boolean;
 }
 
 const MediaUpload: React.FC<MediaUploadProps> = ({
   value,
   onChange,
-  acceptVideo = false
+  acceptVideo = false,
+  acceptAudio = false,
+  onlyImages = false,
+  onlyAudio = false
 }) => {
   const onUpload = (result: any) => {
     if (result.event === "success") {
@@ -70,8 +76,19 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
     onChange(finalValue);
   };
 
+  const isAudioFile = (url: string) => {
+    return url.endsWith('.mp3') || url.endsWith('.wav') || url.endsWith('.ogg') || url.includes('/video/upload/') && !url.endsWith('.mp4');
+  };
+
   // Sort value by order just in case
-  const sortedValue = [...value].sort((a, b) => a.ordem - b.ordem);
+  let sortedValue = [...value].sort((a, b) => a.ordem - b.ordem);
+
+  // Filter based on props
+  if (onlyImages) {
+    sortedValue = sortedValue.filter(item => !isAudioFile(item.url) && !item.url.endsWith('.mp4') && !item.url.endsWith('.mov'));
+  } else if (onlyAudio) {
+    sortedValue = sortedValue.filter(item => isAudioFile(item.url));
+  }
 
   return ( 
     <div>
@@ -85,7 +102,8 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
       }}>
         {sortedValue.map((item, index) => {
           const { url, ordem } = item;
-          const isVideo = url.endsWith('.mp4') || url.endsWith('.mov') || url.includes('/video/upload/');
+          const isVideo = url.endsWith('.mp4') || url.endsWith('.mov') || (url.includes('/video/upload/') && !isAudioFile(url));
+          const isAudio = isAudioFile(url);
           const isMain = ordem === 0;
           
           return (
@@ -97,13 +115,13 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
                 width: '100%', 
                 borderRadius: '8px', 
                 overflow: 'hidden', 
-                border: isMain ? '2px solid var(--gold)' : '1px solid rgba(255, 255, 255, 0.1)', 
+                border: isMain && !onlyAudio ? '2px solid var(--gold)' : '1px solid rgba(255, 255, 255, 0.1)', 
                 backgroundColor: '#000',
                 transition: 'all 0.2s ease'
               }}
             >
               {/* Badge Principal */}
-              {isMain && !isVideo && (
+              {isMain && !isVideo && !isAudio && !onlyAudio && (
                 <div style={{ 
                   position: 'absolute', 
                   top: '0', 
@@ -122,7 +140,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
 
               {/* Botões de Ação Superiores */}
               <div style={{ position: 'absolute', top: '4px', right: '4px', zIndex: 10, display: 'flex', gap: '4px' }}>
-                {!isMain && !isVideo && (
+                {!isMain && !isVideo && !isAudio && !onlyAudio && (
                   <button 
                     type="button" 
                     onClick={() => setAsMain(index)} 
@@ -141,11 +159,16 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
                 </button>
               </div>
 
-              {/* Conteúdo (Imagem ou Vídeo) */}
+              {/* Conteúdo (Imagem ou Vídeo ou Áudio) */}
               {isVideo ? (
                 <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'var(--gold)' }}>
                   <Video size={32} />
                   <span style={{ fontSize: '0.6rem', fontWeight: 700 }}>VÍDEO</span>
+                </div>
+              ) : isAudio ? (
+                <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: '#3B82F6' }}>
+                  <Music size={32} />
+                  <span style={{ fontSize: '0.6rem', fontWeight: 700 }}>ÁUDIO</span>
                 </div>
               ) : (
                 <img src={url} alt="Upload" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -171,7 +194,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
                 >
                   <ChevronLeft size={16} />
                 </button>
-                <span style={{ fontSize: '0.65rem', color: '#888', fontWeight: 600 }}>#{ordem + 1}</span>
+                <span style={{ fontSize: '0.65rem', color: '#888', fontWeight: 600 }}>#{index + 1}</span>
                 <button 
                   type="button" 
                   disabled={index === sortedValue.length - 1}
@@ -191,8 +214,9 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
         options={{
           multiple: true,
-          clientAllowedFormats: acceptVideo ? ["png", "jpg", "jpeg", "webp", "mp4", "mov", "avi"] : ["png", "jpg", "jpeg", "webp"],
-          maxFileSize: acceptVideo ? 50000000 : 10000000,
+          clientAllowedFormats: onlyImages ? ["png", "jpg", "jpeg", "webp"] : onlyAudio ? ["mp3", "wav", "ogg", "mpeg", "aac", "m4a", "aiff", "flac"] : ["png", "jpg", "jpeg", "webp", "mp4", "mov", "avi", "mp3", "wav", "ogg", "mpeg", "m4a"],
+          maxFileSize: 50000000,
+          resourceType: "auto", 
           language: "pt",
           text: {
             pt: {
@@ -210,8 +234,8 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
               className="btn-boutique-outline"
               style={{ fontSize: '0.7rem' }}
             >
-              <ImagePlus size={16} />
-              {acceptVideo ? "Adicionar Fotos/Vídeos" : "Adicionar Fotos"}
+              {onlyAudio ? <Music size={16} /> : <ImagePlus size={16} />}
+              {onlyImages ? "Adicionar Fotos" : onlyAudio ? "Adicionar Áudios" : acceptAudio ? "Adicionar Fotos/Áudios" : acceptVideo ? "Adicionar Fotos/Vídeos" : "Adicionar Fotos"}
             </button>
           );
         }}
@@ -219,5 +243,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
     </div>
    );
 }
+
+
  
 export default MediaUpload;

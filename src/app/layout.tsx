@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/components/common/AuthProvider";
+import CookieConsent from "@/components/common/CookieConsent";
 
 export const metadata: Metadata = {
   title: "Guitar Garage 2.0 | Boutique de Instrumentos",
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <AuthProvider>
           {children}
+          <CookieConsent />
         </AuthProvider>
       </body>
     </html>

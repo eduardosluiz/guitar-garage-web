@@ -29,7 +29,7 @@ export default async function AdminLutheria({ searchParams }: PageProps) {
     <div className={styles.container}>
       <div className={styles.actions}>
         <Suspense fallback={<div className={styles.searchBox}><Wrench size={18} /><input type="text" placeholder="Buscar projeto..." disabled /></div>}>
-          <SearchInput placeholder="Buscar projeto..." icon={Wrench} />
+          <SearchInput placeholder="Buscar projeto..." />
         </Suspense>
         <Link href="/admin/lutheria/novo" className="btn-boutique">
           <PlusCircle size={16} /> NOVO PROJETO

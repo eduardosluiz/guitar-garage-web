@@ -3,7 +3,7 @@ import React from 'react';
 import { prisma } from '@/lib/prisma';
 import CategoryForm from '@/components/admin/CategoryForm';
 import { notFound } from 'next/navigation';
-import styles from '../../produtos/novo/page.module.css';
+import styles from '../page.module.css';
 
 export default async function EditarCategoria({
   params,
