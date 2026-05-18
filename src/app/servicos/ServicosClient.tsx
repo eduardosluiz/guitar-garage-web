@@ -8,9 +8,9 @@ import styles from './page.module.css';
 
 interface ServicosClientProps {
   banners: {
-    lutheria: string | null;
-    pickups: string | null;
-    aulas: string | null;
+    lutheria: any | null;
+    pickups: any | null;
+    aulas: any | null;
   };
   heroBanner?: any;
 }
@@ -18,24 +18,24 @@ interface ServicosClientProps {
 export default function ServicosClient({ banners, heroBanner }: ServicosClientProps) {
   const services = [
     {
-      title: "LUTHERIA ESPECIALIZADA",
-      description: "Mão de obra e ferramentas especializadas. Excelência, sensibilidade e cuidado no trato com instrumentos, sejam eles de entrada ou de alto valor.",
+      title: banners.lutheria?.titulo || "LUTHERIA ESPECIALIZADA",
+      description: banners.lutheria?.subtitulo || "Mão de obra e ferramentas especializadas. Excelência, sensibilidade e cuidado no trato com instrumentos, sejam eles de entrada ou de alto valor.",
       icon: <Wrench size={32} />,
-      img: banners.lutheria || "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800",
+      img: banners.lutheria?.imagemUrl || "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=800",
       href: "/servicos/lutheria"
     },
     {
-      title: "GG GUITARRAS E PICKUPS",
-      description: "Primeiro fabricante de captadores estilo vintage do Brasil. Produtos desenvolvidos desde 2004 baseados em originais 'Pré CBS'. Possuímos também uma linha de instrumentos customizados, atendendo de aficionados a grandes nomes como Armandinho, Fernando Noronha e Sammy Hagar.",
+      title: banners.pickups?.titulo || "GG GUITARRAS E PICKUPS",
+      description: banners.pickups?.subtitulo || "Primeiro fabricante de captadores estilo vintage do Brasil. Produtos desenvolvidos desde 2004 baseados em originais 'Pré CBS'. Possuímos também uma linha de instrumentos customizados, atendendo de aficionados a grandes nomes como Armandinho, Fernando Noronha e Sammy Hagar.",
       icon: <Mic2 size={32} />,
-      img: banners.pickups || "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800",
+      img: banners.pickups?.imagemUrl || "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800",
       href: "/servicos/custom-pickups"
     },
     {
-      title: "AULAS DE GUITARRA",
-      description: "Mentoria personalizada imersiva em um ambiente cercado pelos melhores instrumentos e amps. Aulas com conteúdo focado na parte musical (técnica, improvisação e conhecimento harmônico) passando por timbragem e aprimoramento nos mais diversos estilos.",
+      title: banners.aulas?.titulo || "AULAS DE GUITARRA",
+      description: banners.aulas?.subtitulo || "Mentoria personalizada imersiva em um ambiente cercado pelos melhores instrumentos e amps. Aulas com conteúdo focado na parte musical (técnica, improvisação e conhecimento harmônico) passando por timbragem e aprimoramento nos mais diversos estilos.",
       icon: <GraduationCap size={32} />,
-      img: banners.aulas || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800",
+      img: banners.aulas?.imagemUrl || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800",
       href: "/servicos/aulas"
     }
   ];

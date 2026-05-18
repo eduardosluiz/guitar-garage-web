@@ -20,9 +20,9 @@ export default async function ServicosHub() {
   const heroBanner = banners.find(b => b.posicao === 'servicos');
 
   const bannerMap = {
-    lutheria: banners.find(b => b.posicao === 'servicos-lutheria')?.imagemUrl || null,
-    pickups: banners.find(b => b.posicao === 'servicos-pickups')?.imagemUrl || null,
-    aulas: banners.find(b => b.posicao === 'servicos-aulas')?.imagemUrl || null,
+    lutheria: banners.find(b => b.posicao === 'servicos-lutheria') || null,
+    pickups: banners.find(b => b.posicao === 'servicos-pickups') || null,
+    aulas: banners.find(b => b.posicao === 'servicos-aulas') || null,
   };
 
   return (

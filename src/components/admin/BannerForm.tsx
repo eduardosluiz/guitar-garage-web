@@ -114,9 +114,15 @@ export default function BannerForm({ initialData }: BannerFormProps) {
                 </optgroup>
 
                 <optgroup label="Páginas de Serviços (Top)">
-                  <option value="servicos">Página: Todos os Serviços</option>
-                  <option value="lutheria">Página: Lutheria</option>
-                  <option value="aulas">Página: Aulas</option>
+                  <option value="servicos">Página: Todos os Serviços (Hero)</option>
+                  <option value="lutheria">Página: Lutheria (Hero)</option>
+                  <option value="aulas">Página: Aulas (Hero)</option>
+                </optgroup>
+
+                <optgroup label="Cards da Página de Serviços">
+                  <option value="servicos-lutheria">Card: Lutheria</option>
+                  <option value="servicos-pickups">Card: Pickups & Custom</option>
+                  <option value="servicos-aulas">Card: Aulas</option>
                 </optgroup>
 
                 <optgroup label="Institucional">

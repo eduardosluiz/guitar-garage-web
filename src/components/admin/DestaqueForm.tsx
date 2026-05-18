@@ -48,6 +48,9 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
     if (formData.posicao === 'lutheria') return "LUTHERIA DE ALTA PERFORMANCE.";
     if (formData.posicao === 'servicos-lutheria') return "LUTHERIA ESPECIALIZADA";
     
+    // Pickups
+    if (formData.posicao === 'servicos-pickups') return "GG GUITARRAS E PICKUPS";
+    
     // Aulas
     if (formData.posicao === 'aulas') return "AULAS DE GUITARRA";
     if (formData.posicao === 'servicos-aulas') return "AULAS DE GUITARRA";
@@ -58,6 +61,7 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
   const getPlaceholderDesc = () => {
     // Descrições dos Cards de Serviço
     if (formData.posicao === 'servicos-lutheria') return "Mão de obra e ferramentas especializadas. Excelência, sensibilidade e cuidado no trato com instrumentos, sejam eles de entrada ou de alto valor.";
+    if (formData.posicao === 'servicos-pickups') return "Primeiro fabricante de captadores estilo vintage do Brasil. Produtos desenvolvidos desde 2004 baseados em originais 'Pré CBS'.";
     if (formData.posicao === 'servicos-aulas') return "Mentoria personalizada imersiva em um ambiente cercado pelos melhores instrumentos e amps.";
     
     return "Descreva as características deste conteúdo...";
@@ -152,6 +156,7 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
                   <>
                     <optgroup label="Cards da Página de Serviços">
                       <option value="servicos-lutheria">Card: LUTHERIA</option>
+                      <option value="servicos-pickups">Card: PICKUPS & CUSTOM</option>
                       <option value="servicos-aulas">Card: AULAS</option>
                     </optgroup>
                   </>

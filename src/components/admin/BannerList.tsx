@@ -42,7 +42,7 @@ export default function BannerList({ initialBanners }: BannerListProps) {
       {/* Botões de Ação reposicionados - Lado a Lado em uma linha */}
       <div style={{ 
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '1rem', 
         marginBottom: '2rem' 
       }}>
@@ -61,6 +61,25 @@ export default function BannerList({ initialBanners }: BannerListProps) {
         >
           <PlusCircle size={14} /> 
           <span style={{ whiteSpace: 'nowrap' }}>IMAGENS INTERNAS</span>
+        </Link>
+        <Link 
+          href="/admin/banners/destaque/novo" 
+          className="btn-boutique" 
+          style={{ 
+            fontSize: '0.65rem', 
+            height: '42px', 
+            backgroundColor: '#1a1d21',
+            border: '1px solid var(--gold)',
+            color: 'var(--gold)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 0.5rem',
+            gap: '0.5rem'
+          }}
+        >
+          <PlusCircle size={14} /> 
+          <span style={{ whiteSpace: 'nowrap' }}>DESTAQUES (CARDS)</span>
         </Link>
         <Link 
           href="/admin/banners/novo" 
