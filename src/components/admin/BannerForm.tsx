@@ -52,10 +52,6 @@ export default function BannerForm({ initialData }: BannerFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.imagemUrl && formData.media.length === 0) {
-      alert('A imagem do banner é obrigatória');
-      return;
-    }
     
     setLoading(true);
 

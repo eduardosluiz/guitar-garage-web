@@ -19,7 +19,7 @@
 
 .heroTitle { 
   font-family: 'Space Grotesk', sans-serif !important; 
-  font-size: 6rem; 
+  font-size: clamp(3rem, 10vw, 6.5rem); 
   line-height: 0.85; 
   font-weight: 700; 
   letter-spacing: -5px; 
@@ -190,7 +190,7 @@
 
 @media (max-width: 1024px) {
   .hero, .reliquiasSplit, .bookingContainer, .productFlex { grid-template-columns: 1fr; padding: 0 5%; }
-  .heroTitle { font-size: 4rem !important; }
+  .heroTitle { font-size: clamp(2.5rem, 8vw, 4rem) !important; }
   .titleStacked h2 { font-size: 2.5rem !important; }
 }
 @media (max-width: 768px) {
@@ -211,7 +211,7 @@
     text-align: center;
   }
   .heroTitle { 
-    font-size: 2.2rem !important; 
+    font-size: clamp(2rem, 10vw, 3rem) !important; 
     letter-spacing: -1.5px !important;
     line-height: 1.1 !important;
     margin-bottom: 1.5rem !important;
