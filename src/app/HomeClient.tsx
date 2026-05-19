@@ -57,7 +57,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <div className={styles.heroLeft}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
             <span className={styles.categoryLabel}>// DESDE 2002</span>
-            <h1 className={styles.heroTitle}>A ALMA DA<br />SUA MÚSICA.</h1>
+            <h1 className={styles.heroTitle}>INSTRUMENTOS<br />COM ALMA</h1>
           </motion.div>
           <div className={styles.heroDivider} />
           <div className={styles.heroFooterFixed}>

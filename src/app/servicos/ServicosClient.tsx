@@ -68,7 +68,7 @@ export default function ServicosClient({ banners, heroBanner }: ServicosClientPr
             {heroBanner?.titulo ? (
               <span dangerouslySetInnerHTML={{ __html: heroBanner.titulo }} />
             ) : (
-              <>MAIS QUE UMA LOJA,<br /><span>UM CENTRO DE TIMBRE.</span></>
+              <>MAIS QUE UMA LOJA,<br /><span className={styles.light}>UM CENTRO DE TIMBRE.</span></>
             )}
           </motion.h1>
           <motion.span 
@@ -94,7 +94,6 @@ export default function ServicosClient({ banners, heroBanner }: ServicosClientPr
           >
             <div className={styles.cardImage}>
               <img src={service.img} alt={service.title} />
-              <div className={styles.iconOverlay}>{service.icon}</div>
             </div>
             <div className={styles.cardContent}>
               <h3>{service.title}</h3>
