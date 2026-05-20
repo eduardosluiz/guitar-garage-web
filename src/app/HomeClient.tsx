@@ -174,7 +174,7 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
             <div className={styles.titleStacked}>
               <span className={styles.preTitle}>GRAVES PROFUNDOS</span>
-              <h2 className={styles.textWhite}>BAIXOS<br /><span className={styles.textMuted}>Coleção</span></h2>
+              <h2 className={styles.textWhite}>BAIXOS<br /><span className={styles.textMuted}>Estoque</span></h2>
             </div>
             <Link href="/categoria/baixos" className={styles.exploreLinkWhite}>VER TODOS <ArrowRight size={16} /></Link>
           </motion.div>

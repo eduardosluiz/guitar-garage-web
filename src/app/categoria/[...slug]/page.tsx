@@ -90,8 +90,8 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
           <h1 className={styles.title}>
             {banner?.titulo ? (
               <>
-                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
-                <span>{banner.titulo.split(' ').slice(-1)}</span>
+                {banner.titulo.trim()}<br />
+                <span>{banner.subtitulo || ''}</span>
               </>
             ) : (
               <>

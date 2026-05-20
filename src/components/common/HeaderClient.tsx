@@ -4,16 +4,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, ChevronDown, X, Instagram, MessageCircle } from 'lucide-react';
+import { Menu, ChevronDown, X, Instagram, MessageCircle, Youtube } from 'lucide-react';
 import styles from './Header.module.css';
-
-const BrandIcons = {
-  WhatsApp: ({ size = 22 }: { size?: number }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-    </svg>
-  )
-};
 
 const MENU_ITEMS = [
   { 
@@ -125,17 +117,17 @@ export default function HeaderClient({ whatsapp, telefone, socials, visibility }
                 <Instagram size={22} />
               </a>
             )}
+
+            {visibility?.youtube && socials?.youtube && (
+              <a href={socials.youtube} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} style={{ color: '#FF0000' }}>
+                <Youtube size={22} />
+              </a>
+            )}
             
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.whatsappActionIcon} title="WhatsApp">
               <MessageCircle size={22} />
             </a>
           </div>
-
-          {/* 
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
-            <span>ENTRE EM CONTATO</span>
-          </a> 
-          */}
         </div>
       </div>
 

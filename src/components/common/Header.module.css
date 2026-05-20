@@ -137,6 +137,13 @@
   opacity: 0.7;
 }
 
+@media (min-width: 1025px) {
+  .socialIcon svg, .whatsappActionIcon svg {
+    width: 27px;
+    height: 27px;
+  }
+}
+
 .menuToggle { background: none; border: none; color: #fff; cursor: pointer; padding: 5px; display: none; }
 
 /* MOBILE MENU STYLES */
