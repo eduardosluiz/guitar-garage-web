@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Save, X, Info, Music, Image as ImageIcon, AlertCircle } from 'lucide-react';
+import { Save, X, Info, Music, Image as ImageIcon, AlertCircle, Zap } from 'lucide-react';
 import MediaUpload, { MediaItem } from './MediaUpload';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ProductForm.module.css';
