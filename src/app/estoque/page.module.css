@@ -18,12 +18,14 @@
 }
 
 .preTitle {
+  font-family: 'Space Grotesk', sans-serif;
   color: #D4AF37;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 4px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 5px;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 
 .title {

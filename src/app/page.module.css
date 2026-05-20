@@ -100,7 +100,7 @@
 .sectionHeader { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 10% 2.5rem; border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 4rem; }
 .titleStacked h2 { font-family: 'Space Grotesk', sans-serif !important; font-size: 3.5rem !important; line-height: 0.85; font-weight: 700; letter-spacing: -2px; text-transform: uppercase; color: inherit; }
 .titleStacked h2 span { font-weight: 300 !important; color: #888 !important; text-transform: uppercase !important; letter-spacing: -1px !important; font-family: 'Space Grotesk', sans-serif !important; font-style: normal !important; }
-.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; }
+.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; text-transform: uppercase; }
 
 /* VITRINES E CARDS DE PRODUTO - FIX LINK BLUE/UNDERLINE */
 .productFlex { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5rem; padding: 0 10%; margin-bottom: 4rem; }
