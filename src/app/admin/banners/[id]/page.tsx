@@ -2,6 +2,7 @@
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import BannerForm from '@/components/admin/BannerForm';
+import InternalImagesForm from '@/components/admin/InternalImagesForm';
 import { notFound } from 'next/navigation';
 import styles from '../../produtos/novo/page.module.css';
 
@@ -22,9 +23,15 @@ export default async function EditarBanner({
 
   if (!banner) notFound();
 
+  const isImagemInterna = banner.posicao.startsWith('imagem-');
+
   return (
     <div className={styles.container}>
-      <BannerForm initialData={banner} />
+      {isImagemInterna ? (
+        <InternalImagesForm initialData={banner} />
+      ) : (
+        <BannerForm initialData={banner} />
+      )}
     </div>
   );
 }

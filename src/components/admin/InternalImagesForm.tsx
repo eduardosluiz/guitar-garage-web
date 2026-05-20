@@ -7,17 +7,21 @@ import { Save, X, Info } from 'lucide-react';
 import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
-export default function InternalImagesForm() {
+interface InternalImagesFormProps {
+  initialData?: any;
+}
+
+export default function InternalImagesForm({ initialData }: InternalImagesFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   
   const [formData, setFormData] = useState({
-    posicao: 'imagem-aulas',
-    imagemUrl: '',
-    titulo: '',
-    subtitulo: '',
-    isAtivo: true,
-    media: [] as MediaItem[]
+    posicao: initialData?.posicao || 'imagem-aulas',
+    imagemUrl: initialData?.imagemUrl || '',
+    titulo: initialData?.titulo || '',
+    subtitulo: initialData?.subtitulo || '',
+    isAtivo: initialData?.isAtivo !== undefined ? initialData.isAtivo : true,
+    media: initialData?.media || ([] as MediaItem[])
   });
 
   const handleMediaChange = (items: MediaItem[] | ((prev: MediaItem[]) => MediaItem[])) => {
@@ -30,8 +34,9 @@ export default function InternalImagesForm() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData(prev => ({ ...prev, [name]: val }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -45,10 +50,11 @@ export default function InternalImagesForm() {
 
     try {
       const response = await fetch('/api/admin/banners', {
-        method: 'POST',
+        method: initialData ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           ...formData,
+          id: initialData?.id,
           ordem: 0,
           ctaTexto: '',
           ctaLink: ''
@@ -72,7 +78,7 @@ export default function InternalImagesForm() {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.header}>
-        <h2>Nova Imagem Interna</h2>
+        <h2>{initialData ? 'Editar Imagem Interna' : 'Nova Imagem Interna'}</h2>
         <div className={styles.headerActions}>
           <button type="button" onClick={() => router.back()} className="btn-boutique-outline">
             <X size={16} /> Cancelar
@@ -131,6 +137,12 @@ export default function InternalImagesForm() {
               <br /><br />
               <strong>Exemplo:</strong> A foto do professor na página de aulas ou fotos de demonstração de serviços.
             </p>
+            <div className={styles.checkboxGroup} style={{ marginTop: '2rem' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.85rem', color: '#878a99' }}>
+                <input type="checkbox" name="isAtivo" checked={formData.isAtivo} onChange={handleChange} />
+                Imagem Ativa
+              </label>
+            </div>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ import ClientSobre from './ClientSobre';
 export const dynamic = 'force-dynamic';
 
 export default async function Sobre() {
-  // Buscar imagem de destaque para a página sobre (posicao: sobre)
+  // Buscar imagem de topo (Hero) para a página sobre (posicao: sobre)
   const banner = await prisma.banner.findFirst({
     where: { 
       posicao: 'sobre',
@@ -16,7 +16,15 @@ export default async function Sobre() {
     }
   });
 
-  const ownerImage = banner?.imagemUrl || '/solonfishbone.jpg';
+  // Buscar imagem interna (Foto do Cliente) para a página sobre (posicao: imagem-sobre)
+  const internalImage = await prisma.banner.findFirst({
+    where: {
+      posicao: 'imagem-sobre',
+      isAtivo: true
+    }
+  });
+
+  const ownerImage = internalImage?.imagemUrl || '/solonfishbone.jpg';
 
   return (
     <main className={styles.main}>
@@ -36,8 +44,13 @@ export default async function Sobre() {
           <h1 className={styles.title}>
             {banner?.titulo ? (
               <>
-                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
-                <span>{banner.titulo.split(' ').slice(-1)}</span>
+                {banner.titulo.trim()}
+                {banner.subtitulo && (
+                  <>
+                    <br />
+                    <span>{banner.subtitulo}</span>
+                  </>
+                )}
               </>
             ) : (
               <>

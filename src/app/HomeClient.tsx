@@ -93,7 +93,6 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
       <section className={styles.catSection}>
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
           <div className={styles.titleStacked}>
-            <span className={styles.preTitle}>CURADORIA</span>
             <h2>ENCONTRE POR<br /><span>Categorias</span></h2>
           </div>
         </motion.div>
@@ -159,7 +158,6 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <section className={styles.galleryWhite}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
             <div className={styles.titleStacked}>
-              <span className={styles.preTitle}>AS SEIS CORDAS</span>
               <h2>GUITARRAS<br /><span>Estoque</span></h2>
             </div>
             <Link href="/categoria/guitarras" className={styles.exploreLink}>VER TODAS <ArrowRight size={16} /></Link>
@@ -173,7 +171,6 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <section className={styles.galleryDark}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
             <div className={styles.titleStacked}>
-              <span className={styles.preTitle}>GRAVES PROFUNDOS</span>
               <h2 className={styles.textWhite}>BAIXOS<br /><span className={styles.textMuted}>Estoque</span></h2>
             </div>
             <Link href="/categoria/baixos" className={styles.exploreLinkWhite}>VER TODOS <ArrowRight size={16} /></Link>
@@ -187,7 +184,6 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <section className={styles.galleryOffWhite}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
             <div className={styles.titleStacked}>
-              <span className={styles.preTitle}>SONORIDADE ACÚSTICA</span>
               <h2>VIOLÕES<br /><span>Estoque</span></h2>
             </div>
             <Link href="/categoria/violoes" className={styles.exploreLink}>VER TODOS <ArrowRight size={16} /></Link>
@@ -201,7 +197,6 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <section className={styles.galleryWhite}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.sectionHeader}>
             <div className={styles.titleStacked}>
-              <span className={styles.preTitle}>POTÊNCIA</span>
               <h2>AMPLIFICADORES<br /><span>Estoque</span></h2>
             </div>
             <Link href="/categoria/amplificadores" className={styles.exploreLink}>VER TODOS <ArrowRight size={16} /></Link>
@@ -215,7 +210,6 @@ export default function HomeClient({ slides, guitars, basses, acoustics, amps, c
         <div className={styles.bookingContainer}>
           <div className={styles.bookingLeft}>
             <div className={styles.titleStacked}>
-              <span className={styles.preTitle}>EXPERIÊNCIA</span>
               <h2>ATENDIMENTO<br /><span>Individual</span></h2>
             </div>
             <p className={styles.bookingText}>Agende uma visita exclusiva para testar nossos equipamentos mais raros.</p>
