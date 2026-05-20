@@ -16,13 +16,13 @@
 
 .preTitle {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   letter-spacing: 5px;
   color: #D4AF37;
   display: block;
   margin-bottom: 2rem;
+  font-weight: 800;
 }
-
 .title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 5rem;

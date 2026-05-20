@@ -77,6 +77,22 @@ export default function CustomPickupsClient({ banner, toneBanners, dynamicSample
               </>
             )}
           </motion.h1>
+          {banner?.subtitulo && (
+            <motion.p 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ delay: 0.5 }}
+              style={{ 
+                color: 'rgba(255,255,255,0.7)', 
+                fontSize: '1rem', 
+                marginTop: '1.5rem', 
+                maxWidth: '600px', 
+                marginInline: 'auto' 
+              }}
+            >
+              {banner.subtitulo}
+            </motion.p>
+          )}
         </div>
       </section>
 

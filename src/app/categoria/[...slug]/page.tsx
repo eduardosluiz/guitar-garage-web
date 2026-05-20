@@ -16,7 +16,8 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
     where: { 
       posicao: categorySlug,
       isAtivo: true 
-    }
+    },
+    orderBy: { id: 'desc' }
   });
 
   const category = await prisma.categoria.findUnique({
@@ -78,8 +79,8 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
       <section 
         className={styles.hero}
         style={{ 
-          backgroundImage: banner ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
-          backgroundColor: banner ? 'transparent' : '#0A0A0A',
+          backgroundImage: banner?.imagemUrl ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner?.imagemUrl ? 'transparent' : '#0A0A0A',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}

@@ -15,6 +15,13 @@ export const metadata: Metadata = {
 };
 
 export default async function DepoimentosPage() {
+  const banner = await prisma.banner.findFirst({
+    where: { 
+      posicao: 'depoimentos',
+      isAtivo: true 
+    }
+  });
+
   const depoimentos = await prisma.depoimento.findMany({
     where: { isAtivo: true },
     orderBy: { createdAt: 'desc' }
@@ -24,11 +31,28 @@ export default async function DepoimentosPage() {
     <main className={styles.main}>
       <Header />
 
-      <section className={styles.hero}>
+      <section 
+        className={styles.hero}
+        style={{ 
+          backgroundImage: banner?.imagemUrl ? `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${banner.imagemUrl}')` : 'none',
+          backgroundColor: banner?.imagemUrl ? 'transparent' : '#0A0A0A',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
         <div className={styles.heroContent}>
-          <span className={styles.preTitle}>CLIENTES SATISFEITOS</span>
+          <span className={styles.preTitle}>{banner?.preTitulo || 'CLIENTES SATISFEITOS'}</span>
           <h1 className={styles.title}>
-            A OPINIÃO DE<br /><span>QUEM CONFIA.</span>
+            {banner?.titulo ? (
+              <>
+                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
+                <span>{banner.titulo.split(' ').slice(-1)}</span>
+              </>
+            ) : (
+              <>
+                A OPINIÃO DE<br /><span>QUEM CONFIA.</span>
+              </>
+            )}
           </h1>
         </div>
       </section>

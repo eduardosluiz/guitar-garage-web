@@ -31,7 +31,8 @@ export default function BannerList({ initialBanners }: BannerListProps) {
 
     if (filter === 'all') return true;
     if (filter === 'home') return b.posicao === 'home';
-    if (filter === 'destaque') return b.posicao !== 'home' && !isTone;
+    if (filter === 'destaque') return !['home', 'servicos-lutheria', 'servicos-pickups', 'servicos-aulas'].includes(b.posicao) && !isTone;
+    if (filter === 'cards') return ['servicos-lutheria', 'servicos-pickups', 'servicos-aulas'].includes(b.posicao);
     return true;
   });
 
@@ -138,6 +139,7 @@ export default function BannerList({ initialBanners }: BannerListProps) {
             <option value="all">TODOS OS ITENS</option>
             <option value="home">IMAGENS INTERNAS</option>
             <option value="destaque">BANNERS DE TOPO</option>
+            <option value="cards">DESTAQUES (CARDS)</option>
           </select>
         </div>
       </div>
@@ -167,7 +169,13 @@ export default function BannerList({ initialBanners }: BannerListProps) {
               </div>
 
               <div className={styles.cardActions}>
-                <Link href={`/admin/banners/${b.id}`} title="Editar" className={styles.actionBtn}>
+                <Link 
+                  href={['servicos-lutheria', 'servicos-pickups', 'servicos-aulas'].includes(b.posicao) 
+                    ? `/admin/banners/destaque/${b.id}` 
+                    : `/admin/banners/${b.id}`} 
+                  title="Editar" 
+                  className={styles.actionBtn}
+                >
                   <Edit2 size={16} />
                 </Link>
                 <DeleteButtonGeneral id={b.id} resource="banners" />

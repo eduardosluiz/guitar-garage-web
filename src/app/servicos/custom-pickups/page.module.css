@@ -6,7 +6,7 @@
 
 .hero { height: 50vh; background-color: #0a0a0a; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; }
 
-.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; }
+.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; }
 
 .title { font-family: 'Space Grotesk', sans-serif; font-size: 4rem; line-height: 0.9; font-weight: 700; letter-spacing: -2px; }
 .title span { font-weight: 300; color: #888; }

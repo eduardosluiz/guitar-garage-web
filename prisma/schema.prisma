@@ -83,7 +83,7 @@ model Imagem {
 model Banner {
   id        Int           @id @default(autoincrement())
   titulo    String?
-  subtitulo String?
+  subtitulo String?       @db.Text
   ctaTexto  String?       @map("cta_texto")
   ctaLink   String?       @map("cta_link")
   imagemUrl String        @map("imagem_url")

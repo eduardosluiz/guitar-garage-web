@@ -14,7 +14,8 @@ export default async function ServicosHub() {
         in: ['servicos-lutheria', 'servicos-pickups', 'servicos-aulas', 'servicos']
       },
       isAtivo: true
-    }
+    },
+    orderBy: { id: 'desc' } // Trazer os mais recentes primeiro
   });
 
   const heroBanner = banners.find(b => b.posicao === 'servicos');

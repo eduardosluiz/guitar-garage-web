@@ -7,6 +7,8 @@ import { Save, X, Info } from 'lucide-react';
 import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
+import PremiumAlert from './PremiumAlert';
+
 interface DestaqueFormProps {
   initialData?: any;
 }
@@ -16,6 +18,20 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
   const [loading, setLoading] = useState(false);
   const [isBannerPath, setIsBannerPath] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{ 
+    isOpen: boolean, 
+    type: 'warning' | 'error',
+    title: string,
+    message: string,
+    bannerId?: number,
+    confirmText?: string,
+    cancelText?: string
+  }>({ 
+    isOpen: false, 
+    type: 'warning',
+    title: '',
+    message: ''
+  });
   
   const [formData, setFormData] = useState({
     preTitulo: initialData?.preTitulo || '',
@@ -84,16 +100,43 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
     }));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    
     setFormData(prev => ({ ...prev, [name]: val }));
+
+    // Verificação de duplicidade para Novos itens
+    if (name === 'posicao' && !initialData && value) {
+      try {
+        const res = await fetch(`/api/admin/banners/check-duplicate?posicao=${value}`);
+        const data = await res.json();
+        
+        if (data.exists) {
+          setAlertConfig({
+            isOpen: true,
+            type: 'warning',
+            title: 'Conteúdo Já Existente',
+            message: `Já existe um conteúdo ativo para a posição "${data.banner.titulo || value}". Recomendamos editar o existente para manter a organização do site.`,
+            bannerId: data.banner.id
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao verificar duplicidade:', error);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.imagemUrl && formData.media.length === 0) {
-      alert('A imagem ou mídia é obrigatória');
+      setAlertConfig({
+        isOpen: true,
+        type: 'error',
+        title: 'Campo Obrigatório',
+        message: 'A imagem ou mídia é obrigatória para salvar este conteúdo.',
+        confirmText: 'ENTENDI'
+      });
       return;
     }
     
@@ -106,6 +149,9 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
         body: JSON.stringify({ 
           ...formData, 
           id: initialData?.id,
+          preTitulo: formData.preTitulo || '',
+          titulo: formData.titulo || '',
+          subtitulo: formData.subtitulo || '',
           ctaTexto: '',
           ctaLink: '',
           ordem: 0
@@ -116,18 +162,52 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
         router.push('/admin/banners');
         router.refresh();
       } else {
-        alert('Erro ao salvar conteúdo');
+        const errorText = await response.text();
+        setAlertConfig({
+          isOpen: true,
+          type: 'error',
+          title: 'Erro ao Salvar',
+          message: errorText || 'Ocorreu um erro interno no servidor.',
+          confirmText: 'TENTAR NOVAMENTE'
+        });
       }
     } catch (error) {
-      console.error(error);
-      alert('Erro ao salvar');
+      setAlertConfig({
+        isOpen: true,
+        type: 'error',
+        title: 'Falha na Conexão',
+        message: 'Não foi possível conectar ao servidor. Verifique sua internet.',
+        confirmText: 'FECHAR'
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <>
+      <PremiumAlert 
+        isOpen={alertConfig.isOpen}
+        type={alertConfig.type}
+        onClose={() => setAlertConfig(prev => ({ ...prev, isOpen: false }))}
+        onConfirm={() => {
+          if (alertConfig.type === 'warning' && alertConfig.bannerId) {
+            const isServiceCard = ['servicos-lutheria', 'servicos-pickups', 'servicos-aulas'].includes(formData.posicao);
+            if (isServiceCard) {
+              router.push(`/admin/banners/destaque/${alertConfig.bannerId}`);
+            } else {
+              router.push(`/admin/banners/${alertConfig.bannerId}`);
+            }
+          } else {
+            setAlertConfig(prev => ({ ...prev, isOpen: false }));
+          }
+        }}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        confirmText={alertConfig.confirmText}
+        cancelText={alertConfig.cancelText}
+      />
+      <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.header}>
         <h2>{initialData ? 'Editar Conteúdo' : (isBannerPath ? 'Novo Banner de Topo' : 'Novo Destaque (Card/Interno)')}</h2>
         <div className={styles.headerActions}>
@@ -179,8 +259,8 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
               <label>Descrição (Texto da Página/Card)</label>
               <textarea 
                 name="subtitulo" 
-                value={formData.subtitulo || ''} 
-                onChange={(e) => setFormData(prev => ({ ...prev, subtitulo: e.target.value }))}
+                value={formData.subtitulo} 
+                onChange={handleChange}
                 placeholder={getPlaceholderDesc()}
                 rows={4}
                 style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid #ddd', fontFamily: 'inherit' }}
@@ -219,5 +299,6 @@ export default function DestaqueForm({ initialData }: DestaqueFormProps) {
         </div>
       </div>
     </form>
+    </>
   );
 }

@@ -38,8 +38,8 @@ export default function AulasClient({
           >
             {banner?.titulo ? (
               <>
-                {banner.titulo.split(' ').slice(0, -1).join(' ')}<br />
-                <span>{banner.titulo.split(' ').slice(-1)}</span>
+                {banner.titulo.trim()}<br />
+                <span>{banner.subtitulo || ''}</span>
               </>
             ) : (
               <>

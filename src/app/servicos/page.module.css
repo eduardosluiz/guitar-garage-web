@@ -10,8 +10,8 @@
 .main :global(header) { background-color: #000 !important; }
 
 .hero {
-  height: 60vh;
-  background-color: #050505;
+  height: 45vh;
+  background-color: #0a0a0a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,27 +30,51 @@
 
 .preTitle {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   letter-spacing: 5px;
   color: #D4AF37;
   display: block;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   font-weight: 800;
+  text-transform: uppercase;
 }
 
 .title {
-  font-family: 'Space Grotesk', sans-serif !important;
-  font-size: 5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
   line-height: 0.9;
   font-weight: 700;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  margin: 0;
 }
 
-.title span { font-weight: inherit; color: inherit; }
-.light { font-weight: 300; color: #888; }
+.title span { font-weight: 300; color: #888; }
+
+.servicesIntro {
+  padding: 4rem 5% 0rem;
+  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.introText {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #444;
+  letter-spacing: 4px;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+
+.goldText {
+  color: #D4AF37;
+  font-weight: 600;
+}
 
 .servicesGrid {
-  padding: 10rem 5%;
+  padding: 3rem 5% 10rem;
   max-width: 1400px;
   margin: 0 auto;
   display: grid;

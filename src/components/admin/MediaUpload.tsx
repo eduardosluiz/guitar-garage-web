@@ -210,6 +210,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
       </div>
       
       <CldUploadWidget 
+        key={onlyImages ? 'images-only' : onlyAudio ? 'audio-only' : 'all-formats'}
         onSuccess={onUpload} 
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
         options={{

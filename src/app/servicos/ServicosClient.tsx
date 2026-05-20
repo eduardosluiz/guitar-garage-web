@@ -66,20 +66,26 @@ export default function ServicosClient({ banners, heroBanner }: ServicosClientPr
             className={styles.title}
           >
             {heroBanner?.titulo ? (
-              <span dangerouslySetInnerHTML={{ __html: heroBanner.titulo }} />
+              <>
+                {heroBanner.titulo.trim()}<br />
+                <span>{heroBanner.subtitulo || ''}</span>
+              </>
             ) : (
-              <>MAIS QUE UMA LOJA,<br /><span className={styles.light}>UM CENTRO DE TIMBRE.</span></>
+              <>MAIS QUE UMA LOJA,<br /><span>UM CENTRO DE TIMBRE.</span></>
             )}
           </motion.h1>
-          <motion.span 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className={styles.introTitleHero}
-          >
-            {heroBanner?.subtitulo || '25 anos de serviços prestados aos guitarristas do Brasil.'}
-          </motion.span>
         </div>
+      </section>
+
+      <section className={styles.servicesIntro}>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className={styles.introText}
+        >
+          <span className={styles.goldText}>25 anos de serviços</span> prestados aos guitarristas do Brasil.
+        </motion.p>
       </section>
 
       <section className={styles.servicesGrid}>

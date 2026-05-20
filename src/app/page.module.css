@@ -19,13 +19,13 @@
 
 .heroTitle { 
   font-family: 'Space Grotesk', sans-serif !important; 
-  font-size: clamp(3rem, 10vw, 6.5rem); 
-  line-height: 0.85; 
+  font-size: clamp(2.5rem, 8vw, 5.5rem); 
+  line-height: 0.9; 
   font-weight: 700; 
-  letter-spacing: -5px; 
+  letter-spacing: -4px; 
   color: #000; 
   margin-bottom: 2rem; 
-  word-wrap: break-word;
+  white-space: nowrap;
 }
 .heroDivider { width: 80px; height: 1px; background: #000; margin: 2.5rem 0; }
 .heroFooterFixed p { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: #666; max-width: 350px; margin-bottom: 3rem; line-height: 1.6; }
@@ -100,7 +100,7 @@
 .sectionHeader { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 10% 2.5rem; border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 4rem; }
 .titleStacked h2 { font-family: 'Space Grotesk', sans-serif !important; font-size: 3.5rem !important; line-height: 0.85; font-weight: 700; letter-spacing: -2px; text-transform: uppercase; color: inherit; }
 .titleStacked h2 span { font-weight: 300 !important; color: #888 !important; text-transform: uppercase !important; letter-spacing: -1px !important; font-family: 'Space Grotesk', sans-serif !important; font-style: normal !important; }
-.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; }
+.preTitle { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; letter-spacing: 5px; color: #D4AF37; display: block; margin-bottom: 1.5rem; font-weight: 800; }
 
 /* VITRINES E CARDS DE PRODUTO - FIX LINK BLUE/UNDERLINE */
 .productFlex { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5rem; padding: 0 10%; margin-bottom: 4rem; }

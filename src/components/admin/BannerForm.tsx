@@ -7,6 +7,8 @@ import { Save, X, Info } from 'lucide-react';
 import MediaUpload, { MediaItem } from './MediaUpload';
 import styles from './ProductForm.module.css';
 
+import PremiumAlert from './PremiumAlert';
+
 interface BannerFormProps {
   initialData?: any;
 }
@@ -14,6 +16,21 @@ interface BannerFormProps {
 export default function BannerForm({ initialData }: BannerFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [alertConfig, setAlertConfig] = useState<{ 
+    isOpen: boolean, 
+    type: 'warning' | 'error',
+    title: string,
+    message: string,
+    bannerId?: number,
+    confirmText?: string,
+    cancelText?: string
+  }>({ 
+    isOpen: false, 
+    type: 'warning',
+    title: '',
+    message: ''
+  });
+
   const [formData, setFormData] = useState({
     preTitulo: initialData?.preTitulo || '',
     titulo: initialData?.titulo || '',
@@ -44,10 +61,31 @@ export default function BannerForm({ initialData }: BannerFormProps) {
     }));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    
     setFormData(prev => ({ ...prev, [name]: val }));
+
+    // Se for alteração de posição e for um NOVO banner, verificar duplicidade
+    if (name === 'posicao' && !initialData && value) {
+      try {
+        const res = await fetch(`/api/admin/banners/check-duplicate?posicao=${value}`);
+        const data = await res.json();
+        
+        if (data.exists) {
+          setAlertConfig({
+            isOpen: true,
+            type: 'warning',
+            title: 'Banner Já Existente',
+            message: `Já existe um banner ativo para a posição "${data.banner.titulo || value}". O sistema recomenda editar o conteúdo existente para evitar duplicidade no site.`,
+            bannerId: data.banner.id
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao verificar duplicidade:', error);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,25 +97,63 @@ export default function BannerForm({ initialData }: BannerFormProps) {
       const response = await fetch('/api/admin/banners', {
         method: initialData ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, id: initialData?.id }),
+        body: JSON.stringify({ 
+          ...formData, 
+          id: initialData?.id,
+          ordem: parseInt(formData.ordem.toString()) || 0,
+          preTitulo: formData.preTitulo || '',
+          titulo: formData.titulo || '',
+          subtitulo: formData.subtitulo || '',
+          ctaTexto: formData.ctaTexto || '',
+          ctaLink: formData.ctaLink || ''
+        }),
       });
 
       if (response.ok) {
         router.push('/admin/banners');
         router.refresh();
       } else {
-        alert('Erro ao salvar banner');
+        const errorText = await response.text();
+        setAlertConfig({
+          isOpen: true,
+          type: 'error',
+          title: 'Erro ao Salvar',
+          message: errorText || 'Ocorreu um erro interno no servidor.',
+          confirmText: 'TENTAR NOVAMENTE'
+        });
       }
-    } catch (error) {
-      console.error(error);
-      alert('Erro ao salvar banner');
+    } catch (error: any) {
+      setAlertConfig({
+        isOpen: true,
+        type: 'error',
+        title: 'Falha na Conexão',
+        message: 'Não foi possível conectar ao servidor. Verifique sua internet.',
+        confirmText: 'FECHAR'
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <>
+      <PremiumAlert 
+        isOpen={alertConfig.isOpen}
+        type={alertConfig.type}
+        onClose={() => setAlertConfig(prev => ({ ...prev, isOpen: false }))}
+        onConfirm={() => {
+          if (alertConfig.type === 'warning' && alertConfig.bannerId) {
+            router.push(`/admin/banners/${alertConfig.bannerId}`);
+          } else {
+            setAlertConfig(prev => ({ ...prev, isOpen: false }));
+          }
+        }}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        confirmText={alertConfig.confirmText}
+        cancelText={alertConfig.cancelText}
+      />
+      <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.header}>
         <h2>{initialData ? 'Editar Banner de Topo' : 'Novo Banner de Topo (Hero)'}</h2>
         <div className={styles.headerActions}>
@@ -102,23 +178,16 @@ export default function BannerForm({ initialData }: BannerFormProps) {
                   <option value="novidades">Página: Novidades (Top)</option>
                   <option value="guitarras">Categoria: Guitarras (Top)</option>
                   <option value="baixos">Categoria: Baixos (Top)</option>
-                  <option value="amps">Categoria: Amps (Top)</option>
+                  <option value="amplificadores">Categoria: Amps (Top)</option>
                   <option value="violoes">Categoria: Violões (Top)</option>
                   <option value="pedais">Categoria: Pedais (Top)</option>
-                  <option value="custom-shop">Categoria: Custom Shop (Top)</option>
                   <option value="vintage">Categoria: Vintage (Top)</option>
                 </optgroup>
 
                 <optgroup label="Páginas de Serviços (Top)">
-                  <option value="servicos">Página: Todos os Serviços (Hero)</option>
+                  <option value="servicos">Página: Serviços (Hero)</option>
                   <option value="lutheria">Página: Lutheria (Hero)</option>
                   <option value="aulas">Página: Aulas (Hero)</option>
-                </optgroup>
-
-                <optgroup label="Cards da Página de Serviços">
-                  <option value="servicos-lutheria">Card: Lutheria</option>
-                  <option value="servicos-pickups">Card: Pickups & Custom</option>
-                  <option value="servicos-aulas">Card: Aulas</option>
                 </optgroup>
 
                 <optgroup label="Institucional">
@@ -151,7 +220,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
           </div>
         </div>
 
-        <div className={styles.sideCol}>
+            <div className={styles.sideCol}>
           <div className={styles.card}>
             <h3><Info size={16} style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} /> Informações</h3>
             <p style={{ fontSize: '0.8rem', color: '#878a99', lineHeight: '1.6' }}>
@@ -171,5 +240,7 @@ export default function BannerForm({ initialData }: BannerFormProps) {
         </div>
       </div>
     </form>
+    </>
   );
 }
+
