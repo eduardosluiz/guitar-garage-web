@@ -20,7 +20,8 @@ export async function POST(req: Request) {
       facebookUrl, showFacebook,
       youtubeUrl, showYoutube,
       spotifyUrl, showSpotify,
-      endereco, telefone 
+      endereco, telefone,
+      trackingScriptsHead, trackingScriptsBody
     } = body;
 
     const config = await prisma.configuracao.upsert({
@@ -31,7 +32,9 @@ export async function POST(req: Request) {
         facebookUrl, showFacebook,
         youtubeUrl, showYoutube,
         spotifyUrl, showSpotify,
-        telefone 
+        telefone,
+        trackingScriptsHead,
+        trackingScriptsBody
       },
       create: { 
         id: 1, 
@@ -40,7 +43,9 @@ export async function POST(req: Request) {
         facebookUrl, showFacebook,
         youtubeUrl, showYoutube,
         spotifyUrl, showSpotify,
-        telefone 
+        telefone,
+        trackingScriptsHead,
+        trackingScriptsBody
       },
     });
 

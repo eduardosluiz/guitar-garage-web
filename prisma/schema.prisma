@@ -125,6 +125,8 @@ model Configuracao {
   showSpotify   Boolean  @default(true) @map("show_spotify")
   showWhatsapp  Boolean  @default(true) @map("show_whatsapp")
   spotifyUrl    String?  @map("spotify_url")
+  trackingScriptsHead String?  @db.Text @map("tracking_scripts_head")
+  trackingScriptsBody String?  @db.Text @map("tracking_scripts_body")
 
   @@map("configuracoes")
 }

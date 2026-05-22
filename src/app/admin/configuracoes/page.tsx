@@ -18,6 +18,8 @@ export default async function AdminConfiguracoes() {
       showYoutube: true,
       telefone: true,
       updatedAt: true,
+      trackingScriptsHead: true,
+      trackingScriptsBody: true,
     }
   });
 

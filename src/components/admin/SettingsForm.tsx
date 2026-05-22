@@ -2,7 +2,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Save, Mail, Phone, Eye, EyeOff } from 'lucide-react';
+import { Save, Mail, Phone, Eye, EyeOff, CheckCircle2, AlertTriangle, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SettingsForm.module.css';
 
 interface SettingsFormProps {
@@ -41,6 +42,7 @@ const Icons = {
 export default function SettingsForm({ initialData }: SettingsFormProps) {
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [formData, setFormData] = useState({
     whatsapp: initialData?.whatsapp || '',
     showWhatsapp: initialData?.showWhatsapp !== undefined ? initialData.showWhatsapp : true,
@@ -54,6 +56,8 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
     spotifyUrl: initialData?.spotifyUrl || '',
     showSpotify: initialData?.showSpotify !== undefined ? initialData.showSpotify : true,
     telefone: initialData?.telefone || '',
+    trackingScriptsHead: initialData?.trackingScriptsHead || '',
+    trackingScriptsBody: initialData?.trackingScriptsBody || '',
   });
 
   useEffect(() => {
@@ -78,12 +82,15 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
       });
 
       if (response.ok) {
-        alert('Configurações salvas com sucesso');
+        setNotification({ message: 'Configurações salvas com sucesso!', type: 'success' });
+        setTimeout(() => setNotification(null), 4000);
       } else {
-        alert('Erro ao salvar configurações');
+        setNotification({ message: 'Erro ao salvar configurações.', type: 'error' });
+        setTimeout(() => setNotification(null), 4000);
       }
     } catch (error) {
-      alert('Erro ao salvar configurações');
+      setNotification({ message: 'Erro ao conectar ao servidor.', type: 'error' });
+      setTimeout(() => setNotification(null), 4000);
     } finally {
       setLoading(false);
     }
@@ -212,6 +219,102 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
           </div>
         </div>
       </div>
+
+      <div className={styles.sectionCard}>
+        <div className={styles.sectionHeader}>
+          <h3>Scripts de Acompanhamento (SEO, Pixels & Analytics)</h3>
+        </div>
+        <div className={styles.socialGridFull}>
+          <div className={styles.inputWrapper}>
+            <label>SCRIPTS NO HEAD (HTML/JS)</label>
+            <span style={{ fontSize: '0.75rem', color: '#878a99', marginBottom: '0.2rem' }}>
+              Injeta tags no cabeçalho (ex: Google Analytics, Facebook Pixel, GTM script). Cole o bloco de código HTML completo contendo as tags &lt;script&gt;.
+            </span>
+            <textarea
+              name="trackingScriptsHead"
+              value={formData.trackingScriptsHead}
+              onChange={handleChange}
+              placeholder="<!-- Insira aqui o pixel do Facebook, Google Analytics, etc. -->"
+              className={styles.textareaCode}
+            />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label>SCRIPTS NO BODY (HTML/JS)</label>
+            <span style={{ fontSize: '0.75rem', color: '#878a99', marginBottom: '0.2rem' }}>
+              Injeta tags no início do corpo da página (ex: Google Tag Manager noscript). Cole o bloco de código HTML completo contendo as tags &lt;noscript&gt;.
+            </span>
+            <textarea
+              name="trackingScriptsBody"
+              value={formData.trackingScriptsBody}
+              onChange={handleChange}
+              placeholder="<!-- Insira aqui a tag noscript do GTM, etc. -->"
+              className={styles.textareaCode}
+            />
+          </div>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {notification && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            style={{
+              position: 'fixed',
+              bottom: '2rem',
+              right: '2rem',
+              zIndex: 10000,
+              backgroundColor: '#1a1d21',
+              border: `1px solid ${notification.type === 'success' ? '#0ab39c' : '#f06548'}`,
+              borderRadius: '6px',
+              padding: '1rem 1.5rem',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.8rem',
+              maxWidth: '380px'
+            }}
+          >
+            <div style={{
+              color: notification.type === 'success' ? '#0ab39c' : '#f06548',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              {notification.type === 'success' ? <CheckCircle2 size={20} /> : <AlertTriangle size={20} />}
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{
+                margin: 0,
+                color: '#fff',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                lineHeight: 1.4
+              }}>
+                {notification.message}
+              </p>
+            </div>
+            <button 
+              type="button"
+              onClick={() => setNotification(null)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#878a99',
+                cursor: 'pointer',
+                padding: '0.2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'color 0.2s'
+              }}
+            >
+              <X size={16} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </form>
   );
 }
