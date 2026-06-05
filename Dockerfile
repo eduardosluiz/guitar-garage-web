@@ -2,13 +2,15 @@
 FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package*.json ./
+RUN npm install -g pnpm
+COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma/
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
 # Etapa 2: Build
 FROM node:22-alpine AS builder
 WORKDIR /app
+RUN npm install -g pnpm
 
 # Captura as variáveis do Easypanel durante o build
 ARG NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
@@ -30,7 +32,7 @@ ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
-RUN npm run build
+RUN pnpm run build
 
 # Etapa 3: Runner
 FROM node:22-alpine AS runner
