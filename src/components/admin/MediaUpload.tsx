@@ -1,7 +1,6 @@
 // src/components/admin/MediaUpload.tsx
 "use client";
 
-import { CldUploadWidget } from "next-cloudinary";
 import { ImagePlus, Trash, Video, ChevronLeft, ChevronRight, Star, Music } from "lucide-react";
 import React from "react";
 
@@ -209,38 +208,56 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
         })}
       </div>
       
-      <CldUploadWidget 
-        key={onlyImages ? 'images-only' : onlyAudio ? 'audio-only' : 'all-formats'}
-        onSuccess={onUpload} 
-        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-        options={{
-          multiple: true,
-          clientAllowedFormats: onlyImages ? ["png", "jpg", "jpeg", "webp"] : onlyAudio ? ["mp3", "wav", "ogg", "mpeg", "aac", "m4a", "aiff", "flac"] : ["png", "jpg", "jpeg", "webp", "mp4", "mov", "avi", "mp3", "wav", "ogg", "mpeg", "m4a"],
-          maxFileSize: 50000000,
-          resourceType: "auto", 
-          language: "pt",
-          text: {
-            pt: {
-              menu: { files: "Meus Arquivos", camera: "Câmera" },
-              local: { browse: "Escolher Arquivos", dd_instruction: "Arraste e solte os arquivos aqui" }
+      <div style={{ position: 'relative', display: 'inline-block' }}>
+        <input 
+          type="file" 
+          id={`upload-${onlyImages ? 'images' : onlyAudio ? 'audio' : 'all'}`}
+          style={{ display: 'none' }}
+          multiple
+          accept={onlyImages ? "image/png, image/jpeg, image/webp" : onlyAudio ? "audio/*" : "image/png, image/jpeg, image/webp, video/mp4, video/quicktime, audio/*"}
+          onChange={async (e) => {
+            if (!e.target.files?.length) return;
+            
+            const files = Array.from(e.target.files);
+            
+            for (const file of files) {
+              const formData = new FormData();
+              formData.append('file', file);
+              // Determina a pasta baseada no contexto
+              formData.append('folder', onlyImages ? 'produtos_imagens' : onlyAudio ? 'audios' : 'geral');
+              
+              try {
+                const res = await fetch('/api/upload', {
+                  method: 'POST',
+                  body: formData
+                });
+                
+                if (res.ok) {
+                  const data = await res.json();
+                  onUpload({ event: "success", info: { secure_url: data.secure_url } });
+                } else {
+                  console.error('Falha no upload', await res.text());
+                  alert('Falha ao fazer upload. Verifique o console.');
+                }
+              } catch (err) {
+                console.error('Erro no upload', err);
+                alert('Erro ao comunicar com servidor de upload.');
+              }
             }
-          }
-        }}
-      >
-        {({ open }) => {
-          return (
-            <button 
-              type="button" 
-              onClick={() => open()}
-              className="btn-boutique-outline"
-              style={{ fontSize: '0.7rem' }}
-            >
-              {onlyAudio ? <Music size={16} /> : <ImagePlus size={16} />}
-              {onlyImages ? "Adicionar Fotos" : onlyAudio ? "Adicionar Áudios" : acceptAudio ? "Adicionar Fotos/Áudios" : acceptVideo ? "Adicionar Fotos/Vídeos" : "Adicionar Fotos"}
-            </button>
-          );
-        }}
-      </CldUploadWidget>
+            
+            // Limpa o input
+            e.target.value = '';
+          }}
+        />
+        <label 
+          htmlFor={`upload-${onlyImages ? 'images' : onlyAudio ? 'audio' : 'all'}`}
+          className="btn-boutique-outline"
+          style={{ fontSize: '0.7rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+        >
+          {onlyAudio ? <Music size={16} style={{ marginRight: '8px' }} /> : <ImagePlus size={16} style={{ marginRight: '8px' }} />}
+          {onlyImages ? "Adicionar Fotos" : onlyAudio ? "Adicionar Áudios" : acceptAudio ? "Adicionar Fotos/Áudios" : acceptVideo ? "Adicionar Fotos/Vídeos" : "Adicionar Fotos"}
+        </label>
+      </div>
     </div>
    );
 }
